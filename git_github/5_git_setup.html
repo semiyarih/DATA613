@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2024-01-20">
+
+<title>Setting Up Git</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="5_git_setup_files/libs/clipboard/clipboard.min.js"></script>
+<script src="5_git_setup_files/libs/quarto-html/quarto.js"></script>
+<script src="5_git_setup_files/libs/quarto-html/popper.min.js"></script>
+<script src="5_git_setup_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="5_git_setup_files/libs/quarto-html/anchor.min.js"></script>
+<link href="5_git_setup_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="5_git_setup_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="5_git_setup_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="5_git_setup_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="5_git_setup_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Setting Up Git</h1>
+<p class="subtitle lead">Hamid Semiyari</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 20, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="git" class="level1">
+<h1>Git</h1>
+<p>Git is a version Control System (VCS) for managing changes across multiple version of documents/code in a <code>Repository</code> you have created. Git Commonly installed in many computers as a part of Operating System (OS).</p>
+<ul>
+<li>To check if you have installed it:
+<ul>
+<li>Go to <code>Terminal</code> pane in Rstudio (or open in new terminal with <code>Tools</code> &gt; <code>Terminal</code> &gt; <code>New Terminal</code>) then type</li>
+</ul>
+<pre><code>git version</code></pre>
+or</li>
+</ul>
+<pre><code>    git --version</code></pre>
+<pre><code>If the version number is lower than 2.43.0 or if the response is blank or something like</code></pre>
+<pre><code>    git: command not found</code></pre>
+<pre><code>then you need to install it.</code></pre>
+<section id="install-git" class="level2">
+<h2 class="anchored" data-anchor-id="install-git">Install Git</h2>
+<ul>
+<li>Windows:
+<ul>
+<li>Click on <a href="https://git-scm.com/download/win" class="uri">https://git-scm.com/download/win</a></li>
+<li>Click <code>Download</code> (Standalone Installer - 64 bit) .When it is finished open the “Explore” window ( press the Windows logo key + E on your keyboard) and go to download folder and open it there.</li>
+<li>Once its open we click “Next” and we accept the default options until we get the install page and then clicl “install”.</li>
+<li>I t takes a while to install and once it is done we can click “Finish”.</li>
+</ul></li>
+</ul>
+<p>Let us check if “Bash” is installed. + Click on Windows menu botton and choose all apps, then scroll down to the “G,s” and exapnd “Git” Options and click “Git Bash” option. <img src="../graphix/g.png" class="img-fluid"> + Type in BASH <code>git --version</code> it will tell you the version of your Git.</p>
+<ul>
+<li><p>Mac:</p>
+<ul>
+<li>Option 1: Open the terminal and type</li>
+</ul>
+<pre><code>git --version</code></pre>
+<p>If git is not installed you will get a prompt asking you if you wish to install it along with <a href="https://developer.apple.com/xcode/">Xcode</a> command line tools. You may be asked for your administrator password.</p>
+<ul>
+<li><p>Option 2: Download and run the installer from: [https://git-scm.com/download/mac](https://git-scm.com/download/mac. Hit ‘Continue’ through the prompts without modifying the installation destination or other settings. You may be asked for your administrator password.</p></li>
+<li><p>Install <code>Homebrow</code>. See <a href="https://brew.sh/">Homebrew Installation</a> and install in the default location.</p></li>
+</ul></li>
+<li><p>Linux:</p>
+<ul>
+<li>Open the terminal and type</li>
+</ul>
+<pre><code>git --version</code></pre>
+<p>If git is missing install is using your package manager. E.g. by running</p>
+<pre><code>sudo apt-get install git</code></pre>
+<p>In the terminal.</p></li>
+</ul>
+<section id="question-if-you-have-installed-bash-what-version-do-you-have" class="level3">
+<h3 class="anchored" data-anchor-id="question-if-you-have-installed-bash-what-version-do-you-have"><strong>Question :If you have installed Bash what version do you have?</strong></h3>
+<ul>
+<li>Type in BASH/Termina <code>git --version</code> it will tell you the version of your Git.</li>
+</ul>
+<pre><code>bash --version</code></pre>
+</section>
+<section id="question-if-you-have-installed-git-what-version-do-you-have" class="level3">
+<h3 class="anchored" data-anchor-id="question-if-you-have-installed-git-what-version-do-you-have"><strong>Question :If you have installed Git what version do you have?</strong></h3>
+<ul>
+<li>Type in BASH/Termina <code>git --version</code> it will tell you the version of your Git.</li>
+</ul>
+<pre><code>git --version</code></pre>
+</section>
+</section>
+<section id="configuring-git" class="level2">
+<h2 class="anchored" data-anchor-id="configuring-git">Configuring Git</h2>
+<ul>
+<li>The first time we use git we have to specify a few configuration settings. -Name -Email -Default Editor -Line Ending; How it should handle line endings. We can specify this configuration settings in three different levels.</li>
+<li>System Level: Applies to all users of the current computer</li>
+<li>Global Level: The settings here apply to all repositories of the current user</li>
+<li>Local Level: Setting here apply to the current repository or repository in the current folder So we have different setting for different repositories or different projects.</li>
+<li>In Git BASH type:
+<ul>
+<li><code>git config --global user.name "Hamid Semiyari"</code></li>
+<li><code>git config --global user.email  semiyari@american.edu</code>/</li>
+</ul></li>
+<li>We don’t need double quotes for email.</li>
+<li>If you are worried about email privacy, then use “<username><span class="citation" data-cites="users.noreply.github.com">@users.noreply.github.com</span>” as your email address (where you have replaced <username> with your GitHub username), then follow the instructions <a href="https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-email-preferences/setting-your-commit-email-address">here</a> to make your email address private on GitHub.</username></username></li>
+</ul>
+</section>
+<section id="default-editor" class="level2">
+<h2 class="anchored" data-anchor-id="default-editor">Default editor</h2>
+<p>If you do not set this on mac. Git is going to use (by default) <code>vim</code> which many people doesn’t like it. You may want to use <a href="https://code.visualstudio.com/">visual studio code</a>. <strong>You don’t have to use Visual Code, You may use another Editors.</strong> I am going to use <code>VSCode</code> or Visual Studio Code. To add the default editor <code>git config --global cor.editor "code --wait"</code>.<br>
+Why wait? With the wait flag we tell the terminal window to wait until we close the new <code>VSCode</code>.<br>
+All these configuration setting are store in a text file.<br>
+We can edit that file using our default editor. Which in this case is <code>VSCode</code>.<br>
+So we can type <code>git config --global -e</code><br>
+This will open our default editor to edit all the global setting. If you type the code, you will see the full path on top, which mine is <code>users/semiyari</code> the name of this file is “.gitconfig”. If you look at the VScode you will see in this file we have different sections <img src="../graphix/Git_1.jpg" class="img-fluid"></p>
+<ul>
+<li><p><code>\[user\] section: Name and Email</code></p></li>
+<li><p><code>\[core\] section: With two settings</code><br>
+</p></li>
+<li><p><code>\[filter 'lfs"\] section</code><br>
+</p></li>
+<li><p><code>\[color\] section</code></p></li>
+<li><p>If you back into terminal you will see it is waiting for us to close the <code>VSCode</code>.</p></li>
+</ul>
+<p><img src="../graphix/Git_2.jpg" class="img-fluid"></p>
+<ul>
+<li>So we have to close the VScode</li>
+</ul>
+<p><img src="../graphix/Git_3.jpg" class="img-fluid"> - Handle end of lines: This is a very important setting that lots of people miss.</p>
+<ul>
+<li><p>On Windows end of lines are marked with two special characters <code>\r</code> and <code>\n</code>.</p></li>
+<li><p>Carrige Return <code>\r</code>: It means that the curser should <strong>go back to the beginning of the line</strong>.</p></li>
+<li><p>Line feed <code>\n</code>: It means that the curser must <strong>go to the next line</strong></p></li>
+<li><p>On Mac and Linux systems, the end of lines are indicated with - Line feed <code>\n</code></p>
+<p>That means if we don’t handle end of lines properly we are going to run into some issues down the road.</p></li>
+<li><p><strong>Window:</strong> <code>git config --global core.autocrlf true</code> (<code>crlf</code> is short for Carriage Return Line Fit)</p></li>
+<li><p><strong>Mac or Linux:</strong> <code>git config --global core.autocrlf input</code></p></li>
+</ul>
+</section>
+<section id="you-may-use-different-editor" class="level2">
+<h2 class="anchored" data-anchor-id="you-may-use-different-editor">You may use different editor</h2>
+<ul>
+<li><p>Choose your favorite editor to be your default</p>
+<ul>
+<li>Nano (a simple text editor):</li>
+</ul>
+<pre><code>`git config --global core.editor "nano -w"`</code></pre>
+<ul>
+<li>Notepad (Windows only):</li>
+</ul>
+<pre><code>`git config --global core.editor "c:/Windows/System32/notepad.exe"`</code></pre>
+<ul>
+<li>Emacs (for the brave) if it is already installed:</li>
+</ul>
+<pre><code>`git config --global core.editor "emacs"`</code></pre>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=KA9xvKQXXzQ">Atom</a></li>
+</ul></li>
+</ul>
+<ol type="1">
+<li>Open <a href="https://atom.io/" class="uri">https://atom.io/</a> in your browser.</li>
+<li>Click the ‘Download’ button to download the Atom installer.</li>
+<li>Once Downloaded, run the installer to install Atom.</li>
+</ol>
+<section id="how-should-i-check-what-text-editor-i-have-in-my-computer" class="level3">
+<h3 class="anchored" data-anchor-id="how-should-i-check-what-text-editor-i-have-in-my-computer"><strong>How should I check what Text Editor I have in my computer?</strong></h3>
+<p>-1. Simply click your Windows Start button and then go to All Apps and scroll until you locate your Edtitor.</p>
+<p><img src="../graphix/e.png" class="img-fluid"></p>
+<ul>
+<li><ol start="2" type="1">
+<li>Type the following command in your terminal</li>
+</ol></li>
+</ul>
+<pre><code>git config --global -e</code></pre>
+<p><img src="../graphix/v.png" class="img-fluid"></p>
+<p>If you want to change the editor, you can use:</p>
+<pre><code>git config --global core.editor &lt;editor&gt;</code></pre>
+<p>The editor “Nano” is installed by default. If you want to use this one you need to write</p>
+<pre><code>git config --global core.editor "nano"</code></pre>
+<p>Then type</p>
+<pre><code>git config --global -e</code></pre>
+<p>To exit you just need to hold <code>ctrl</code> and click x, <code>ctrl + x</code></p>
+<p><img src="../graphix/vv.png" class="img-fluid"> - <strong>Question: What is difference between “Text Editor” and “Integrated Development Environment” or “IDE”?</strong></p>
+<p>A code editor is a text editor that has some features that make writing code easier. For instance, code editors will automatically highlight words based on syntax and will automatically indent lines of code correctly. An IDE is usually more complex than a simple text or code editor. It has more features, it takes time to learn, but in the end is more powerful. It is a piece of software that allows developers to creat, modify, and debug code easily. A code editor doesn’t have the debugging and autocomplete features that an IDE has. Atom is a code editor and Rstudio is an IDE.</p>
+<ul>
+<li><strong>Question: How to change your default text editor for git (and avoid vim)</strong>
+<ul>
+<li>To find what your text editor is type the following in your terminal</li>
+</ul></li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> core.editor</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><p>If you see <code>code --wait</code>, that means “VSCode”</p></li>
+<li><p>If you are an apple user and have not selected your code editor, then by default you have <code>vim</code>.</p></li>
+<li><p>If you want to learn how to change your code editor click <a href="https://dev.to/biancapower/how-to-change-your-default-text-editor-for-git-and-avoid-vim-fk0">here</a></p></li>
+</ul>
+</section>
+</section>
+<section id="getting-help" class="level2">
+<h2 class="anchored" data-anchor-id="getting-help">Getting Help</h2>
+<ul>
+<li>How to get help about git commands - If you want to learn more about config commands. Just google “git config”, then you can be directed to the page <a href="https://git-scm.com/docs/git-config">git-scm.com/docs/git-config</a> - We can also get the same information from the terminal window, just type <code>git config --help</code> - If you type <code>git config -h</code> It gives us a short summary of its commands and options</li>
+</ul>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

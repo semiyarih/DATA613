@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2024-01-20">
+
+<title>Personal Access Token, PAT</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="6c_pat_files/libs/clipboard/clipboard.min.js"></script>
+<script src="6c_pat_files/libs/quarto-html/quarto.js"></script>
+<script src="6c_pat_files/libs/quarto-html/popper.min.js"></script>
+<script src="6c_pat_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="6c_pat_files/libs/quarto-html/anchor.min.js"></script>
+<link href="6c_pat_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="6c_pat_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="6c_pat_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="6c_pat_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="6c_pat_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Personal Access Token, PAT</h1>
+<p class="subtitle lead">Hamid Semiyari</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 20, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="generating-personal-access-token" class="level1">
+<h1>Generating Personal Access Token</h1>
+<ol type="1">
+<li><strong>Fine-grained personal access tokens</strong></li>
+</ol>
+<ul>
+<li>Step 1. In the upper-right corner of any page, click on your avatar (or your profile photo), then click <em>Settings</em>.</li>
+</ul>
+<p><img src="../graphix/pat1.png" class="img-fluid"> - Step 2. In the left sidebar, click on <em>Developer settings</em>. This should be at the end of left sidebar.</p>
+<p><img src="../graphix/pat2.png" class="img-fluid"> - Step 3. In the left sidebar, under <em>Personal access tokens</em>, click <em>Fine-grained tokens</em>.</p>
+<p><img src="../graphix/pat3.png" class="img-fluid"> - Step 4. Click <em>Generate new token</em>.</p>
+<p><img src="../graphix/pat4.png" class="img-fluid"></p>
+<ul>
+<li>Step 5. Under <em>Token name</em>, enter a name for the token. Under <em>Expiration</em>, select an expiration for the token.</li>
+</ul>
+<p><img src="../graphix/pat5.png" class="img-fluid"> - Step 6. Optionally, under <em>Description</em>, add a note to describe the purpose of the token. Under Resource owner, select a resource owner. The token will only be able to access resources owned by the selected resource owner. Organizations that you are a member of will not appear unless the organization opted in to fine-grained personal access tokens. For more information, see <a href="https://docs.github.com/en/organizations/managing-programmatic-access-to-your-organization/setting-a-personal-access-token-policy-for-your-organization">Setting a personal access token policy for your organization.</a><br>
+Optionally, if the <em>resource owner</em> is an organization that requires approval for fine-grained personal access tokens, below the resource owner, in the box, enter a justification for the request.</p>
+<p><img src="../graphix/pat6a.png" class="img-fluid"></p>
+<ul>
+<li>Step 7. Under <em>Repository access</em>, select which repositories you want the token to access. You should choose the minimal repository access that meets your needs. Tokens always include read-only access to all public repositories on GitHub.</li>
+</ul>
+<p><img src="../graphix/pat6b.png" class="img-fluid"></p>
+<ul>
+<li>Step 8. If you selected <em>Only select repositories</em> in the previous step, under the Selected repositories dropdown, select the repositories that you want the token to access.</li>
+</ul>
+<p><img src="../graphix/pat6c.png" class="img-fluid"></p>
+<ul>
+<li>Step 9. Under <em>Permissions</em>, select which permissions to grant the token. Depending on which resource owner and which repository access you specified, there are repository, organization, and account permissions. You should choose the minimal permissions necessary for your needs. For more information about what permissions are required for each REST API operation, see <a href="https://docs.github.com/en/rest/overview/permissions-required-for-fine-grained-personal-access-tokens?apiVersion=2022-11-28">Permissions required for fine-grained personal access tokens.</a></li>
+</ul>
+<p><img src="../graphix/pat6d.png" class="img-fluid"></p>
+<ul>
+<li>Step 10. Click <em>Generate token</em>. If you selected an organization as the resource owner and the organization requires approval for fine-grained personal access tokens, then your token will be marked as <code>pending</code> until it is reviewed by an organization administrator. Your token will only be able to read public resources until it is approved. If you are an owner of the organization, your request is automatically approved. For more information, see <a href="https://docs.github.com/en/organizations/managing-programmatic-access-to-your-organization/reviewing-and-revoking-personal-access-tokens-in-your-organization">Reviewing and revoking personal access tokens in your organization.</a></li>
+</ul>
+<p><img src="../graphix/pat7.png" class="img-fluid"> - Step 11. Copy and temporarily save the token before closing the window. You most likely will not be able to retrive it if you refresh or move away from the page.</p>
+<p><img src="../graphix/pat8.png" class="img-fluid"> - Once you have a token, you can enter it instead of your password when performing Git operations over HTTPS. - Personal access tokens can only be used for <em>HTTPS</em> Git operations.</p>
+<ol start="2" type="1">
+<li><strong>Creating a personal access token (classic)</strong></li>
+</ol>
+<ul>
+<li>The process is the same except in <em>Step 3</em>, <em>Step 4</em> and <em>Step 7</em>
+<ul>
+<li><p>Step 1. In the upper-right corner of any page, click on your avatar (or your profile photo), then click <em>Settings</em>.</p></li>
+<li><p>Step 2. In the left sidebar, click on <em>Developer settings</em>.</p></li>
+<li><p>Step 3. In the left sidebar, under <em>Personal access tokens</em>, click <em>Tokens (classic)</em>. <img src="../graphix/pat3clsc.png" class="img-fluid"></p></li>
+<li><p>Step 4. Select <em>Generate new token</em>, then click <em>Generate new token (classic)</em>. <img src="../graphix/pat4clsc.png" class="img-fluid"></p></li>
+<li><p>Step 5. Give your token a descriptive name.</p></li>
+<li><p>Step 6. To give your token an expiration, select the Expiration drop-down menu, then click a default or use the calendar picker.</p></li>
+<li><p>Step 7. Select the <em>scopes</em> you’d like to grant this token. To use your token to access repositories from the command line, select repo. A token with no assigned scopes can only access public information. For more information, see “Scopes for OAuth Apps”. <img src="../graphix/pat7clsc.png" class="img-fluid"></p></li>
+<li><p>Step 8. Click <em>Generate token</em>.</p></li>
+</ul></li>
+</ul>
+<section id="authenticating-with-the-command-line" class="level2">
+<h2 class="anchored" data-anchor-id="authenticating-with-the-command-line">Authenticating with the command line</h2>
+<ul>
+<li>You can access repositories on GitHub from the command line in two ways,
+<ol type="1">
+<li><p>HTTPS and</p></li>
+<li><p>SSH, and both have a different way of authenticating. The method of authenticating is determined based on whether you choose an HTTPS or SSH remote URL when you clone the repository. For more information about which way to access, see <a href="https://docs.github.com/en/get-started/getting-started-with-git/about-remote-repositories">About remote repositories.</a></p></li>
+<li><p><em>HTTPS</em>: You can work with all repositories on GitHub over HTTPS, <em>even if you are behind a firewall or proxy</em>.</p></li>
+<li><p><em>SSH</em>: You can work with all repositories on GitHub over SSH, although <em>firewalls and proxies might refuse to allow SSH connections</em>.</p></li>
+</ol></li>
+</ul>
+<section id="revisiting-pat" class="level3">
+<h3 class="anchored" data-anchor-id="revisiting-pat">Revisiting PAT</h3>
+<ul>
+<li>Once you have a token, you can enter it instead of your password when performing Git operations over HTTPS.
+<ul>
+<li>Personal access tokens can only be used for <em>HTTPS</em> Git operations. If your repository uses a <em>SSH</em> remote URL, you will need to <a href="https://docs.github.com/en/get-started/getting-started-with-git/managing-remote-repositories#switching-remote-urls-from-ssh-to-https">switch the remote from SSH to HTTPS.</a></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="witch-the-remote-from-ssh-to-https" class="level2">
+<h2 class="anchored" data-anchor-id="witch-the-remote-from-ssh-to-https">witch the remote from SSH to HTTPS</h2>
+<ol type="1">
+<li>Open Git Bash.</li>
+<li>Change the current working directory to your local project.<a href="https://www.git-tower.com/learn/git/ebook/en/command-line/appendix/command-line-101">Command Line 101</a></li>
+<li>List your existing remotes in order to get the name of the remote you want to change.</li>
+</ol>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote <span class="at">-v</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> origin  <span class="ex">git@github.com:USERNAME/REPOSITORY.git</span> <span class="er">(</span><span class="ex">fetch</span><span class="kw">)</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> origin  <span class="ex">git@github.com:USERNAME/REPOSITORY.git</span> <span class="er">(</span><span class="ex">push</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="4" type="1">
+<li>Change your remote’s URL from SSH to HTTPS with the <code>git remote set-url</code> command.</li>
+</ol>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote set-url origin https://github.com/USERNAME/REPOSITORY.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="5" type="1">
+<li>Verify that the remote URL has changed.</li>
+</ol>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> remote <span class="at">-v</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify new remote URL</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> origin  <span class="ex">https://github.com/USERNAME/REPOSITORY.git</span> <span class="er">(</span><span class="ex">fetch</span><span class="kw">)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> origin  <span class="ex">https://github.com/USERNAME/REPOSITORY.git</span> <span class="er">(</span><span class="ex">push</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The next time you <code>git fetch</code>, <code>git pull</code>, or <code>git push</code> to the remote repository, you’ll be asked for your GitHub username and password. When Git prompts you for your password, enter your personal access token.</p>
+<ul>
+<li><strong>Question: How about if we want to switch from HTTPS to SHH?</strong><br>
+The process is similar except in <em>part 4</em>, we do as follow</li>
+<li>Change your remote’s URL from HTTPS to SSH with the git remote set-url command.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>     <span class="fu">git</span> remote set-url origin git@github.com:USERNAME/REPOSITORY.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

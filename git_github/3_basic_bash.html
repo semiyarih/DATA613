@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2024-01-20">
+
+<title>Basic Bash</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="3_basic_bash_files/libs/clipboard/clipboard.min.js"></script>
+<script src="3_basic_bash_files/libs/quarto-html/quarto.js"></script>
+<script src="3_basic_bash_files/libs/quarto-html/popper.min.js"></script>
+<script src="3_basic_bash_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="3_basic_bash_files/libs/quarto-html/anchor.min.js"></script>
+<link href="3_basic_bash_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="3_basic_bash_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="3_basic_bash_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="3_basic_bash_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="3_basic_bash_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Basic Bash</h1>
+<p class="subtitle lead">Hamid Semiyari</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 20, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<ul>
+<li><p><a href="https://www.gnu.org/software/bash/manual/bash.html">Bash Reference Manual</a></p></li>
+<li><p><strong>Note: make sure to download the file <code>git_hist.txt</code> into your working directory. We will use it later.</strong></p></li>
+</ul>
+<section id="bash" class="level1">
+<h1>BASH</h1>
+<section id="basic-bash-bourne-again-shel" class="level2">
+<h2 class="anchored" data-anchor-id="basic-bash-bourne-again-shel">Basic Bash (Bourne Again SHel)</h2>
+<ul>
+<li><p><code>GNU</code> read “Gnoo” is an open source <a href="https://www.gnu.org/home.en.html">operating system</a>.</p></li>
+<li><p>Bash is the <a href="https://www.gnu.org/software/bash/">GNU</a> Project’s shell ## The Command Line</p></li>
+<li><p>The <strong>command line</strong> is like the R command prompt: you insert code, hit enter, and then the computer executes your command.</p></li>
+<li><p>However, instead of inserting R code, you insert <a href="https://en.wikipedia.org/wiki/Shell_script">Shell Script</a>.</p></li>
+<li><p>In this class, we will use the command line primarily for two things:</p>
+<ul>
+<li>Moving around your file system.</li>
+<li>Running git commands.</li>
+</ul></li>
+</ul>
+<section id="other-words-for-command-line" class="level3">
+<h3 class="anchored" data-anchor-id="other-words-for-command-line">Other words for command line:</h3>
+<ul>
+<li><p>Shell,</p></li>
+<li><p>terminal,</p></li>
+<li><p>command line interface (cli), and</p></li>
+<li><p>console.</p>
+<ul>
+<li>These terms are technically slightly <a href="https://askubuntu.com/questions/506510/what-is-the-difference-between-terminal-console-shell-and-command-line">different</a>.</li>
+</ul></li>
+<li><p>There are many types of shells, each with their own scripting language. We will use the <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">bash scripting language</a> for this class.</p></li>
+<li><p>A huge difference between R and bash is how commands/functions are called.</p>
+<ul>
+<li>R: <code>f(x, y = 1)</code></li>
+<li>Bash: <code>f x --y=1</code></li>
+<li>Arguments that are “flags” use only one dash, like <code>f x -g</code> would incorporate the <code>g</code> flag.</li>
+</ul></li>
+<li><p>If you are using Linux or Mac, then you can keep going. If you are using Windows, you need to first download and install git (and thus git bash) from here: <a href="http://git-scm.com/download/win" class="uri">http://git-scm.com/download/win</a>. You might need to restart R Studio if you are already running it.</p></li>
+</ul>
+</section>
+</section>
+<section id="open-up-the-terminal" class="level2">
+<h2 class="anchored" data-anchor-id="open-up-the-terminal">Open up the terminal</h2>
+<ul>
+<li><p>Windows: Open up the Git Bash app. It should look like this:</p>
+<p><img src="../graphix/terminal1.png" class="img-fluid"><br>
+</p></li>
+<li><p>Mac: On your Mac, do one of the following:</p>
+<ul>
+<li>Click the Launchpad icon <img src="../graphix/icon1.png" class="img-fluid"> in the Dock, type Terminal in the search field, then click Terminal.</li>
+<li>In the Finder <img src="../graphix/icon2.png" class="img-fluid">, open the /Applications/Utilities folder, then double-click Terminal.</li>
+</ul></li>
+<li><p>Ubuntu: Do one of the following</p></li>
+</ul>
+<p>Open the dash and search for “terminal”. Open up the terminal.</p>
+<p>Use keyboard shortcut: Ctrl+Alt+T</p>
+<ul>
+<li><p><strong>The easiest way to open a terminal is within R Studio with “Tools &gt; Terminal &gt; New Terminal”</strong></p></li>
+<li><p>All commands get placed after the dollar sign.</p>
+<ul>
+<li><p>Bash is type of shell. There are different type of shells available, such as Korn shell (ksh), C shell (csh), and Z shell (zsh).</p></li>
+<li><p>You can determine your shell type using the <code>ps</code> command:</p>
+<p><img src="../graphix/terminal2.png" class="img-fluid">&nbsp;</p></li>
+</ul></li>
+<li><p>The path before the dollar sign is the working directory of the terminal, <strong>not</strong> R’s working directory. It’s where the shell will reference all files from.</p></li>
+<li><p>The tilde “<code>~</code>” is shorthand for the “home directory”. Each computer has a home directory that is the “default directory”.</p></li>
+</ul>
+</section>
+</section>
+<section id="useful-commands" class="level1">
+<h1>Useful Commands:</h1>
+<ul>
+<li><code>date</code>: Displays the current date</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sat Jan 20 08:15:00 PM EST 2024</code></pre>
+</div>
+</div>
+<ul>
+<li><code>pwd</code>: Print working directory. Show the current working directory. This is like <code>getwd()</code> in R.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    <span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/mnt/c/Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1</code></pre>
+</div>
+</div>
+<ul>
+<li><code>ls</code>: List the current files and folders in a directory.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1_intro_files
+1_intro.html
+1_intro.qmd
+2_update_r-rstudio_files
+2_update_r-rstudio.html
+2_update_r-rstudio.pdf
+2_update_r-rstudio.qmd
+3_basic_bash_files
+3_basic_bash.html
+3_basic_bash.qmd
+3_basic_bash.rmarkdown
+4_vcs_git_files
+4_vcs_git.html
+4_vcs_git.qmd
+5_git_setup_files
+5_git_setup.html
+5_git_setup.qmd
+6a_authentication_github_ssh_files
+6a_authentication_github_ssh.html
+6a_authentication_github_ssh.qmd
+6b_2fa_files
+6b_2fa.html
+6b_2fa.qmd
+6c_pat_files
+6c_pat.html
+6c_pat.qmd
+6_github_setu_files
+6_github_setu.html
+6_github_setu.qmd
+7_git_basic_files
+7_git_basic.html
+7_git_basic.qmd
+Authentication_github_PAT.qmd
+authentication-pat_files
+authentication-pat.html
+BasicBash.qmd
+Exercise-Bash_files
+Exercise-Bash.html
+Exercise-Bash.qmd
+file1.txt
+gitbasic_commit_push_pull.qmd
+git_github_basicGit_files
+git_github_basicGit.html
+git_github_basicGit.qmd
+git_hist.txt
+git_setup.qmd
+git.txt
+git.txt.1
+init_repo.qmd
+ is used to append to a file.
+MYGIT.txt
+pat_clone.qmd
+raw.githubusercontent.com
+ssh_pat_2fa.qmd</code></pre>
+</div>
+</div>
+<ul>
+<li><code>echo</code>: Prints a string of text, or value of a variable to the terminal.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Hello World"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hello World</code></pre>
+</div>
+</div>
+<ul>
+<li><code>man</code> command in Linux is used to display the user manual of any command that we can run on the terminal.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">man</span> ls</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/bin/bash: line 1: man: command not found</code></pre>
+</div>
+</div>
+<ul>
+<li>If you are using Windows with a Bash emulator like Git Bash, the man command may not be available. You can use online resources or alternative commands like <code>--help</code>. You can scroll through this page using the up and down arrows.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">--help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Comments in bash starts with a <code>#</code> in bash scripting. This means that any line that begins with a <code>#</code>is a comment and will be ignored by the interpreter.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Comments in bash starts with a # in bash scripting."</span> <span class="co"># This line that begins with a `# `is a comment and will be ignored</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Comments in bash starts with a # in bash scripting.</code></pre>
+</div>
+</div>
+<ul>
+<li><code>cd</code>: Change directories. This is like <code>setwd()</code> in R. As when we specified paths in R, using two periods mean “move back a folder”.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>    <span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/mnt/c/Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1</code></pre>
+</div>
+</div>
+<ul>
+<li>The <code>cd../</code> tells move back a folder</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>    <span class="bu">cd</span> ../</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/mnt/c/Users/semiyari/Desktop/Personal/AU/DATA613/Spring24</code></pre>
+</div>
+</div>
+<ul>
+<li>If you use <code>cd</code> without specifying a folder to move to, it will move the working directory to the home directory.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>    <span class="bu">cd</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/home/semiyari</code></pre>
+</div>
+</div>
+<ul>
+<li>OK, I’m going to move us back to the “Week1” directory.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>    <span class="bu">cd</span> c:Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/bin/bash: line 1: cd: c:Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1: No such file or directory
+/mnt/c/Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1</code></pre>
+</div>
+</div>
+</section>
+<section id="other-commands." class="level1">
+<h1>Other commands.</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1_intro_files
+1_intro.html
+1_intro.qmd
+2_update_r-rstudio_files
+2_update_r-rstudio.html
+2_update_r-rstudio.pdf
+2_update_r-rstudio.qmd
+3_basic_bash_files
+3_basic_bash.html
+3_basic_bash.qmd
+3_basic_bash.rmarkdown
+4_vcs_git_files
+4_vcs_git.html
+4_vcs_git.qmd
+5_git_setup_files
+5_git_setup.html
+5_git_setup.qmd
+6a_authentication_github_ssh_files
+6a_authentication_github_ssh.html
+6a_authentication_github_ssh.qmd
+6b_2fa_files
+6b_2fa.html
+6b_2fa.qmd
+6c_pat_files
+6c_pat.html
+6c_pat.qmd
+6_github_setu_files
+6_github_setu.html
+6_github_setu.qmd
+7_git_basic_files
+7_git_basic.html
+7_git_basic.qmd
+Authentication_github_PAT.qmd
+authentication-pat_files
+authentication-pat.html
+BasicBash.qmd
+Exercise-Bash_files
+Exercise-Bash.html
+Exercise-Bash.qmd
+file1.txt
+gitbasic_commit_push_pull.qmd
+git_github_basicGit_files
+git_github_basicGit.html
+git_github_basicGit.qmd
+git_hist.txt
+git_setup.qmd
+git.txt
+git.txt.1
+init_repo.qmd
+ is used to append to a file.
+MYGIT.txt
+pat_clone.qmd
+raw.githubusercontent.com
+ssh_pat_2fa.qmd</code></pre>
+</div>
+</div>
+<ul>
+<li><code>cp</code>: Copy a file.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cp</span> Exercise-Bash.qmd copy_exercise_bash.qmd</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1_intro_files
+1_intro.html
+1_intro.qmd
+2_update_r-rstudio_files
+2_update_r-rstudio.html
+2_update_r-rstudio.pdf
+2_update_r-rstudio.qmd
+3_basic_bash_files
+3_basic_bash.html
+3_basic_bash.qmd
+3_basic_bash.rmarkdown
+4_vcs_git_files
+4_vcs_git.html
+4_vcs_git.qmd
+5_git_setup_files
+5_git_setup.html
+5_git_setup.qmd
+6a_authentication_github_ssh_files
+6a_authentication_github_ssh.html
+6a_authentication_github_ssh.qmd
+6b_2fa_files
+6b_2fa.html
+6b_2fa.qmd
+6c_pat_files
+6c_pat.html
+6c_pat.qmd
+6_github_setu_files
+6_github_setu.html
+6_github_setu.qmd
+7_git_basic_files
+7_git_basic.html
+7_git_basic.qmd
+Authentication_github_PAT.qmd
+authentication-pat_files
+authentication-pat.html
+BasicBash.qmd
+copy_exercise_bash.qmd
+Exercise-Bash_files
+Exercise-Bash.html
+Exercise-Bash.qmd
+file1.txt
+gitbasic_commit_push_pull.qmd
+git_github_basicGit_files
+git_github_basicGit.html
+git_github_basicGit.qmd
+git_hist.txt
+git_setup.qmd
+git.txt
+git.txt.1
+init_repo.qmd
+ is used to append to a file.
+MYGIT.txt
+pat_clone.qmd
+raw.githubusercontent.com
+ssh_pat_2fa.qmd</code></pre>
+</div>
+</div>
+<ul>
+<li><code>mv</code>: Move/rename a file.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mv</span> copy_exercise_bash.qmd rename_exercise_bash.qmd</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1_intro_files
+1_intro.html
+1_intro.qmd
+2_update_r-rstudio_files
+2_update_r-rstudio.html
+2_update_r-rstudio.pdf
+2_update_r-rstudio.qmd
+3_basic_bash_files
+3_basic_bash.html
+3_basic_bash.qmd
+3_basic_bash.rmarkdown
+4_vcs_git_files
+4_vcs_git.html
+4_vcs_git.qmd
+5_git_setup_files
+5_git_setup.html
+5_git_setup.qmd
+6a_authentication_github_ssh_files
+6a_authentication_github_ssh.html
+6a_authentication_github_ssh.qmd
+6b_2fa_files
+6b_2fa.html
+6b_2fa.qmd
+6c_pat_files
+6c_pat.html
+6c_pat.qmd
+6_github_setu_files
+6_github_setu.html
+6_github_setu.qmd
+7_git_basic_files
+7_git_basic.html
+7_git_basic.qmd
+Authentication_github_PAT.qmd
+authentication-pat_files
+authentication-pat.html
+BasicBash.qmd
+Exercise-Bash_files
+Exercise-Bash.html
+Exercise-Bash.qmd
+file1.txt
+gitbasic_commit_push_pull.qmd
+git_github_basicGit_files
+git_github_basicGit.html
+git_github_basicGit.qmd
+git_hist.txt
+git_setup.qmd
+git.txt
+git.txt.1
+init_repo.qmd
+ is used to append to a file.
+MYGIT.txt
+pat_clone.qmd
+raw.githubusercontent.com
+rename_exercise_bash.qmd
+ssh_pat_2fa.qmd</code></pre>
+</div>
+</div>
+<ul>
+<li><code>rm</code>: Remove a file.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rm</span> rename_exercise_bash.qmd copy_exercise_bash.qmd</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>rm: cannot remove 'copy_exercise_bash.qmd': No such file or directory
+1_intro_files
+1_intro.html
+1_intro.qmd
+2_update_r-rstudio_files
+2_update_r-rstudio.html
+2_update_r-rstudio.pdf
+2_update_r-rstudio.qmd
+3_basic_bash_files
+3_basic_bash.html
+3_basic_bash.qmd
+3_basic_bash.rmarkdown
+4_vcs_git_files
+4_vcs_git.html
+4_vcs_git.qmd
+5_git_setup_files
+5_git_setup.html
+5_git_setup.qmd
+6a_authentication_github_ssh_files
+6a_authentication_github_ssh.html
+6a_authentication_github_ssh.qmd
+6b_2fa_files
+6b_2fa.html
+6b_2fa.qmd
+6c_pat_files
+6c_pat.html
+6c_pat.qmd
+6_github_setu_files
+6_github_setu.html
+6_github_setu.qmd
+7_git_basic_files
+7_git_basic.html
+7_git_basic.qmd
+Authentication_github_PAT.qmd
+authentication-pat_files
+authentication-pat.html
+BasicBash.qmd
+Exercise-Bash_files
+Exercise-Bash.html
+Exercise-Bash.qmd
+file1.txt
+gitbasic_commit_push_pull.qmd
+git_github_basicGit_files
+git_github_basicGit.html
+git_github_basicGit.qmd
+git_hist.txt
+git_setup.qmd
+git.txt
+git.txt.1
+init_repo.qmd
+ is used to append to a file.
+MYGIT.txt
+pat_clone.qmd
+raw.githubusercontent.com
+ssh_pat_2fa.qmd</code></pre>
+</div>
+</div>
+<ul>
+<li><code>mkdir</code>: Make a directory/folder.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mkdir</span> tempdir</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1_intro_files
+1_intro.html
+1_intro.qmd
+2_update_r-rstudio_files
+2_update_r-rstudio.html
+2_update_r-rstudio.pdf
+2_update_r-rstudio.qmd
+3_basic_bash_files
+3_basic_bash.html
+3_basic_bash.qmd
+3_basic_bash.rmarkdown
+4_vcs_git_files
+4_vcs_git.html
+4_vcs_git.qmd
+5_git_setup_files
+5_git_setup.html
+5_git_setup.qmd
+6a_authentication_github_ssh_files
+6a_authentication_github_ssh.html
+6a_authentication_github_ssh.qmd
+6b_2fa_files
+6b_2fa.html
+6b_2fa.qmd
+6c_pat_files
+6c_pat.html
+6c_pat.qmd
+6_github_setu_files
+6_github_setu.html
+6_github_setu.qmd
+7_git_basic_files
+7_git_basic.html
+7_git_basic.qmd
+Authentication_github_PAT.qmd
+authentication-pat_files
+authentication-pat.html
+BasicBash.qmd
+Exercise-Bash_files
+Exercise-Bash.html
+Exercise-Bash.qmd
+file1.txt
+gitbasic_commit_push_pull.qmd
+git_github_basicGit_files
+git_github_basicGit.html
+git_github_basicGit.qmd
+git_hist.txt
+git_setup.qmd
+git.txt
+git.txt.1
+init_repo.qmd
+ is used to append to a file.
+MYGIT.txt
+pat_clone.qmd
+raw.githubusercontent.com
+ssh_pat_2fa.qmd
+tempdir</code></pre>
+</div>
+</div>
+<ul>
+<li><code>rmdir</code>: Remove a directory/folder.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rmdir</span> tempdir</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1_intro_files
+1_intro.html
+1_intro.qmd
+2_update_r-rstudio_files
+2_update_r-rstudio.html
+2_update_r-rstudio.pdf
+2_update_r-rstudio.qmd
+3_basic_bash_files
+3_basic_bash.html
+3_basic_bash.qmd
+3_basic_bash.rmarkdown
+4_vcs_git_files
+4_vcs_git.html
+4_vcs_git.qmd
+5_git_setup_files
+5_git_setup.html
+5_git_setup.qmd
+6a_authentication_github_ssh_files
+6a_authentication_github_ssh.html
+6a_authentication_github_ssh.qmd
+6b_2fa_files
+6b_2fa.html
+6b_2fa.qmd
+6c_pat_files
+6c_pat.html
+6c_pat.qmd
+6_github_setu_files
+6_github_setu.html
+6_github_setu.qmd
+7_git_basic_files
+7_git_basic.html
+7_git_basic.qmd
+Authentication_github_PAT.qmd
+authentication-pat_files
+authentication-pat.html
+BasicBash.qmd
+Exercise-Bash_files
+Exercise-Bash.html
+Exercise-Bash.qmd
+file1.txt
+gitbasic_commit_push_pull.qmd
+git_github_basicGit_files
+git_github_basicGit.html
+git_github_basicGit.qmd
+git_hist.txt
+git_setup.qmd
+git.txt
+git.txt.1
+init_repo.qmd
+ is used to append to a file.
+MYGIT.txt
+pat_clone.qmd
+raw.githubusercontent.com
+ssh_pat_2fa.qmd</code></pre>
+</div>
+</div>
+<ul>
+<li>Play <a href="http://web.mit.edu/mprat/Public/web/Terminus/Web/main.html">Terminus</a> for more practice.</li>
+</ul>
+</section>
+<section id="some-other-useful-terminalbash-tools." class="level1">
+<h1>some other useful terminal/bash tools.</h1>
+<ul>
+<li><code>grep</code></li>
+<li><code>wget</code></li>
+<li><code>reverse-i-search</code></li>
+</ul>
+</section>
+<section id="greep" class="level1">
+<h1>GREEP</h1>
+<section id="string-search-with-grep" class="level2">
+<h2 class="anchored" data-anchor-id="string-search-with-grep">String search with <code>grep</code></h2>
+<ul>
+<li><code>grep</code> is a powerful command-line tool in Unix/Linux environments for searching through text using regular expressions.
+<ul>
+<li><code>-r</code> recursive</li>
+<li><code>-n</code> line number</li>
+<li><code>-w</code> whole word only</li>
+<li><code>-e</code> pattern</li>
+<li><code>pdfgrep</code> (need to install separately) for searching text in PDFs.</li>
+</ul></li>
+</ul>
+</section>
+<section id="heres-a-quick-guide-to-help-you-get-started-with-grep.-i-have-a-file-name-called-git_hist.txt" class="level2">
+<h2 class="anchored" data-anchor-id="heres-a-quick-guide-to-help-you-get-started-with-grep.-i-have-a-file-name-called-git_hist.txt">Here’s a quick guide to help you get started with <code>grep</code>. I have a file name called “git_hist.txt”</h2>
+<section id="search-for-a-specific-word-in-a-file" class="level3">
+<h3 class="anchored" data-anchor-id="search-for-a-specific-word-in-a-file">Search for a specific word in a file:</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/mnt/c/Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> git_hist.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A Short History of Git
+As with many great things in life, Git began with a bit of creative destruction and fiery controversy.
+The Linux kernel is an open source software project of fairly large scope. During the early years of the Linux kernel maintenance (1991–2002), changes to the software were passed around as patches and archived files. In 2002, the Linux kernel project began using a proprietary DVCS called BitKeeper.
+In 2005, the relationship between the community that developed the Linux kernel and the commercial company that developed BitKeeper broke down, and the tool’s free-of-charge status was revoked. This prompted the Linux development community (and in particular Linus Torvalds, the creator of Linux) to develop their own tool based on some of the lessons they learned while using BitKeeper. Some of the goals of the new system were as follows:
+•   Speed
+•   Simple design
+•   Strong support for non-linear development (thousands of parallel branches)
+•   Fully distributed
+•   Able to handle large projects like the Linux kernel efficiently (speed and data size)
+Since its birth in 2005, Git has evolved and matured to be easy to use and yet retain these initial qualities. It’s amazingly fast, it’s very efficient with large projects, and it has an incredible branching system for non-linear development
+_file</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"Git"</span> git_hist.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A Short History of Git
+As with many great things in life, Git began with a bit of creative destruction and fiery controversy.
+Since its birth in 2005, Git has evolved and matured to be easy to use and yet retain these initial qualities. It’s amazingly fast, it’s very efficient with large projects, and it has an incredible branching system for non-linear development</code></pre>
+</div>
+</div>
+<section id="if-terminal-doesnt-return-any-result" class="level4">
+<h4 class="anchored" data-anchor-id="if-terminal-doesnt-return-any-result">If Terminal doesn’t return any result</h4>
+<ul>
+<li>Double check the command. Make sure file exists in your directory and also the file contains the word that you are searching.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"tig"</span> git_hist.txt   <span class="co"># There will be no match</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Also, by default, <code>grep</code> is case sensitive. If your search contains lowercase or uppercase letters you want to use <code>-i</code> option</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"git"</span> git_hist.txt   <span class="co"># There will be no match</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-i</span> <span class="st">"git"</span> git_hist.txt   <span class="co">#not-case sensative</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A Short History of Git
+As with many great things in life, Git began with a bit of creative destruction and fiery controversy.
+Since its birth in 2005, Git has evolved and matured to be easy to use and yet retain these initial qualities. It’s amazingly fast, it’s very efficient with large projects, and it has an incredible branching system for non-linear development</code></pre>
+</div>
+</div>
+<ul>
+<li>Sometimes, there might be non-printable characters in the file that are not visible. You can try using tools like <code>cat -v</code> to display non-printable characters:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="at">-v</span> git_hist.txt   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A Short History of Git^M
+As with many great things in life, Git began with a bit of creative destruction and fiery controversy.^M
+The Linux kernel is an open source software project of fairly large scope. During the early years of the Linux kernel maintenance (1991M-bM-^@M-^S2002), changes to the software were passed around as patches and archived files. In 2002, the Linux kernel project began using a proprietary DVCS called BitKeeper.^M
+In 2005, the relationship between the community that developed the Linux kernel and the commercial company that developed BitKeeper broke down, and the toolM-bM-^@M-^Ys free-of-charge status was revoked. This prompted the Linux development community (and in particular Linus Torvalds, the creator of Linux) to develop their own tool based on some of the lessons they learned while using BitKeeper. Some of the goals of the new system were as follows:^M
+M-bM-^@M-"  Speed^M
+M-bM-^@M-"  Simple design^M
+M-bM-^@M-"  Strong support for non-linear development (thousands of parallel branches)^M
+M-bM-^@M-"  Fully distributed^M
+M-bM-^@M-"  Able to handle large projects like the Linux kernel efficiently (speed and data size)^M
+Since its birth in 2005, Git has evolved and matured to be easy to use and yet retain these initial qualities. ItM-bM-^@M-^Ys amazingly fast, itM-bM-^@M-^Ys very efficient with large projects, and it has an incredible branching system for non-linear development^M
+_file^M</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="search-recursively-in-directories" class="level3">
+<h3 class="anchored" data-anchor-id="search-recursively-in-directories">Search recursively in directories:</h3>
+<ul>
+<li>This command restricts the search to files with the <code>.txt</code> extension within the documents directory and its subdirectories.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-r</span> <span class="st">"Git"</span> <span class="at">--include</span><span class="op">=</span><span class="st">"*.txt"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>git.txt:Git is a fast, scalable, distributed revision control system with an
+git.txt:commands.  The link:user-manual.html[Git User's Manual] has a more
+git.txt:page to learn what commands Git offers.  You can learn more about
+git.txt:individual Git commands with "git help command".  linkgit:gitcli[7]
+git.txt:A formatted and hyperlinked copy of the latest Git documentation
+git.txt:    Prints the Git suite version that the 'git' program came from.
+git.txt:    available commands are printed. If a Git command is named this
+git.txt:    Path to wherever your core Git programs are installed.
+git.txt:    Print the path, without trailing slash, where Git's HTML
+git.txt:    this version of Git and exit.
+git.txt:    version of Git are installed and exit.
+git.txt:    Do not pipe Git output into a pager.
+git.txt:top-level of the working tree are discovered), and tells Git
+git.txt:should tell Git where the top-level of the working tree is,
+git.txt:    Set the Git namespace.  See linkgit:gitnamespaces[7] for more
+git.txt:    Do not use replacement refs to replace Git objects. See
+git.txt:We divide Git into high level ("porcelain") commands and low level
+git.txt:Although Git includes its
+git.txt:The following documentation pages are guides about Git concepts.
+git.txt:Git uses a simple text format to store customizations that are per
+git.txt:Any Git command accepting any &lt;object&gt; can also use the following
+git.txt:Various Git commands pay attention to environment variables and change
+git.txt:The Git Repository
+git.txt:These environment variables apply to 'all' core Git commands. Nb: it
+git.txt:Git so take care if using a foreign front-end.
+git.txt:    Due to the immutable nature of Git objects, old objects can be
+git.txt:    of Git object directories which can be used to search for Git
+git.txt:    Set the Git namespace; see linkgit:gitnamespaces[7] for details.
+git.txt:    set, it is a list of directories that Git should not chdir up
+git.txt:    command line or in the environment.  Normally, Git has to read
+git.txt:    can add an empty entry to the list to tell Git that the
+git.txt:    directory, Git tries to find such a directory in the parent
+git.txt:    can be set to true to tell Git not to stop at filesystem
+git.txt:Git Commits
+git.txt:Git Diffs
+git.txt:    value passed on the Git diff command line.
+git.txt:    program named by it is called to generate diffs, and Git
+git.txt:    to an empty string or to the value "cat", Git will not launch
+git.txt:    It is used by several Git commands when, on interactive mode,
+git.txt:    This environment variable overrides the configured Git editor
+git.txt:    If this environment variable is set, it overrides Git's autodetection
+git.txt:    tells Git not to verify the SSL certificate when fetching or
+git.txt:    If this environment variable is set, then Git commands which need to
+git.txt:    not set, Git will choose buffered or record-oriented flushing
+git.txt:and lower than 10 (strictly) then Git will interpret this
+git.txt:(starting with a '/' character), Git will interpret this
+git.txt:    time of each Git command.
+git.txt:    working directory after Git has completed its setup phase.
+git.txt:and lower than 10 (strictly) then Git will interpret this
+git.txt:(starting with a '/' character), Git will interpret this
+git.txt:`af_unix:[&lt;socket_type&gt;:]&lt;absolute-pathname&gt;`, Git will try
+git.txt:    By default, when tracing is activated, Git redacts the values of
+git.txt:    Setting this Boolean environment variable to true will cause Git to treat all
+git.txt:    literal paths to Git (e.g., paths previously given to you by
+git.txt:    Setting this Boolean environment variable to true will cause Git to treat all
+git.txt:    Setting this Boolean environment variable to true will cause Git to treat all
+git.txt:    Setting this Boolean environment variable to true will cause Git to treat all
+git.txt:    over lists of refs. Normally Git will try to include any such
+git.txt:    When loading a commit object from the commit-graph, Git performs an
+git.txt:    If this Boolean environment variable is set to false, Git will complete any requested operation without
+git.txt:    inherit them, possibly blocking regular Git operat</code></pre>
+</div>
+</div>
+<ul>
+<li>There is no restriction</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-r</span> <span class="st">"Semiyari"</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1_intro.html:  &lt;p class="subtitle"&gt;Hamid Semiyari&lt;/p&gt;
+1_intro.qmd:subtitle: "Hamid Semiyari"
+2_update_r-rstudio.html:&lt;p class="subtitle lead"&gt;Hamid Semiyari&lt;/p&gt;
+2_update_r-rstudio.qmd:subtitle: "Hamid Semiyari"
+3_basic_bash.html:&lt;p class="subtitle lead"&gt;Hamid Semiyari&lt;/p&gt;
+3_basic_bash.html:&lt;div class="sourceCode cell-code" id="cb49"&gt;&lt;pre class="sourceCode bash code-with-copy"&gt;&lt;code class="sourceCode bash"&gt;&lt;span id="cb49-1"&gt;&lt;a href="#cb49-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="fu"&gt;grep&lt;/span&gt; &lt;span class="at"&gt;-r&lt;/span&gt; &lt;span class="st"&gt;"Semiyari"&lt;/span&gt; &lt;/span&gt;&lt;/code&gt;&lt;button title="Copy to Clipboard" class="code-copy-button"&gt;&lt;i class="bi"&gt;&lt;/i&gt;&lt;/button&gt;&lt;/pre&gt;&lt;/div&gt;
+3_basic_bash.html:&lt;pre&gt;&lt;code&gt;1_intro.html:  &amp;lt;p class="subtitle"&amp;gt;Hamid Semiyari&amp;lt;/p&amp;gt;
+3_basic_bash.html:1_intro.qmd:subtitle: "Hamid Semiyari"
+3_basic_bash.html:2_update_r-rstudio.html:&amp;lt;p class="subtitle lead"&amp;gt;Hamid Semiyari&amp;lt;/p&amp;gt;
+3_basic_bash.html:2_update_r-rstudio.qmd:subtitle: "Hamid Semiyari"
+3_basic_bash.html:3_basic_bash.html:&amp;lt;p class="subtitle lead"&amp;gt;Hamid Semiyari&amp;lt;/p&amp;gt;
+3_basic_bash.html:3_basic_bash.html:&amp;lt;div class="sourceCode cell-code" id="cb49"&amp;gt;&amp;lt;pre class="sourceCode bash code-with-copy"&amp;gt;&amp;lt;code class="sourceCode bash"&amp;gt;&amp;lt;span id="cb49-1"&amp;gt;&amp;lt;a href="#cb49-1" aria-hidden="true" tabindex="-1"&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;span class="fu"&amp;gt;grep&amp;lt;/span&amp;gt; &amp;lt;span class="at"&amp;gt;-r&amp;lt;/span&amp;gt; &amp;lt;span class="st"&amp;gt;"Semiyari"&amp;lt;/span&amp;gt; &amp;lt;/span&amp;gt;&amp;lt;/code&amp;gt;&amp;lt;button title="Copy to Clipboard" class="code-copy-button"&amp;gt;&amp;lt;i class="bi"&amp;gt;&amp;lt;/i&amp;gt;&amp;lt;/button&amp;gt;&amp;lt;/pre&amp;gt;&amp;lt;/div&amp;gt;
+3_basic_bash.html:3_basic_bash.html:&amp;lt;pre&amp;gt;&amp;lt;code&amp;gt;1_intro.html:  &amp;amp;lt;p class="subtitle"&amp;amp;gt;Hamid Semiyari&amp;amp;lt;/p&amp;amp;gt;
+3_basic_bash.html:3_basic_bash.html:1_intro.qmd:subtitle: "Hamid Semiyari"
+3_basic_bash.html:3_basic_bash.html:2_update_r-rstudio.html:&amp;amp;lt;p class="subtitle lead"&amp;amp;gt;Hamid Semiyari&amp;amp;lt;/p&amp;amp;gt;
+3_basic_bash.html:3_basic_bash.html:2_update_r-rstudio.qmd:subtitle: "Hamid Semiyari"
+3_basic_bash.html:3_basic_bash.html:3_basic_bash.qmd:subtitle: "Hamid Semiyari"
+3_basic_bash.html:3_basic_bash.html:3_basic_bash.qmd:grep -r "Semiyari" 
+3_basic_bash.html:3_basic_bash.html:3_basic_bash.qmd:grep -ri "Semiyari"    # Not a case sensetive
+3_basic_bash.html:3_basic_bash.html:3_basic_bash.rmarkdown:subtitle: "Hamid Semiyari"
+3_basic_bash.html:3_basic_bash.html:3_basic_bash.rmarkdown:grep -r "Semiyari" 
+3_basic_bash.html:3_basic_bash.html:3_basic_bash.rmarkdown:grep -ri "Semiyari"    # Not a case sensetive
+3_basic_bash.html:3_basic_bash.html:5_git_setup.qmd:subtitle: "Hamid Semiyari"
+3_basic_bash.html:3_basic_bash.html:5_git_setup.qmd:    -   `git config --global user.name "Hamid Semiyari"`
+3_basic_bash.html:3_basic_bash.html:6_github_setu.qmd:Hi Semiyari! You've successfully authenticated, but GitHub does not provide shell access.
+3_basic_bash.html:3_basic_bash.html:6_github_setu.qmd:Hi Semiyari! You've successfully authenticated, but GitHub does not provide shell access.
+3_basic_bash.html:3_basic_bash.html:authentication-pat.html:&amp;amp;lt;div class="sourceCode cell-code" id="cb5"&amp;amp;gt;&amp;amp;lt;pre class="sourceCode bash code-with-copy"&amp;amp;gt;&amp;amp;lt;code class="sourceCode bash"&amp;amp;gt;&amp;amp;lt;span id="cb5-1"&amp;amp;gt;&amp;amp;lt;a href="#cb5-1" aria-hidden="true" tabindex="-1"&amp;amp;gt;&amp;amp;lt;/a&amp;amp;gt;            &amp;amp;lt;span class="fu"&amp;amp;gt;git&amp;amp;lt;/span&amp;amp;gt; clone https://github.com/Semiyari/test.git&amp;amp;lt;/span&amp;amp;gt;&amp;amp;lt;/code&amp;amp;gt;&amp;amp;lt;button title="Copy to Clipboard" class="code-copy-button"&amp;amp;gt;&amp;amp;lt;i class="bi"&amp;amp;gt;&amp;amp;lt;/i&amp;amp;gt;&amp;amp;lt;/button&amp;amp;gt;&amp;amp;lt;/pre&amp;amp;gt;&amp;amp;lt;/div&amp;amp;gt;
+3_basic_bash.html:3_basic_bash.html:authentication-pat.html:&amp;amp;lt;li&amp;amp;gt;&amp;amp;lt;strong&amp;amp;gt;But you most likely will get the following error after running the code&amp;amp;lt;/strong&amp;amp;gt;`git clone https://github.com/Semiyari/test.git’.&amp;amp;lt;/li&amp;amp;gt;
+3_basic_bash.html:3_basic_bash.html:authentication-pat.html:&amp;amp;lt;span id="cb13-2</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-r</span> <span class="st">"semiyari"</span>   <span class="co"># lower case 's'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>.Rhistory:setwd("C:/Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1")
+2_update_r-rstudio.html:&lt;pre&gt;&lt;code&gt;[1] "C:/Users/semiyari/AppData/Local/R/win-library/4.3"
+3_basic_bash.html:&lt;pre&gt;&lt;code&gt;/mnt/c/Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1&lt;/code&gt;&lt;/pre&gt;
+3_basic_bash.html:&lt;pre&gt;&lt;code&gt;/mnt/c/Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1&lt;/code&gt;&lt;/pre&gt;
+3_basic_bash.html:&lt;pre&gt;&lt;code&gt;/mnt/c/Users/semiyari/Desktop/Personal/AU/DATA613/Spring24&lt;/code&gt;&lt;/pre&gt;
+3_basic_bash.html:&lt;pre&gt;&lt;code&gt;/home/semiyari&lt;/code&gt;&lt;/pre&gt;
+3_basic_bash.html:&lt;div class="sourceCode cell-code" id="cb21"&gt;&lt;pre class="sourceCode bash code-with-copy"&gt;&lt;code class="sourceCode bash"&gt;&lt;span id="cb21-1"&gt;&lt;a href="#cb21-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="bu"&gt;cd&lt;/span&gt; c:Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1&lt;/span&gt;
+3_basic_bash.html:&lt;pre&gt;&lt;code&gt;/bin/bash: line 1: cd: c:Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1: No such file or directory
+3_basic_bash.html:/mnt/c/Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1&lt;/code&gt;&lt;/pre&gt;
+3_basic_bash.html:&lt;pre&gt;&lt;code&gt;/mnt/c/Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1&lt;/code&gt;&lt;/pre&gt;
+3_basic_bash.html:&lt;div class="sourceCode cell-code" id="cb51"&gt;&lt;pre class="sourceCode bash code-with-copy"&gt;&lt;code class="sourceCode bash"&gt;&lt;span id="cb51-1"&gt;&lt;a href="#cb51-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="fu"&gt;grep&lt;/span&gt; &lt;span class="at"&gt;-r&lt;/span&gt; &lt;span class="st"&gt;"semiyari"&lt;/span&gt;   &lt;span class="co"&gt;# lower case 's'&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;button title="Copy to Clipboard" class="code-copy-button"&gt;&lt;i class="bi"&gt;&lt;/i&gt;&lt;/button&gt;&lt;/pre&gt;&lt;/div&gt;
+3_basic_bash.html:&lt;pre&gt;&lt;code&gt;.Rhistory:setwd("C:/Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1")
+3_basic_bash.html:2_update_r-rstudio.html:&amp;lt;pre&amp;gt;&amp;lt;code&amp;gt;[1] "C:/Users/semiyari/AppData/Local/R/win-library/4.3"
+3_basic_bash.html:3_basic_bash.html:&amp;lt;pre&amp;gt;&amp;lt;code&amp;gt;/mnt/c/Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+3_basic_bash.html:3_basic_bash.html:&amp;lt;pre&amp;gt;&amp;lt;code&amp;gt;/mnt/c/Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+3_basic_bash.html:3_basic_bash.html:&amp;lt;pre&amp;gt;&amp;lt;code&amp;gt;/mnt/c/Users/semiyari/Desktop/Personal/AU/DATA613/Spring24&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+3_basic_bash.html:3_basic_bash.html:&amp;lt;pre&amp;gt;&amp;lt;code&amp;gt;/home/semiyari&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+3_basic_bash.html:3_basic_bash.html:&amp;lt;div class="sourceCode cell-code" id="cb21"&amp;gt;&amp;lt;pre class="sourceCode bash code-with-copy"&amp;gt;&amp;lt;code class="sourceCode bash"&amp;gt;&amp;lt;span id="cb21-1"&amp;gt;&amp;lt;a href="#cb21-1" aria-hidden="true" tabindex="-1"&amp;gt;&amp;lt;/a&amp;gt;    &amp;lt;span class="bu"&amp;gt;cd&amp;lt;/span&amp;gt; c:Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1&amp;lt;/span&amp;gt;
+3_basic_bash.html:3_basic_bash.html:&amp;lt;pre&amp;gt;&amp;lt;code&amp;gt;/bin/bash: line 1: cd: c:Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1: No such file or directory
+3_basic_bash.html:3_basic_bash.html:/mnt/c/Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+3_basic_bash.html:3_basic_bash.html:&amp;lt;pre&amp;gt;&amp;lt;code&amp;gt;/mnt/c/Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1&amp;lt;/code&amp;gt;&amp;lt;/pre&amp;gt;
+3_basic_bash.html:3_basic_bash.html:&amp;lt;div class="sourceCode cell-code" id="cb51"&amp;gt;&amp;lt;pre class="sourceCode bash code-with-copy"&amp;gt;&amp;lt;code class="sourceCode bash"&amp;gt;&amp;lt;span id="cb51-1"&amp;gt;&amp;lt;a href="#cb51-1" aria-hidden="true" tabindex="-1"&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;span class="fu"&amp;gt;grep&amp;lt;/span&amp;gt; &amp;lt;span class="at"&amp;gt;-r&amp;lt;/span&amp;gt; &amp;lt;span class="st"&amp;gt;"semiyari"&amp;lt;/span&amp;gt;   &amp;lt;span class="co"&amp;gt;# lower case 's'&amp;lt;/span&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/code&amp;gt;&amp;lt;button title="Copy to Clipboard" class="code-copy-button"&amp;gt;&amp;lt;i class="bi"&amp;gt;&amp;lt;/i&amp;gt;&amp;lt;/button&amp;gt;&amp;lt;/pre&amp;gt;&amp;lt;/div&amp;gt;
+3_basic_bash.html:3_basic_bash.html:&amp;lt;pre&amp;gt;&amp;lt;code&amp;gt;.Rhistory:setwd("C:/Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1")
+3_basic_bash.html:3_basic_bash.html:2_update_r-rstudio.html:&amp;amp;lt;pre&amp;amp;gt;&amp;amp;lt;code&amp;amp;gt;[1] "C:/Users</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-ri</span> <span class="st">"Semiyari"</span>    <span class="co"># Not a case sensetive</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>.Rhistory:setwd("C:/Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1")
+1_intro.html:  &lt;p class="subtitle"&gt;Hamid Semiyari&lt;/p&gt;
+1_intro.qmd:subtitle: "Hamid Semiyari"
+2_update_r-rstudio.html:&lt;p class="subtitle lead"&gt;Hamid Semiyari&lt;/p&gt;
+2_update_r-rstudio.html:&lt;pre&gt;&lt;code&gt;[1] "C:/Users/semiyari/AppData/Local/R/win-library/4.3"
+2_update_r-rstudio.qmd:subtitle: "Hamid Semiyari"
+3_basic_bash.html:&lt;p class="subtitle lead"&gt;Hamid Semiyari&lt;/p&gt;
+3_basic_bash.html:&lt;pre&gt;&lt;code&gt;/mnt/c/Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1&lt;/code&gt;&lt;/pre&gt;
+3_basic_bash.html:&lt;pre&gt;&lt;code&gt;/mnt/c/Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1&lt;/code&gt;&lt;/pre&gt;
+3_basic_bash.html:&lt;pre&gt;&lt;code&gt;/mnt/c/Users/semiyari/Desktop/Personal/AU/DATA613/Spring24&lt;/code&gt;&lt;/pre&gt;
+3_basic_bash.html:&lt;pre&gt;&lt;code&gt;/home/semiyari&lt;/code&gt;&lt;/pre&gt;
+3_basic_bash.html:&lt;div class="sourceCode cell-code" id="cb21"&gt;&lt;pre class="sourceCode bash code-with-copy"&gt;&lt;code class="sourceCode bash"&gt;&lt;span id="cb21-1"&gt;&lt;a href="#cb21-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;    &lt;span class="bu"&gt;cd&lt;/span&gt; c:Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1&lt;/span&gt;
+3_basic_bash.html:&lt;pre&gt;&lt;code&gt;/bin/bash: line 1: cd: c:Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1: No such file or directory
+3_basic_bash.html:/mnt/c/Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1&lt;/code&gt;&lt;/pre&gt;
+3_basic_bash.html:&lt;pre&gt;&lt;code&gt;/mnt/c/Users/semiyari/Desktop/Personal/AU/DATA613/Spring24/Week1&lt;/code&gt;&lt;/pre&gt;
+3_basic_bash.html:&lt;div class="sourceCode cell-code" id="cb49"&gt;&lt;pre class="sourceCode bash code-with-copy"&gt;&lt;code class="sourceCode bash"&gt;&lt;span id="cb49-1"&gt;&lt;a href="#cb49-1" aria-hidden="true" tabindex="-1"&gt;&lt;/a&gt;&lt;span class="fu"&gt;grep&lt;/span&gt; &lt;span class="at"&gt;-r&lt;/span&gt; &lt;span class="st"&gt;"Semiyari"&lt;/span&gt; &lt;/span&gt;&lt;/code&gt;&lt;button title="Copy to Clipboard" class="code-copy-button"&gt;&lt;i class="bi"&gt;&lt;/i&gt;&lt;/button&gt;&lt;/pre&gt;&lt;/div&gt;
+3_basic_bash.html:&lt;pre&gt;&lt;code&gt;1_intro.html:  &amp;lt;p class="subtitle"&amp;gt;Hamid Semiyari&amp;lt;/p&amp;gt;
+3_basic_bash.html:1_intro.qmd:subtitle: "Hamid Semiyari"
+3_basic_bash.html:2_update_r-rstudio.html:&amp;lt;p class="subtitle lead"&amp;gt;Hamid Semiyari&amp;lt;/p&amp;gt;
+3_basic_bash.html:2_update_r-rstudio.qmd:subtitle: "Hamid Semiyari"
+3_basic_bash.html:3_basic_bash.html:&amp;lt;p class="subtitle lead"&amp;gt;Hamid Semiyari&amp;lt;/p&amp;gt;
+3_basic_bash.html:3_basic_bash.html:&amp;lt;div class="sourceCode cell-code" id="cb49"&amp;gt;&amp;lt;pre class="sourceCode bash code-with-copy"&amp;gt;&amp;lt;code class="sourceCode bash"&amp;gt;&amp;lt;span id="cb49-1"&amp;gt;&amp;lt;a href="#cb49-1" aria-hidden="true" tabindex="-1"&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;span class="fu"&amp;gt;grep&amp;lt;/span&amp;gt; &amp;lt;span class="at"&amp;gt;-r&amp;lt;/span&amp;gt; &amp;lt;span class="st"&amp;gt;"Semiyari"&amp;lt;/span&amp;gt; &amp;lt;/span&amp;gt;&amp;lt;/code&amp;gt;&amp;lt;button title="Copy to Clipboard" class="code-copy-button"&amp;gt;&amp;lt;i class="bi"&amp;gt;&amp;lt;/i&amp;gt;&amp;lt;/button&amp;gt;&amp;lt;/pre&amp;gt;&amp;lt;/div&amp;gt;
+3_basic_bash.html:3_basic_bash.html:&amp;lt;pre&amp;gt;&amp;lt;code&amp;gt;1_intro.html:  &amp;amp;lt;p class="subtitle"&amp;amp;gt;Hamid Semiyari&amp;amp;lt;/p&amp;amp;gt;
+3_basic_bash.html:3_basic_bash.html:1_intro.qmd:subtitle: "Hamid Semiyari"
+3_basic_bash.html:3_basic_bash.html:2_update_r-rstudio.html:&amp;amp;lt;p class="subtitle lead"&amp;amp;gt;Hamid Semiyari&amp;amp;lt;/p&amp;amp;gt;
+3_basic_bash.html:3_basic_bash.html:2_update_r-rstudio.qmd:subtitle: "Hamid Semiyari"
+3_basic_bash.html:3_basic_bash.html:3_basic_bash.qmd:subtitle: "Hamid Semiyari"
+3_basic_bash.html:3_basic_bash.html:3_basic_bash.qmd:grep -r "Semiyari" 
+3_basic_bash.html:3_basic_bash.html:3_basic_bash.qmd:grep -ri "Semiyari"    # Not a case sensetive
+3_basic_bash.html:3_basic_bash.html:3_basic_bash.rmarkdown:subtitle: "Hamid Semiyari"
+3_basic_bash.html:3_basic_bash.html:3_basic_bash.rmarkdown:grep -r "Semiyari" 
+3_basic_bash.html:3_basic_bash.html:3_basic_bash.rmarkdown:grep -ri "Semiyari"    # Not a case sensetive
+3_basic_bash.html:3_basic_bash.html:5_git_setup.qmd:subtitle: "Hamid Semiyari"
+3_basic_bash.html:3_basic_bash.html:5_git_setup.qmd:    -   `git config --global user.name "Hamid Semiyari"`
+3_basic_bash.html:3_basic_bash.html:6_github_setu.qmd:Hi Semiyari! You've successfully authenticated, but GitHu</code></pre>
+</div>
+</div>
+</section>
+<section id="show-line-numbers-with-matching-lines" class="level3">
+<h3 class="anchored" data-anchor-id="show-line-numbers-with-matching-lines">Show line numbers with matching lines:</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-n</span> <span class="st">"Git"</span> git_hist.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1:A Short History of Git
+2:As with many great things in life, Git began with a bit of creative destruction and fiery controversy.
+10:Since its birth in 2005, Git has evolved and matured to be easy to use and yet retain these initial qualities. It’s amazingly fast, it’s very efficient with large projects, and it has an incredible branching system for non-linear development</code></pre>
+</div>
+</div>
+</section>
+<section id="search-for-lines-matching-multiple-patterns-logical-or" class="level3">
+<h3 class="anchored" data-anchor-id="search-for-lines-matching-multiple-patterns-logical-or">Search for lines matching multiple patterns (logical OR):</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-e</span> <span class="st">"Speed"</span> <span class="at">-e</span> <span class="st">"Fully distributed"</span> git_hist.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>•   Speed
+•   Fully distributed</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-e</span> <span class="st">"speed"</span> <span class="at">-e</span> <span class="st">"Fully distributed"</span> <span class="at">-e</span> <span class="st">"since"</span> git_hist.txt  <span class="co"># both "s" are lowercase</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>•   Fully distributed
+•   Able to handle large projects like the Linux kernel efficiently (speed and data size)</code></pre>
+</div>
+</div>
+<ul>
+<li>Does not matter were you put <code>-i</code> for the case sensitivity</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-ie</span> <span class="st">"speed"</span> <span class="at">-e</span> <span class="st">"Fully distributed"</span> <span class="at">-ie</span> <span class="st">"since"</span> git_hist.txt  <span class="co"># both "s" are lowercase</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>•   Speed
+•   Fully distributed
+•   Able to handle large projects like the Linux kernel efficiently (speed and data size)
+Since its birth in 2005, Git has evolved and matured to be easy to use and yet retain these initial qualities. It’s amazingly fast, it’s very efficient with large projects, and it has an incredible branching system for non-linear development</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-e</span> <span class="st">"speed"</span> <span class="at">-e</span> <span class="st">"Fully distributed"</span> <span class="at">-ie</span> <span class="st">"since"</span> git_hist.txt  <span class="co"># both "s" are lowercase</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>•   Speed
+•   Fully distributed
+•   Able to handle large projects like the Linux kernel efficiently (speed and data size)
+Since its birth in 2005, Git has evolved and matured to be easy to use and yet retain these initial qualities. It’s amazingly fast, it’s very efficient with large projects, and it has an incredible branching system for non-linear development</code></pre>
+</div>
+</div>
+</section>
+<section id="search-for-lines-matching-all-patterns-logical-and" class="level3">
+<h3 class="anchored" data-anchor-id="search-for-lines-matching-all-patterns-logical-and">Search for lines matching all patterns (logical AND):</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"develope"</span> git_hist.txt <span class="kw">|</span> <span class="fu">grep</span> <span class="st">"linus"</span>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"develope"</span> git_hist.txt <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-i</span> <span class="st">"linus"</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>In 2005, the relationship between the community that developed the Linux kernel and the commercial company that developed BitKeeper broke down, and the tool’s free-of-charge status was revoked. This prompted the Linux development community (and in particular Linus Torvalds, the creator of Linux) to develop their own tool based on some of the lessons they learned while using BitKeeper. Some of the goals of the new system were as follows:</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="wget" class="level1">
+<h1>WGET</h1>
+<ul>
+<li><p>Download data with <code>wget</code></p></li>
+<li><p>It is a free command-line tool that is used to download files from internet.</p>
+<ul>
+<li>it provides “Recursive Downloads”, meaning, <code>wget</code> loads requested document, then document linked fromthat document, and then the next, etc.</li>
+<li>It follows lnks and directory structure.</li>
+<li>It lets you “Overwrite” the links with correct domain, helping you create mirrors of website. (Replicas of website with different URL but host, or almost, identical content.)</li>
+</ul></li>
+</ul>
+<section id="download-wget" class="level2">
+<h2 class="anchored" data-anchor-id="download-wget">Download <code>wget</code></h2>
+<ul>
+<li>Check if the <code>wget</code> is installed. Type</li>
+</ul>
+<pre><code>wget --version</code></pre>
+<p>If it is installed, it will return the version. Otherwise you need to install it.</p>
+<ul>
+<li>Mac
+<ul>
+<li>Install with “Homebrew”: On terminal type</li>
+</ul>
+<pre><code>brew install wget</code></pre>
+<ul>
+<li>Install with “Macports”: On terminal type</li>
+</ul>
+<pre><code>sudo port install wget</code></pre></li>
+<li>Windows:
+<ul>
+<li>Go to <a href="https://eternallybored.org/">https://eternallybored.org/</a></li>
+<li>Click “Random stuff” on top right, then select “wget for Windows”</li>
+</ul></li>
+</ul>
+<p><img src="../graphix/wg.png" class="img-fluid"> + Use the <code>EXE</code> (executable file) to download the file and save it. Simply copy the file to folder <code>C:\Windows\System32</code></p>
+<ul>
+<li><strong>Question: What is the difference between “Arm64”, “x86”, and “x64”?</strong>
+<ul>
+<li>Arm64 is used in SmartPhone, Apple Computers and some Servers.</li>
+<li>X86 released in 1978 and its creator was “Intel”. 32-Bit Architecture and a 32 bit system can handle a maximum of <span class="math inline">\(2^{32}\)</span> of RAM, which comes out to be 4GB of RAM.</li>
+<li>X64 released in 2000 and its creator was “AMED”. 64-Bit Architecture and 64 bit system can handle a maximum of <span class="math inline">\(2^{64}\)</span> of RAM, which comes out to be 16 Exabytes (EB) of RAM which is two levels up from Terabyte (TB).</li>
+</ul></li>
+</ul>
+<p>Therefore x64 allows the CPU to store more data and access it faster.</p>
+<ul>
+<li>Check if <code>wget</code> is installed</li>
+</ul>
+<pre><code>wget -V   #Uppercase V</code></pre>
+<p>or</p>
+<pre><code>wget --verson</code></pre>
+<ul>
+<li>The command <code>wget -h</code> or <code>wget --help</code> gives you all possible flags you need with <code>wget</code></li>
+</ul>
+<p>Non-interactive downloading of data.</p>
+<ul>
+<li><p><code>-nc</code> Don’t download new copies if already there.</p></li>
+<li><p><code>-nd</code> Put all files in current working directory.</p></li>
+<li><p><code>-P</code> Tell where to download the files. Default is current working directory (<code>.</code>)</p></li>
+<li><p><code>-r</code> Recursive downloading. Download all files in the directory up to a certain level.</p></li>
+<li><p><code>-l</code> Determine the level for recursive downloading.</p></li>
+<li><p>Let us download “git.txt” from “https://github.com/git/git/blob/master/Documentation/git.txt”. But, that GitHub serves raw content through a different URL. On GITHUB click on the <code>Raw</code> bottom on the top right corner to get “https://github.com/git/git/blob/master/Documentation/git.txt”</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://raw.githubusercontent.com/git/git/master/Documentation/git.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>--2024-01-20 20:15:10--  https://raw.githubusercontent.com/git/git/master/Documentation/git.txt
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.109.133, 185.199.108.133, 185.199.110.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.109.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 41880 (41K) [text/plain]
+Saving to: ‘git.txt.2’
+
+     0K .......... .......... .......... ..........           100% 2.23M=0.02s
+
+2024-01-20 20:15:10 (2.23 MB/s) - ‘git.txt.2’ saved [41880/41880]</code></pre>
+</div>
+</div>
+<ul>
+<li>You can use the <code>cat</code> command to display the contents of the downloaded “git.txt” file.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> git.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><p>The above command will download the “git.txt” file from the specified URL. It will be saved in your workingdirectory</p></li>
+<li><p>If you want to save it with a different name, you can use the -O option:</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-O</span> MYGIT.txt https://raw.githubusercontent.com/git/git/master/Documentation/git.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>--2024-01-20 20:15:11--  https://raw.githubusercontent.com/git/git/master/Documentation/git.txt
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.108.133, 185.199.109.133, 185.199.110.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.108.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 41880 (41K) [text/plain]
+Saving to: ‘MYGIT.txt’
+
+     0K .......... .......... .......... ..........           100% 3.12M=0.01s
+
+2024-01-20 20:15:11 (3.12 MB/s) - ‘MYGIT.txt’ saved [41880/41880]</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> MYGIT.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><code>-P</code>: Save files to the specified directory.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-P</span> <span class="st">"</span><span class="va">$(</span><span class="fu">dirname</span> <span class="st">"</span><span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span><span class="st">"</span><span class="va">)</span><span class="st">/f1"</span> https://raw.githubusercontent.com/git/git/master/Documentation/git.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This command uses <code>$(dirname "$(pwd)")</code> to get the parent directory of the current working directory and appends “/wg_files” to it as the target directory. This way, it avoids issues with relative paths. Note: if there is not such a folder “wg_files” then it will create and save the file “git.txt” in it.</p>
+<p>Now, let’s say you want to download all files from a website recursively. For this example, I’ll use the GNU Wget test site:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recursive download</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-r</span> <span class="op">&lt;</span>Enter URL<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><p>In this command:</p></li>
+<li><p><code>-r</code> is for recursive download.</p></li>
+<li><p><code>--no-parent</code> ensures that <code>Wget</code> doesn’t ascend to the parent directory when downloading.</p></li>
+<li><p>This command will download the entire content of the specified URL, including all files and subdirectories, into the current working directory. The structure of the website will be replicated locally.</p></li>
+<li><p>Please note that downloading an entire website may take a significant amount of time and bandwidth, and you should ensure that you have permission to do so. It’s also good practice to check the website’s <code>robots.txt</code> file to make sure you’re not violating any access policies.</p></li>
+<li><p>The <code>robots.txt</code> file must be located at the root of the site host to which it applies. For instance, to control crawling on all URLs below https://www.example.com/ , the <code>robots.txt</code> file must be located at https://www.example.com/robots.txt .</p></li>
+<li><p>E.g. to download the HTML file that contains the Wikipedia list of <a href="https://en.wikipedia.org/wiki/List_of_theological_demons">theological demons</a>, we can go</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-nc</span> <span class="at">-nd</span> https://en.wikipedia.org/wiki/List_of_theological_demons</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>--2024-01-20 20:15:11--  https://en.wikipedia.org/wiki/List_of_theological_demons
+Resolving en.wikipedia.org (en.wikipedia.org)... 208.80.154.224, 2620:0:861:ed1a::1
+Connecting to en.wikipedia.org (en.wikipedia.org)|208.80.154.224|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 92089 (90K) [text/html]
+Saving to: ‘List_of_theological_demons’
+
+     0K .......... .......... .......... .......... .......... 55% 1.73M 0s
+    50K .......... .......... .......... .........            100% 3.90M=0.04s
+
+2024-01-20 20:15:12 (2.30 MB/s) - ‘List_of_theological_demons’ saved [92089/92089]</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1_intro_files
+1_intro.html
+1_intro.qmd
+2_update_r-rstudio_files
+2_update_r-rstudio.html
+2_update_r-rstudio.pdf
+2_update_r-rstudio.qmd
+3_basic_bash_files
+3_basic_bash.html
+3_basic_bash.qmd
+3_basic_bash.rmarkdown
+4_vcs_git_files
+4_vcs_git.html
+4_vcs_git.qmd
+5_git_setup_files
+5_git_setup.html
+5_git_setup.qmd
+6a_authentication_github_ssh_files
+6a_authentication_github_ssh.html
+6a_authentication_github_ssh.qmd
+6b_2fa_files
+6b_2fa.html
+6b_2fa.qmd
+6c_pat_files
+6c_pat.html
+6c_pat.qmd
+6_github_setu_files
+6_github_setu.html
+6_github_setu.qmd
+7_git_basic_files
+7_git_basic.html
+7_git_basic.qmd
+Authentication_github_PAT.qmd
+authentication-pat_files
+authentication-pat.html
+BasicBash.qmd
+Exercise-Bash_files
+Exercise-Bash.html
+Exercise-Bash.qmd
+file1.txt
+gitbasic_commit_push_pull.qmd
+git_github_basicGit_files
+git_github_basicGit.html
+git_github_basicGit.qmd
+git_hist.txt
+git_setup.qmd
+git.txt
+git.txt.1
+git.txt.2
+init_repo.qmd
+ is used to append to a file.
+List_of_theological_demons
+MYGIT.txt
+pat_clone.qmd
+raw.githubusercontent.com
+ssh_pat_2fa.qmd</code></pre>
+</div>
+</div>
+<p>I’ll remove that file now</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> List_of_theological_demons</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="rreverse-i-search" class="level1">
+<h1>RREVERSE-I-SEARCH</h1>
+<section id="search-your-command-history-with-reverse-i-search" class="level2">
+<h2 class="anchored" data-anchor-id="search-your-command-history-with-reverse-i-search">Search your command history with <code>reverse-i-search</code></h2>
+<ul>
+<li>Search your command history</li>
+</ul>
+<ol type="1">
+<li><code>ctrl</code>+<code>r</code> to get search prompt</li>
+<li>Type a search term</li>
+<li><code>ctrl</code>+<code>r</code> to navigate through matches</li>
+</ol>
+</section>
+<section id="heres-an-example" class="level2">
+<h2 class="anchored" data-anchor-id="heres-an-example">Here’s an example:</h2>
+<p><strong>On your Bash</strong></p>
+<p>Let’s say you want to find a “git” command you used recently. You would:</p>
+<p>Press <code>Ctrl + R</code> Type “git” (or any part of the command) Press <code>Ctrl + R</code> repeatedly to cycle through matches Once you find the correct command, press Enter to execute it.</p>
+<section id="a-few-shortcut" class="level3">
+<h3 class="anchored" data-anchor-id="a-few-shortcut">A few shortcut:</h3>
+<ol type="1">
+<li>Type <code>explorer</code> in Bash/Terminal to open “File Explorer”. Or on keyboard hold window button and click <code>E</code></li>
+<li>Type a few letters on Terminal/Bash and then click on <code>tab</code> button to get the possible match. (Once for terminal-Twice for Bash)</li>
+<li>To interrupt the current command press <code>CTRL+C</code> .</li>
+<li>Type <code>clear</code> to clear the Terminal/Bash page</li>
+<li>Type <code>exit</code> and press ENTER</li>
+<li>Use <code>alt+shift+R</code> to open terminal-pane</li>
+</ol>
+<ul>
+<li><strong>What is difference between <code>&gt;&gt;</code> and <code>&gt;</code> in Bash/Terminal?</strong></li>
+</ul>
+<p>This symbol <code>&gt;</code> overwrites the file if it exists or creates it if it doesn’t exist.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"The </span><span class="kw">`</span><span class="op">&gt;</span><span class="kw">`</span><span class="st"> overwrites the file if it exists or creates it if it doesn't exist."</span> <span class="op">&gt;</span> file1.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/bin/bash: command substitution: line 1: syntax error near unexpected token `newline'
+/bin/bash: command substitution: line 1: `&gt;'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> file1.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The  overwrites the file if it exists or creates it if it doesn't exist.</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"This will overwrite the file and what we had before has been replaced with this line"</span> <span class="op">&gt;</span> file1.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> file1.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>This will overwrite the file and what we had before has been replaced with this line</code></pre>
+</div>
+</div>
+<p>This <code>&gt;&gt;</code> is used to append to a file.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"This symbol </span><span class="dt">\"</span><span class="st">&gt;&gt;</span><span class="dt">\"</span><span class="st"> is used to append to a file."</span> <span class="op">&gt;&gt;</span> file1.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>if you run <code>cat file1.txt</code> you will see both lines are in file1.txt</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> file1.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>This will overwrite the file and what we had before has been replaced with this line
+This symbol "&gt;&gt;" is used to append to a file.</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

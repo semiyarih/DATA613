@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Why we need Git?</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="4_vcs_git_files/libs/clipboard/clipboard.min.js"></script>
+<script src="4_vcs_git_files/libs/quarto-html/quarto.js"></script>
+<script src="4_vcs_git_files/libs/quarto-html/popper.min.js"></script>
+<script src="4_vcs_git_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="4_vcs_git_files/libs/quarto-html/anchor.min.js"></script>
+<link href="4_vcs_git_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="4_vcs_git_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="4_vcs_git_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="4_vcs_git_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="4_vcs_git_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Why we need Git?</h1>
+<p class="subtitle lead">Hamid Semiyari</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">Invalid Date</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="git" class="level1">
+<h1>Git</h1>
+<ul>
+<li>Git is the most popular <code>version conrol</code> system in the world. A vesrion control system records the changes that made to our code over time in a special database called <code>repository</code>. We can look at our project history and see who has made what changes when and why. If we made a mistake on something we can easily revert our project back to an earlier state.<br>
+In summary, with version control system we can track history and work together.<br>
+</li>
+<li>Git is free, open source, super fast, and scalable. Operation such as <code>branching</code> and <code>merging</code> are slow in other version control system like <code>subversion</code> or <code>tfs</code>But they are very fast in Git.</li>
+<li>Git is everywhere, almost every job description (programming related) mentions Git.</li>
+</ul>
+</section>
+<section id="version-control" class="level1">
+<h1>Version Control:</h1>
+<ul>
+<li><p><strong>Version control system</strong>: a program that tracks iterative changes of files. Git is the most popular version control system.</p></li>
+<li><p>You can go back to previous versions of your code/text, then move forward to the most recent version, or keep the old version.</p></li>
+<li><p>You can create copies of the code, change them, then merge these copies together later.</p></li>
+</ul>
+<section id="motivation-1-change-code-without-the-fear-of-breaking-it" class="level2">
+<h2 class="anchored" data-anchor-id="motivation-1-change-code-without-the-fear-of-breaking-it">Motivation 1: Change code without the fear of breaking it</h2>
+<ul>
+<li><p>You want to try out something new, but you aren’t sure if it will work.</p></li>
+<li><p>Non-git solution: Copy the files</p>
+<ul>
+<li>analysis.R,</li>
+<li>analysis2.R,</li>
+<li>analaysis3.R,</li>
+<li>analysis_final.R,</li>
+<li>analysis_final_final.R,</li>
+<li>analysis_absolute_final.R,</li>
+<li>analysis7.R</li>
+<li>analysis8.R</li>
+</ul></li>
+<li><p>Issues:</p>
+<ul>
+<li>Difficult to remember differences of files.</li>
+<li>Which files produced specific results?</li>
+</ul></li>
+<li><p>Git lets you change files, keeping track of old versions, and reverting to old versions if you decide the new changes don’t work.</p></li>
+</ul>
+</section>
+<section id="motivation-2-easy-collaboration" class="level2">
+<h2 class="anchored" data-anchor-id="motivation-2-easy-collaboration">Motivation 2: Easy Collaboration</h2>
+<ul>
+<li><p>In a group setting, your collaborators might suggest how to change your analysis/code.</p></li>
+<li><p>First non-git solution: Email files back/forth.</p></li>
+<li><p>Issues:</p>
+<ul>
+<li>You have to manually incorporate changes.</li>
+<li>Only one person can work on the code at a time (otherwise multiple changes might be incompatible).</li>
+</ul></li>
+<li><p>Second non-git solution: Share a Dropbox or Google Docs folder (a “centralized” version control system).</p></li>
+<li><p>Issues:</p>
+<ul>
+<li>Again, only one person can work on the code at a time.</li>
+<li>Less user-friendly for tracking changes.</li>
+</ul></li>
+<li><p>Git let’s each individual work on their own local repository and you can automatically incorporate changes.</p></li>
+</ul>
+</section>
+<section id="motivation-3-great-for-job-interviews" class="level2">
+<h2 class="anchored" data-anchor-id="motivation-3-great-for-job-interviews">Motivation 3: Great for job interviews</h2>
+<ul>
+<li><p>In a <a href="https://insights.stackoverflow.com/survey/2021#other-tools">2021 Stack Overflow Survey</a>, 93.43% of developers say they use git., 58.5% of data scientists say they primarily use git for sharing code.</p></li>
+<li><p>You can make your final-project repo public so prospective employers can view your work.</p></li>
+<li><p>You can host a website on GitHub, increasing your visibility. Doctor Gerard host hosts his <a href="http://dcgerard.github.io/">personal website</a> and <a href="https://data-science-master.github.io/lectures/">teaching websites</a> on GitHub.</p></li>
+</ul>
+</section>
+</section>
+<section id="basic-git" class="level1">
+<h1>Basic Git</h1>
+<ul>
+<li><p>A <strong>repository</strong> (or repo, for short) is a collection of files (in a folder and its subfolders) that are together under version control. In data analysis, each repository is typically one project (like a data analysis, a homework, or a collection of code that performs a similar task).</p></li>
+<li><p>The way git works (graphic from Mark Lodato): <img src="../graphix/basic-usage.png" class="img-fluid" alt="https://marklodato.github.io/visual-git-guide/index-en.html">&nbsp;</p></li>
+<li><p><strong>Working Directory</strong>: To git, this means the current versions of the files. Changes to files that you haven’t recorded only exist in the working directory and are not yet saved in the history.</p></li>
+<li><p><strong>Stage</strong>: Files that are scheduled to be committed to the history, but not yet committed. Only files in the stage will be committed to the history.</p></li>
+<li><p><strong>History</strong>: The timeline of snapshots of files. You commit a file to the history and then, even if you modify it later, you can always go back to that same file version.</p></li>
+<li><p>We’ll focus on the right-hand-side of this diagram where your workflow is typically:</p>
+<ol type="1">
+<li>Modify files in your working directory until you want a snapshot.</li>
+<li>Add these modified files to the staging area.</li>
+<li>Commit staged files to history, where they will be kept forever.</li>
+</ol></li>
+<li><p>The left-hand side of the diagram is used when you want to undo mistakes.</p></li>
+<li><p>All git commands begin with <code>git</code> followed immediately by an argument for the type of command you want to execute.</p></li>
+<li><p>For the right-hand-side of the diagram, the following are the useful git commands:</p>
+<ul>
+<li><code>git init</code>: Initialize a git repository. <em>Only do this once per project</em>.</li>
+<li><code>git status</code>: Show which files are staged in your working directory, and which are modified but not staged.</li>
+<li><code>git add</code>: Add modified files from your working directory to the stage.</li>
+<li><code>git diff</code>: Look at how files in the working directory have been modified.</li>
+<li><code>git diff --staged</code>: Look at how files in the stage have been modified.</li>
+<li><code>git commit -m "[descriptive message]"</code>: commit your staged content as a new commit snapshot.</li>
+</ul></li>
+</ul>
+<section id="how-to-use-git" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-use-git">How to use Git?</h2>
+<ul>
+<li><p>Command line: We can use Git on the command line. Open a termianl or command window to execuate git commands. This the fastest sometimes easiest way to get the job done.</p></li>
+<li><p>Code editors &amp; IDEs (or Integrated Development Environment): Most code editors and IDEs have built-in support for basic Git features.</p></li>
+<li><p>Graphical User Interfaces: There are GUIs specifically made for using Git. You can find the complete list of these tools for different platforms on the Git website. Click <a href="https://git-scm.com/downloads/guis">here</a>. GUI tools are not always available. GuI tools have somelimitations. You might connect to a server remotly and you may not have permission to install GUI tool. So to my opinion it is better to use commond line. There are many people use both GUI tool and command line.</p></li>
+<li><p>A code editor is a text editor that has some features that make writing code easier. For instance, code editors will automatically highlight words based on syntax and will automatically indent lines of code correctly. An IDE is usually more complex than a simple text or code editor. It has more features, it takes time to learn, but in the end is more powerful. It is a piece of software that allows developers to create, modify, and debug code easily. A code editor doesn’t have the debugging and auto-complete features that an IDE has. Atom is a code editor and Rstudio is an IDE.</p></li>
+</ul>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
