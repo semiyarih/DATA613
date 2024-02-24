@@ -535,7 +535,7 @@
 </ol>
 <ul>
 <li><p>Documentation in an R package is in “.rd” files in the “man” folder. This is rather esoteric, so we’ll use <code>{roxygen2}</code> to generate them automatically.</p></li>
-<li><p>You need t put the courser inside of the function and hold <code>ctrl+shift+alt+R</code> or <code>command+shift+option+R</code></p></li>
+<li><p>You need to put the courser inside of the function and hold <code>ctrl+shift+alt+R</code> or <code>command+shift+option+R</code></p></li>
 </ul></li>
 </ul>
 </section>
@@ -577,19 +577,24 @@
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>devtools<span class="sc">::</span><span class="fu">load_all</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
-<li><code>devtools::install()</code> functions install your package into your R system library. Then you will be able to load up your package with:</li>
+<li><code>devtools::install()</code> functions install your package into your R system library. Then you will be able to load up your package with <code>library().</code></li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">library</span>(mypackage)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <p>Type the following to install your package into library</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>devtools<span class="sc">::</span><span class="fu">install</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>devtools<span class="sc">::</span><span class="fu">install</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">library</span>(mypackage)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="push-to-github" class="slide level2">
 <h2>Push to GitHub</h2>
-<p>You can push your package to GitHub in the same way we usually do by 1. stage 2. commit 3. push all changes</p>
+<p>You can push your package to GitHub in the same way we usually do by</p>
+<ol type="1">
+<li><p>stage</p></li>
+<li><p>commit</p></li>
+<li><p>push all changes</p></li>
+</ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"semiyari/package1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
