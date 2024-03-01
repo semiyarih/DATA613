@@ -534,12 +534,16 @@
 <li>Having other folks use your package (they need a way to learn the functions).</li>
 </ol>
 <ul>
-<li><p>Documentation in an R package is in “.rd” files in the “man” folder. This is rather esoteric, so we’ll use <code>{roxygen2}</code> to generate them automatically.</p></li>
-<li><p>You need to put the courser inside of the function and hold <code>ctrl+shift+alt+R</code> or <code>command+shift+option+R</code></p></li>
+<li>Documentation in an R package is in “.rd” files in the “man” folder. This is rather esoteric, so we’ll use <code>{roxygen2}</code> to generate them automatically.</li>
+<li>You need to put the courser inside of the function and hold <code>ctrl+shift+alt+R</code> or <code>command+shift+option+R</code></li>
 </ul></li>
 </ul>
 </section>
 <section id="make-documentation-1" class="slide level2">
+<h2>Make Documentation …</h2>
+<p>The amount of tags you can have is overwhelming, but there are a few that are necessary - <code>@title</code>, the title of the function - The parameter of the functions with <code>@param</code> - Description of the function with <code>@description</code> - User gave access to your fuction with <code>@export</code> - If your package requires external packages, reference package or specific package functions you can do this with + <code>@import</code> and + <code>@importFrom</code> - <code>@retuen</code> tells what your function returns - <code>@examples</code> provide a few examples of your function</p>
+</section>
+<section id="make-documentation-2" class="slide level2">
 <h2>Make Documentation …</h2>
 <ul>
 <li><p>Now in your Rscript you see a few tags. We need to fill them out.</p></li>
@@ -562,11 +566,14 @@
 <section id="check-package" class="slide level2">
 <h2>Check Package</h2>
 <ul>
-<li>Run <code>check</code> in your package to make sure everything is correct. This loads your package in your current Eenvironmentlike it was loaded by <code>library()</code> function. The difference is that the package is not installed in your computer. Type the following in your <code>Console</code></li>
+<li>Run <code>check</code> in your package to make sure everything is correct. This loads your package in your current Eenvironment like it was loaded by the <code>library()</code> function. The difference is that the package is not installed on your computer. Type the following in your console type <code>devtools::check()</code></li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>devtools<span class="sc">::</span><span class="fu">check</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<p>The check will return errors, warnings, and notes.</p>
+<ul>
+<li><p>Errors: Serious problems you should fix right away.</p></li>
+<li><p>Warnings: Likely problems that you should fix eventually.</p></li>
+<li><p>Notes: Minor problems that may or may not be real problems. I would fix them anyway.</p></li>
+</ul>
 </section>
 <section id="install-the-package" class="slide level2">
 <h2>Install the Package</h2>
@@ -574,17 +581,122 @@
 <li><code>devtools::load_all()</code> lodas package into momory but as soon as close your session it will be removed. Type the following to load your package into memory</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>devtools<span class="sc">::</span><span class="fu">load_all</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>devtools<span class="sc">::</span><span class="fu">load_all</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><code>devtools::install()</code> functions install your package into your R system library. Then you will be able to load up your package with <code>library().</code></li>
 </ul>
 <p>Type the following to install your package into library</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>devtools<span class="sc">::</span><span class="fu">install</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>devtools<span class="sc">::</span><span class="fu">install</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">library</span>(mypackage)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">library</span>(mypackage)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="automated-test" class="slide level2">
+<h2>Automated Test</h2>
+<p>So far we coud check our function on console to see if the function is working. So we have been testing our function interactively and check for package errors via <code>check()</code>. This is good, but informal. If your code changes, those informal checks you ran might no longer work, and you wouldn’t know.</p>
+<p>We can formalize it with <strong>Unit Test</strong> via <code>testthat</code> package.</p>
+</section>
+<section id="unit-test" class="slide level2">
+<h2>UNIT TEST</h2>
+<ul>
+<li><p>A <strong>unit test</strong> is a stored test that you can rerun automatically.</p></li>
+<li><p>Your workflow when coding using unit tests is to:</p>
+<ol type="1">
+<li><p>Modify code or tests.</p></li>
+<li><p>Test package with <code>devtools::test()</code>. This will run all unit tests.</p></li>
+<li><p>Repeat until all tests pass.</p></li>
+</ol></li>
+</ul>
+</section>
+<section id="create-package-unit-test" class="slide level2">
+<h2>Create Package … Unit Test</h2>
+<p>Let’s to create a package that simulats a Simple regression Line. - Create a folder name <code>funpack</code> - Set the Rstudio directory to this folder - Type <code>usethis::create_package(path = ".", rstudio = FALSE, open = FALSE)</code> in the console. - Open a R scritp by typing <code>usethis::use_r(name = "funreg")</code> on console. - in the blank RScript type</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>simreg0 <span class="ot">&lt;-</span> <span class="cf">function</span>(n, x, beta0, beta1, sigma){</span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">stopifnot</span>(<span class="fu">length</span>(x) <span class="sc">==</span> n)</span>
+<span id="cb13-3"><a href="#cb13-3"></a>  eps <span class="ot">&lt;-</span> stats<span class="sc">::</span><span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> sigma)</span>
+<span id="cb13-4"><a href="#cb13-4"></a>  y <span class="ot">&lt;-</span> beta0 <span class="sc">+</span> beta1 <span class="sc">*</span> x <span class="sc">+</span> eps</span>
+<span id="cb13-5"><a href="#cb13-5"></a>  <span class="fu">return</span>(y)</span>
+<span id="cb13-6"><a href="#cb13-6"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="create-document-unit-test" class="slide level2">
+<h2>Create Document … Unit Test</h2>
+<ul>
+<li><p>place the curser inside of the function and hold <code>ctrl+shift+P</code> or <code>cmnd+shift+P</code>. The command line will open type <code>inset a roxygen ...</code> then tags will be provided. You can also use <code>Code &gt; Insert Roxygen Skeleton</code> or the short cut <code>ctrl+shift+alt+R</code>.</p></li>
+<li><p>Then type the <code>devtools::document()</code> on your console. It will automatically update document and create <code>.Rd</code> file in your <code>man</code> folder</p></li>
+</ul>
+</section>
+<section id="check-unit-test" class="slide level2">
+<h2>Check() … Unit Test</h2>
+<ul>
+<li><p>The next step is to use <code>check()</code> function to make sure everything is running as expected. Type <code>devtools::check()</code></p></li>
+<li><p>We have already test our function informally, now we want to test it formally with <strong>unit test</strong>. Unit tests are automated tests written and run by developer to ensure that sections of application works as expected. They run test for small units and then compound them together. This way they can test a very complex application.</p></li>
+</ul>
+</section>
+<section id="unit-test-1" class="slide level2">
+<h2>…Unit Test</h2>
+<ul>
+<li><p>We use <code>{usethis}</code> package.</p></li>
+<li><p>By typng <code>usethis::use_testthat()</code> we create a folder in our package directory. If you look at Working Directory you will see a folder called <code>tests</code>.</p></li>
+<li><p>Since we want the function in <code>funreg.R</code> to be tested. we type</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>usethis<span class="sc">::</span><span class="fu">use_testthat</span>(funreg.R)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="unit-test--test-function" class="slide level2">
+<h2>Unit Test- Test Function</h2>
+<ul>
+<li>The R Script <code>test-funreg.R</code> is open in your script. Type</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">test_that</span>(<span class="st">"simreg0() output is consistent"</span>, {</span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">set.seed</span>(<span class="dv">991</span>)</span>
+<span id="cb15-3"><a href="#cb15-3"></a>  x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1000000</span>)</span>
+<span id="cb15-4"><a href="#cb15-4"></a>  beta0 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a>  beta1 <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a>  sigma <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a>  y <span class="ot">&lt;-</span> <span class="fu">simreg0</span>(<span class="at">n =</span> <span class="fu">length</span>(x), <span class="at">x =</span> x, <span class="at">beta0 =</span> beta0, <span class="at">beta1 =</span> beta1, <span class="at">sigma =</span> sigma)</span>
+<span id="cb15-8"><a href="#cb15-8"></a>  lmout <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)  <span class="co"># This returns y_intercept and slope</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a> </span>
+<span id="cb15-10"><a href="#cb15-10"></a>  <span class="fu">expect_equal</span>(<span class="fu">coef</span>(lmout)[[<span class="dv">2</span>]], beta1, <span class="at">tolerance =</span> <span class="fl">0.001</span>) <span class="co"># It tests if estimated slope is reasonably close to true slope beta1. </span></span>
+<span id="cb15-11"><a href="#cb15-11"></a>  </span>
+<span id="cb15-12"><a href="#cb15-12"></a>  <span class="fu">expect_equal</span>(<span class="fu">coef</span>(lmout)[[<span class="dv">1</span>]], beta0, <span class="at">tolerance =</span> <span class="fl">0.001</span>) <span class="co"># It tests if estimated y int is reasonably close to beta0. </span></span>
+<span id="cb15-13"><a href="#cb15-13"></a>  </span>
+<span id="cb15-14"><a href="#cb15-14"></a>  <span class="fu">expect_equal</span>(<span class="fu">length</span>(x), <span class="fu">length</span>(y))  <span class="co"># It tests if the x and y are the same length</span></span>
+<span id="cb15-15"><a href="#cb15-15"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Run this code, if everthing is okay you get the message “Test passed 🎉”</li>
+</ul>
+</section>
+<section id="how-to-import-packages-to-our-function" class="slide level2">
+<h2>How To Import Packages To Our Function</h2>
+<p>If we need to use package <code>ggplot2</code>, because we want to use a function from this package in our function. One way is to type <code>imports: ggplot2</code> to <code>DESCRIPTION</code> file. But the better way is to type following in the console</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>usethis<span class="sc">::</span><span class="fu">use_package</span>(<span class="st">"ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="add-a-licence-to-description-file" class="slide level2">
+<h2>Add a Licence to <code>DESCRIPTION</code> file</h2>
+<p>When you run <code>devtools::check()</code>, you may get error regarding license. To Add license type</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>usethis<span class="sc">::</span><span class="fu">use_mit_license</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="install-the-package-1" class="slide level2">
+<h2>Install the Package</h2>
+<p>Type the following to load your package into memory</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>devtools<span class="sc">::</span><span class="fu">load_all</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>or type the following to install your package into library</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>devtools<span class="sc">::</span><span class="fu">install</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="push-to-github" class="slide level2">
@@ -596,11 +708,20 @@
 <li><p>push all changes</p></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"semiyari/package1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"semiyari/package1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="supplement" class="slide level2">
 <h2>Supplement</h2>
+</section>
+<section id="ways-to-install-a-package" class="slide level2">
+<h2>Ways to install a package</h2>
+<ul>
+<li><p>From CRAN: <code>install.packages()</code>.</p></li>
+<li><p>From Bioconductor: <code>BiocManager::install()</code>.</p></li>
+<li><p>From source package: <code>devtools::install()</code>.</p></li>
+<li><p>From GitHub <code>devtools::install_github()</code>.</p></li>
+</ul>
 </section>
 <section id="r-folder" class="slide level2">
 <h2>R Folder</h2>
@@ -609,10 +730,10 @@
 <li><p>All R code in package should be a function definition (with <strong>very</strong> few exceptions).</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>    fname <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">arg1 =</span> val1, <span class="at">arg2 =</span> val2, ...) {</span>
-<span id="cb15-2"><a href="#cb15-2"></a>      <span class="do">## code here</span></span>
-<span id="cb15-3"><a href="#cb15-3"></a>      <span class="fu">return</span>(retval)</span>
-<span id="cb15-4"><a href="#cb15-4"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>    fname <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">arg1 =</span> val1, <span class="at">arg2 =</span> val2, ...) {</span>
+<span id="cb21-2"><a href="#cb21-2"></a>      <span class="do">## code here</span></span>
+<span id="cb21-3"><a href="#cb21-3"></a>      <span class="fu">return</span>(retval)</span>
+<span id="cb21-4"><a href="#cb21-4"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="r-folder-1" class="slide level2">
@@ -630,8 +751,8 @@
 <li><p>Each package has a namespace. You use <code>::</code> to tell R which package to use a function from. Otherwise, it wouldn’t know to distinguish between, e.g.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>    dplyr<span class="sc">::</span><span class="fu">lag</span>()</span>
-<span id="cb16-2"><a href="#cb16-2"></a>    stats<span class="sc">::</span><span class="fu">lag</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>    dplyr<span class="sc">::</span><span class="fu">lag</span>()</span>
+<span id="cb22-2"><a href="#cb22-2"></a>    stats<span class="sc">::</span><span class="fu">lag</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Your package namespace will determine
@@ -647,7 +768,7 @@
 <li>Include the following tag in the documentation of any function that you want a user to have access to.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>    <span class="sc">@</span>export</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>    <span class="sc">@</span>export</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>This will add the function to the “NAMESPACE” file (which you should not edit by hand).</li>
@@ -668,7 +789,7 @@
 <li><p>Package dependencies go in the DESCRIPTION folder. You can tell R that your package depends on another package by running:</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>    usethis<span class="sc">::</span><span class="fu">use_package</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>    usethis<span class="sc">::</span><span class="fu">use_package</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>This will make it so that the package is available when your package is installed.</li>
@@ -687,9 +808,9 @@
 <li>If you suggest a package, whenever you use a function from that package you should first check to see if it is installed with <code>requireNamespace("pkg", quietly = TRUE)</code>. E.g.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>    <span class="cf">if</span> (<span class="fu">requireNamespace</span>(<span class="st">"pkg"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
-<span id="cb19-2"><a href="#cb19-2"></a>      pkg<span class="sc">::</span><span class="fu">fun</span>()</span>
-<span id="cb19-3"><a href="#cb19-3"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>    <span class="cf">if</span> (<span class="fu">requireNamespace</span>(<span class="st">"pkg"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb25-2"><a href="#cb25-2"></a>      pkg<span class="sc">::</span><span class="fu">fun</span>()</span>
+<span id="cb25-3"><a href="#cb25-3"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="technical-notes-on-importing" class="slide level2">
@@ -709,10 +830,10 @@
 <li><p>E.g. many packages use <code>c()</code>. We can (rather foolishly) redefine it via</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>    <span class="do">## Don't run this</span></span>
-<span id="cb20-2"><a href="#cb20-2"></a>    c <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb20-3"><a href="#cb20-3"></a>      <span class="fu">return</span>(<span class="cn">NA</span>)</span>
-<span id="cb20-4"><a href="#cb20-4"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>    <span class="do">## Don't run this</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a>    c <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb26-3"><a href="#cb26-3"></a>      <span class="fu">return</span>(<span class="cn">NA</span>)</span>
+<span id="cb26-4"><a href="#cb26-4"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>and no package will be affected because they all import <code>c()</code> from the <code>{base}</code> R package.</p>
 </section>
@@ -722,7 +843,7 @@
 <li><strong>Search Path</strong>: The list of packages that R will automatically search for functions. See your search path by <code>search()</code>.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>    <span class="fu">search</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>    <span class="fu">search</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><strong>Loading a package</strong>: Put a package in memory, but do not put it in the search path. You can then use the function by using <code>::</code> as in <code>dplyr::mutate()</code>. If you call a function via <code>::</code> then it will load that package automatically.</li>
@@ -743,7 +864,7 @@
 <li>E.g. adding this line anywhere in your package will attach <code>dplyr::mutate()</code> whenever your package is attached.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>    <span class="co">#' @importFrom dplyr mutate</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>    <span class="co">#' @importFrom dplyr mutate</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Why do I recommend rarely using <code>@importFrom</code>? Because that could make coding more complicated for your users
@@ -782,15 +903,15 @@
 <li><p><code>usethis::create_package()</code> gives you a template for DESCRIPTION which you can fill in. Most of the options are self-explanatory.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb23-1"><a href="#cb23-1"></a><span class="at">    </span><span class="fu">Package</span><span class="kw">:</span><span class="at"> mypackage</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a><span class="at">    </span><span class="fu">Title</span><span class="kw">:</span><span class="at"> What The Package Does (one line, title case required)</span></span>
-<span id="cb23-3"><a href="#cb23-3"></a><span class="at">    </span><span class="fu">Version</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.1</span></span>
-<span id="cb23-4"><a href="#cb23-4"></a><span class="at">    </span><span class="fu">Authors@R</span><span class="kw">:</span><span class="at"> person("First", "Last", email = "first.last@example.com",</span></span>
-<span id="cb23-5"><a href="#cb23-5"></a><span class="at">                      role = c("aut", "cre"))</span></span>
-<span id="cb23-6"><a href="#cb23-6"></a><span class="at">    </span><span class="fu">Description</span><span class="kw">:</span><span class="at"> What the package does (one paragraph)</span></span>
-<span id="cb23-7"><a href="#cb23-7"></a><span class="at">    </span><span class="fu">Depends</span><span class="kw">:</span><span class="at"> R (&gt;= 3.1.0)</span></span>
-<span id="cb23-8"><a href="#cb23-8"></a><span class="at">    </span><span class="fu">License</span><span class="kw">:</span><span class="at"> What license is it under?</span></span>
-<span id="cb23-9"><a href="#cb23-9"></a><span class="at">    </span><span class="fu">LazyData</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb29-1"><a href="#cb29-1"></a><span class="at">    </span><span class="fu">Package</span><span class="kw">:</span><span class="at"> mypackage</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a><span class="at">    </span><span class="fu">Title</span><span class="kw">:</span><span class="at"> What The Package Does (one line, title case required)</span></span>
+<span id="cb29-3"><a href="#cb29-3"></a><span class="at">    </span><span class="fu">Version</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.1</span></span>
+<span id="cb29-4"><a href="#cb29-4"></a><span class="at">    </span><span class="fu">Authors@R</span><span class="kw">:</span><span class="at"> person("First", "Last", email = "first.last@example.com",</span></span>
+<span id="cb29-5"><a href="#cb29-5"></a><span class="at">                      role = c("aut", "cre"))</span></span>
+<span id="cb29-6"><a href="#cb29-6"></a><span class="at">    </span><span class="fu">Description</span><span class="kw">:</span><span class="at"> What the package does (one paragraph)</span></span>
+<span id="cb29-7"><a href="#cb29-7"></a><span class="at">    </span><span class="fu">Depends</span><span class="kw">:</span><span class="at"> R (&gt;= 3.1.0)</span></span>
+<span id="cb29-8"><a href="#cb29-8"></a><span class="at">    </span><span class="fu">License</span><span class="kw">:</span><span class="at"> What license is it under?</span></span>
+<span id="cb29-9"><a href="#cb29-9"></a><span class="at">    </span><span class="fu">LazyData</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="description" class="slide level2">
@@ -823,7 +944,7 @@
 <ul>
 <li>The <code>first</code> and <code>last</code> arguments are the first and last names of the person.</li>
 <li>The <code>email</code> should be the email of the individual.</li>
-<li>The <code>role</code> should be a vector containing possible values of <code>"aut"</code> for author, <code>"cre"</code> for creator/maintainer (one one person should be <code>"cre"</code>), <code>"ctb"</code> for contributor (only providing minor edits). There are other roles that are possible.</li>
+<li>The <code>role</code> should be a vector containing possible values of <code>"aut"</code> for author, <code>"cre"</code> for creator/maintainer (one person should be <code>"cre"</code>), <code>"ctb"</code> for contributor (only providing minor edits). There are other roles that are possible.</li>
 </ul></li>
 </ul>
 </section>
@@ -834,21 +955,21 @@
 <li><p>If you have more than one author, put the <code>person()</code> calls in a vector.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb24-1"><a href="#cb24-1"></a><span class="at">        Authors@R</span><span class="fu">:</span><span class="kw">:</span><span class="at"> c(person("Jane", "Doe", email = "janedoe@american.edu", role = c("aut", "cre")),</span></span>
-<span id="cb24-2"><a href="#cb24-2"></a><span class="at">                      person("John", "Doe", email = "johndoe@american.edu", role = c("aut")))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb30-1"><a href="#cb30-1"></a><span class="at">        Authors@R</span><span class="fu">:</span><span class="kw">:</span><span class="at"> c(person("Jane", "Doe", email = "janedoe@american.edu", role = c("aut", "cre")),</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a><span class="at">                      person("John", "Doe", email = "johndoe@american.edu", role = c("aut")))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="description-licence" class="slide level2">
 <h2>DESCRIPTION Licence</h2>
 <ul>
-<li>“License”: What license should you distribute this package under? Don’t edit this by hand. You should use either (in decreasing order of restrictiveness)
+<li><p>“License”: What license should you distribute this package under? Don’t edit this by hand. You should use either (in decreasing order of restrictiveness)</p>
 <ul>
 <li>Proprietary license: No one can use your package (CRAN won’t except this)</li>
-</ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>        usethis<span class="sc">::</span><span class="fu">use_proprietary_license</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>        usethis<span class="sc">::</span><span class="fu">use_proprietary_license</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+</ul>
 </section>
 <section id="description-licence-1" class="slide level2">
 <h2>DESCRIPTION Licence …</h2>
@@ -856,19 +977,19 @@
 <li>GPL-3 license: If other folks make derivatives of your package, they have to also place it as open-source under a GPL-3 license:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>        usethis<span class="sc">::</span><span class="fu">use_gpl3_license</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>        usethis<span class="sc">::</span><span class="fu">use_gpl3_license</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>MIT license: Folks can use your stuff as long they distribute the license with your code.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>        usethis<span class="sc">::</span><span class="fu">use_mit_license</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>        usethis<span class="sc">::</span><span class="fu">use_mit_license</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>CC0 license: You place your stuff in the public domain, and anyone can use it for any reason.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>        usethis<span class="sc">::</span><span class="fu">use_cc0_license</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>        usethis<span class="sc">::</span><span class="fu">use_cc0_license</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="description-version" class="slide level2">
@@ -896,9 +1017,9 @@
 <li>“Imports”: What packages does your package depend on? If you run <code>usethis::use_package()</code>, then <code>{usethis}</code> will edit the DESCRIPTION file for you. But typically the imports field looks something like this</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb29-1"><a href="#cb29-1"></a><span class="at">    </span><span class="fu">Imports</span><span class="kw">:</span></span>
-<span id="cb29-2"><a href="#cb29-2"></a><span class="at">      pkg1,</span></span>
-<span id="cb29-3"><a href="#cb29-3"></a><span class="at">      pkg2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb35-1"><a href="#cb35-1"></a><span class="at">    </span><span class="fu">Imports</span><span class="kw">:</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a><span class="at">      pkg1,</span></span>
+<span id="cb35-3"><a href="#cb35-3"></a><span class="at">      pkg2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="description-suggests" class="slide level2">
@@ -907,10 +1028,69 @@
 <li>“Suggests”: What packages do you suggest installing to use your package (but are not required)? Again, use <code>usethis::use_package()</code>, but this time with the <code>Type = "Suggests"</code> argument. It will look like this in the DESCRIPTION folder:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb30-1"><a href="#cb30-1"></a><span class="at">    </span><span class="fu">Suggests</span><span class="kw">:</span></span>
-<span id="cb30-2"><a href="#cb30-2"></a><span class="at">      pkg1,</span></span>
-<span id="cb30-3"><a href="#cb30-3"></a><span class="at">      pkg2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb36-1"><a href="#cb36-1"></a><span class="at">    </span><span class="fu">Suggests</span><span class="kw">:</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a><span class="at">      pkg1,</span></span>
+<span id="cb36-3"><a href="#cb36-3"></a><span class="at">      pkg2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="check-the-function-devtoolscheck" class="slide level2">
+<h2>Check the Function <code>devtools::check()</code></h2>
+<ul>
+<li>We have checked our function manually and we know the function works. But how can be sure all the parts of our new package still work? This would be a good practice if we have a large package.</li>
+<li>We can do this with <code>check()</code> function.It will automatically builds and check source package. The output of this function tells you how many <strong>errors</strong>, <strong>warnings</strong>, or <strong>notes</strong> are returned. It is a good practice to run this frequently.</li>
+</ul>
+</section>
+<section id="common-issues-with-check" class="slide level2">
+<h2>Common issues with <code>check()</code></h2>
+<ul>
+<li><p><strong>If you run into an error/warning/note that you do not understand, go to the R packages page to understand it:</strong> <a href="https://r-pkgs.org/r-cmd-check.html" class="uri">https://r-pkgs.org/r-cmd-check.html</a></p></li>
+<li><p>If you have a typo in your <code>{roxygen2}</code> documentation, you will get this warning:</p></li>
+</ul>
+<pre><code>        &gt; checking Rd \usage sections ... WARNING
+          Undocumented arguments in documentation object 'pkg'
+            ‘arg’
+          Documented arguments not in \usage in documentation object 'pkg':
+            ‘agr’</code></pre>
+<pre><code>- An undocumented function (where you don't have `{roxygen2}` comments or where you added the `@noRd` tag) does not throw such a warning.</code></pre>
+</section>
+<section id="common-issues-with-check-1" class="slide level2">
+<h2>Common issues with <code>check()</code>…</h2>
+<ul>
+<li>Failure to have a package installed: This happens sometimes when you work on multiple computers (or collaborate with others). You can install all dependencies of a package with</li>
+</ul>
+</section>
+<section id="common-issues-with-check-2" class="slide level2">
+<h2>Common issues with <code>check()</code>…</h2>
+<ul>
+<li>Failure to specify a package:
+<ul>
+<li>R will tell you if you have not imported a function, but try to use it.</li>
+<li>The error will look like this:</li>
+</ul></li>
+</ul>
+<pre><code>        &gt; checking R code for possible problems ... NOTE
+          simreg: no visible global function definition for ‘rnorm’
+          Undefined global functions or variables:
+            rnorm
+          Consider adding
+            importFrom("stats", "rnorm")
+          to your NAMESPACE file.</code></pre>
+<ul>
+<li>Unless a function is from <code>{base}</code>, you will need to specify that package using <code>::</code>. E.g. <code>stats::rnorm()</code> or <code>utils::read.table()</code>. Most of the issues I come across is forgetting about the <code>{stats}</code> package. You can see what functions are from <code>{base}</code> with</li>
+</ul>
+</section>
+<section id="license" class="slide level2">
+<h2>License</h2>
+<p>If the function works fine and we haven’t added a license, <code>check()</code> will return a warning. If you do not publish a package externally you do not need to define a license. But it is highly recommended even in this situation you define a license so the ownership of this open source code is known and clear. See “DESCRIPTION Licence.”</p>
+</section>
+<section id="example-function-for-simulating-regression-line" class="slide level2">
+<h2>Example: Function for simulating Regression Line</h2>
+</section>
+<section id="section-1" class="slide level2">
+<h2></h2>
+</section>
+<section id="unit-test-example" class="slide level2">
+<h2>Unit Test Example</h2>
 </section>
 <section id="resources" class="slide level2">
 <h2>Resources</h2>
