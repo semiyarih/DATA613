@@ -270,6 +270,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="r-session-will-be-busy-after-running-an-app">R session will be busy after running an App</h3>
 <p>Your R session will be busy while the Hello “Shiny app” is active, so you will not be able to run any R commands. R is monitoring the app and executing the app’s reactions. To get your R session back, hit escape or click the stop sign icon (found in the upper right corner of the RStudio console panel).</p>
 </section>
+<section id="runexample" class="level3">
+<h3 class="anchored" data-anchor-id="runexample">RunExample</h3>
+<p>The Hello Shiny app’s files are saved in a special system directory called “01_hello”. This directory is designed to work with the <code>runExample ("01_hello")</code> call.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">runExample</span>(<span class="st">"01_hello"</span>)      <span class="co"># a histogram</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">runExample</span>(<span class="st">"04_mpg"</span>)        <span class="co"># global variables</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">runExample</span>(<span class="st">"02_text"</span>)       <span class="co"># tables and data frames</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
 </section>
 </section>
 <section id="examples" class="level1">
