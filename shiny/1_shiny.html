@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-03-16">
+<meta name="dcterms.date" content="2024-03-20">
 
 <title>Introduction to Shiny App</title>
 <style>
@@ -92,7 +92,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 16, 2024</p>
+      <p class="date">March 20, 2024</p>
     </div>
   </div>
   
@@ -292,8 +292,98 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>Please go over them and happy Apping!</p>
 </section>
-<section id="source" class="level1">
-<h1><a href="https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/index.html">Source</a></h1>
+<section id="publish-your-app" class="level1">
+<h1>Publish Your App</h1>
+<p>Run your App:</p>
+<ul>
+<li>Step 1: On the top right corner click on Publish</li>
+</ul>
+<p><img src=".\figs\s1.png" class="img-fluid"></p>
+<ul>
+<li>Step 2: If it is your first Shiny app, the box “Publish From Account” should be empty. Click on “Add New Account” to link the shinyapps.io account you just created:</li>
+</ul>
+<p><img src=".\figs\s2.png" class="img-fluid"></p>
+<ul>
+<li>Step 3: Click on the first alternative (ShinyApps.io):</li>
+</ul>
+<p><img src=".\figs\s3.png" class="img-fluid"> - Step 4: Click on the link to your ShinyApps account:</p>
+<p><img src=".\figs\s4.png" class="img-fluid"></p>
+<ul>
+<li>Step 5: Click on the Dashboard button to log in into your account:</li>
+</ul>
+<p><img src=".\figs\s5.png" class="img-fluid"></p>
+<ul>
+<li>Step 6: Click on your name and then on Tokens</li>
+</ul>
+<p><img src=".\figs\s6.png" class="img-fluid"></p>
+<ul>
+<li>Step 7: If this is your first app, there should be no token already created. Create one by clicking on the Add Token button. Then Click on the Show button:</li>
+</ul>
+<p><img src=".\figs\s7.png" class="img-fluid"></p>
+<ul>
+<li>Step 8: Click on the Show Secret button:</li>
+</ul>
+<p><img src=".\figs\s8.png" class="img-fluid"></p>
+<ul>
+<li>Step 9: Now the code is complete (nothing is hidden anymore). Click on the Copy to clipboard button:</li>
+</ul>
+<p><img src=".\figs\s9.png" class="img-fluid"></p>
+<ul>
+<li>Step 10: Copy the code and click on the OK button:</li>
+</ul>
+<p><img src=".\figs\s10.png" class="img-fluid"></p>
+<ul>
+<li>Step 11: Go back to RStudio, paste the code in the console and run it:</li>
+</ul>
+<p><img src=".\figs\s11.png" class="img-fluid"> Your computer is now authorized to deploy applications to your shinyapps.io account.</p>
+<ul>
+<li>Step 12: Go back to the window where you can publish your app, choose a title (without space) and click on the Publish button:</li>
+</ul>
+<p><img src=".\figs\s12.png" class="img-fluid"></p>
+<ul>
+<li>Step 13: After several seconds (depending on the weight of your app), the Shiny app should appear in your internet browser:</li>
+</ul>
+<p><img src=".\figs\s13.png" class="img-fluid"></p>
+<ul>
+<li>Step 14: You can now edit the app (or replace the entire code by another of your app), and run the app again by clicking on the Run App button. For this illustration, I just added a link for more information in the side panel:</li>
+</ul>
+<p><img src=".\figs\s14.png" class="img-fluid"></p>
+<ul>
+<li>Step 15: Check that the modifications have been taken into account (the link appears in the side panel as expected) and republish your app:</li>
+</ul>
+<p><img src=".\figs\s15.png" class="img-fluid"> - Step 16: Check that the modifications have been taken into account (the link appears in the side panel as expected) and republish your app:</p>
+<p><img src=".\figs\s16.png" class="img-fluid"></p>
+<ul>
+<li>Step 17: Click on the Publish button:</li>
+</ul>
+<p><img src=".\figs\s17.png" class="img-fluid"></p>
+<ul>
+<li>Step 18: Your app is live! You can now share it and everyone with the link will be able to use it:</li>
+</ul>
+<p><img src=".\figs\s18.png" class="img-fluid"></p>
+<section id="settsettings-of-your-app" class="level2">
+<h2 class="anchored" data-anchor-id="settsettings-of-your-app">SettSettings of your app</h2>
+<p>If you need to change the settings of your Shiny app, go to your shinyapps.io dashboard and click on the app you just created to access the settings:</p>
+<p><img src=".\figs\s19.png" class="img-fluid"></p>
+<p>See the different settings in the tabs located at the top of the windows, and see the link to the app next to the URL field:</p>
+<p><img src=".\figs\s20.png" class="img-fluid"></p>
+</section>
+<section id="publish-your-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="publish-your-dataset">Publish your dataset</h2>
+<p>It is often the case that your Shiny app uses a dataset that is not loaded in R by default (it uses one of your dataset that is saved locally on your computer for instance).</p>
+<p>To make the app work with your data, you will also need to publish the data when publishing your app (check the checkbox corresponding to your data):</p>
+<p><img src=".\figs\s21.png" class="img-fluid"> If you would like to have more flexibility, another way to be able to use an external dataset in your app is to host it online:</p>
+<ul>
+<li><p>if you have a website, you can easily publish it through your website</p></li>
+<li><p>if you do not have a website, you can host the dataset via GitHub (if you do not have an account, it is a good time to create one!)</p></li>
+</ul>
+<p>The last step is then to import the data via that new URL (put the data import in the code of your app).</p>
+</section>
+</section>
+<section id="sources" class="level1">
+<h1>Sources</h1>
+<p>-(i) <a href="https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/index.html">Source</a></p>
+<p>-(ii) <a href="https://statsandr.com/blog/how-to-publish-shiny-app-example-with-shinyapps-io/">Source</a></p>
 </section>
 
 </main>
