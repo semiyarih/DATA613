@@ -13,7 +13,7 @@ library(ggplot2movies)
 # Basic Shiny App -----
 ui <- fluidPage(selectInput(inputId = "mpaa",
                             label = "Motion Picture Association of America:",
-                            choices = list('General Audience' = '""',
+                            choices = list('General Audience' = '',
                             Restricted = "R",
                             'Parental Guidance' = "PG",
                             'No one under 17' = "NC-17"
