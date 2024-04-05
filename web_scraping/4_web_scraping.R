@@ -79,7 +79,7 @@ page
 #__________________ 1.  NAME ________________________________________
 # First create the name- Which is the title of the movie
 
-name <- page  
+
 
 #__________________________________________
 # You need the tag for the title
@@ -99,7 +99,7 @@ name <- page
                     # the apge you see on the box on bottom it says
                     #  '.lister-item-header a.`  `clear(100)`  which indicates it has selected 100 titles
 
-#                   # The tag that we are looking for is on the first thing aat bottom of the page
+#                   # The tag that we are looking for is on the first thing at bottom of the page
 #                   # You need to copy the tag
                     #       .lister-item-header a
                     # paste it inside the html_nodes()
@@ -115,7 +115,7 @@ name
 
 name <- page %>%    
   html_elements(".lister-item-header a") %>%        
-    html_text()
+    html_text2()
 
 name
 
@@ -132,7 +132,7 @@ rate <- page %>%
 rate
 
 rate %>%       
-  html_text() ->
+  html_text2() ->
   rate
 rate
 
@@ -140,8 +140,8 @@ rate
 #
 
 year <- page %>%    
-  html_elements(".text-muted.unbold") %>%   # Clear the selection gadget now select year     
-  html_text()
+  html_elements(".text-muted.unbold") %>%   # Clear the selection gadget now select year   
+  html_text2()
 
 year  # it has three strings at the beginning so we need to remove it!
 
@@ -168,11 +168,11 @@ synopsis
 
 # Now we are going to create  the data frame
 
-movies <- tibble(name, year, rate, synopsis)
+movies <- data.frame(name, year, rate, synopsis)
 View(movies)
 head(movies)
 
-# Or atibble
+# Or a tibble
  t_movies <- tibble(name, year, rate, synopsis)
         
 View(t_movies)
@@ -208,5 +208,6 @@ head(top_movies)
 
 # Save the file
 write.csv(top_movies, "top_movies.csv")
+
 
 

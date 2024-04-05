@@ -19,22 +19,37 @@ pacman::p_load(rvest, dplyr, tidyverse, ggplot2, readr)
       # Mac: : cmd + shift + M
 
 
-# First Example -----------------------------
- ## Average sales price from CARGURUS
+
 
 link <- "https://www.cargurus.com/Cars/price-trends/"
 page <- read_html(link)
 
-table <- page %>% html_elements("table") %>% .[1]  %>% 
-  html_table(fill = TRUE) %>% .[[1]]
+# Recall from 4_web_scraping.r-------------
+# gadget selector
 
-View(table)
+cars <- page |> 
+  html_elements("._8kuES .mZMMg") |> 
+  html_text2()
+cars
+
+
+price_increase <- page |> 
+  html_elements("._8kuES .tmRG2") |> 
+  html_text2()
+
+
+car_m <- tibble(cars, price_increase)
+
+car_market <- tibble(cars, price_increase = parse_number(price_increase))
+ car_market
+
 
  ##  PROCESS IN DETAILS--------------------------------------------
+# First Example -----------------------------
+## Average sales price from CARGURUS
 
+# let us show How to find a table in a webpage.
 
-# let us How I found the table in our webpage.
-# Finding the nodes is a little 
 # The typical way is to go and find the table that you want.
 
 # Right click on it (on google chrome) and the and then a source code will be open
@@ -114,7 +129,8 @@ page %>%
 length(car_t) # Only one object
 class(car_t)  # It is a list
 
-car_t[[1]]
+car_t[[1]] |> 
+  View()
 
 # or
 
@@ -133,7 +149,9 @@ car_table[c(2,13),]
 car_table[-c(2,13),] ->
   car_table
 
-nrow(car_table)  # Number of rows reduced from 60 to 58!
+View(car_table)
+
+nrow(car_table)  # Number of rows reduced from 61 to 59!
 
 
 names(car_table)
@@ -149,11 +167,13 @@ car_table <- car_table %>%
   clean_names()   # from {janitor}
 
 names(car_table) # You can see the name has changed after using clean_names() from {janitor}
-      #YoY is stands for Year over Year percent change
+      #year_over_year is stands for Year over Year percent change
       # in the total number of auto
 
 # Still column are character, so we want to parse them.
 # We use mutate
+
+glimpse(car_table)
 
 # What is the class of avg_price
 class(car_table$avg_price)
@@ -169,7 +189,7 @@ class(car_table$avg_price)
 car_table %>% 
   mutate(last_30_days = parse_number(last_30_days),
          last_90_days = parse_number(last_90_days),
-          yo_y = parse_number(yo_y)) ->
+         year_over_year = parse_number(year_over_year)) ->
   car_table
 
 head(car_table)
@@ -200,62 +220,93 @@ coord_flip()
 # Example 2 - From WIKIPEDIA---------------------------------------------------
 # State and territory rankings
 
-
+# Step 1:
 elec_link <- "https://en.wikipedia.org/wiki/List_of_U.S._states_and_territories_by_population"
+elec_link
+
+# Read the page
 elec_page <- read_html(elec_link)
+elec_page
 
-elec_table <- elec_page %>% html_nodes("table") %>% .[1] %>%    
-  html_table(fill = TRUE) %>% .[[1]]
+# Get the tables
+ elec_page %>% html_elements("table")
+ 
+# How many tables are there?
+ elec_page %>% html_elements("table") |> 
+   length()
 
+# We are interested in the first table
+ elec_page %>% html_nodes("table") %>% .[1]
+ 
+ 
+ # Let's get the table
+ elec_page %>% html_nodes("table") %>% .[1] %>%    
+   html_table(fill = TRUE) |> 
+   View()
+ 
+ 
+ elec_page %>% html_nodes("table") %>% .[1] %>%    
+   html_table(fill = TRUE) %>% .[[1]] ->
+   elec_table
+ 
+ elec_table |> 
+   View()
+ # The name of columns and the first row both together make
+ # The actual the columns name
+ names(elec_table)
+ # First Row
+ head(elec_table, n=1)
+ 
+ # We can't directly use the clean name to change the name. Because the names and the first row contains the name.
+ elec_table %>% 
+   clean_names()
+ # Thus we have to do as follow
+ 
+ # Step 1. I put both column name and Row 1 together
+ 
+ # Let vector h contains the color names
+ names(elec_table) ->h
+ h
+ # The first row can be selected by
+ elec_table[1, ]
+ 
+ # Now bind these togther
+ names(elec_table) <- rbind(h, elec_table[1, ])
+ 
+ # Step 2. used clean_name() from {janitor} package
+ elec_table %>% 
+   clean_names() ->
+   elec_table
+ 
+ elec_table |> 
+   names()
+
+ 
+ # As you can see we have to remove c_. Use rename_all() from {dplyr}
+ 
+ elec_table <- elec_table %>% 
+   rename_all(~str_remove(., "^c_"))
+ 
+ names(elec_table)   # prefix "c_" has been removed
+ 
+ elec_table |> 
+   head()
+ 
+ # Now we have to remove the first row
+ elec_table <- elec_table[-1,]  # First row has been removed
+ 
+ head(elec_table)
+ 
+ # Some Row contains  __ instead of NA
 View(elec_table)
 
-names(elec_table) ->h
-h
-
-
-# The name of columns and the first row both together make
-# The actual the columns name
-# You can change the name of each column manually by rename()
- #   elec_table <- my_dataframe %>% 
-   # rename("New_name" = "OLD_Name")
-      # Then remove row 1.
-#____ #____ #____ #____ #____ 
-# Or we can use the function clean_name() from {janitor}
-
-# Step 1. I put both column name and Row 1 together
-names(elec_table) <- rbind(h, elec_table[1, ])
-
-# Step 2. used claen_name() from {janitor} package
-elec_table %>% 
-  clean_names() ->
-  elec_table
-
-names(elec_table) # If you look at this name you see the 
-                      # prefix "c_" must be removed
-
-elec_table <- elec_table %>% 
-  rename_all(~str_remove(., "^c_"))
-
-names(elec_table)   # prefix "c_" has been removed
-
-View(elec_table)  # The first row is not a clean row and must be removed!
-
-# Now we need to remove row 1
-elec_table <- elec_table[-1,]  # First row has been removed
-
-head(elec_table)
-
 # Now we need to replace __ with NA
-slice(elec_table, 57)
 elec_table %>% mutate_all(~na_if(., "—")) ->
-  elec_table
-slice(elec_table, 57)
+  elec_table 
 
 # The next step is to fix the class of all columns
-# All columns must be numeric except the third on which should stay as character.
-names(elec_table)
-
-
+# All columns must be numeric except the first on which should stay as character.
+View(elec_table)
 
 elec_table %>%
   mutate_if(!names(.) %in% "state_or_territory_state_or_territory", parse_number) ->
@@ -263,20 +314,23 @@ elec_table %>%
 head(elec_table_2)    # Then it will be parse to number 
 
 
-# There are two columns that their name needs to be replaced
+# There are few columns that their name needs to be replaced
 names(elec_table_2)
+
+
 
 elec_table_2 %>% 
   rename("state_or_territory" = "state_or_territory_state_or_territory",
          "pop_perseat_2020_a" = "pop_perseat_2020_a_pop_perseat_2020_a",
          "percent_ec_2020" = "percent_ec_2020_percent_ec_2020",
-         "pop_perelec_vote_2020" = "pop_perelec_vote_2020_c_pop_perelec_vote_2020_c", 
+         "pop_perelec_vote_2020_c" = "pop_perelec_vote_2020_c_pop_perelec_vote_2020_c", 
          "percent_us_2020"  = "percent_us_2020_percent_us_2020"  
-         ) ->
+  ) ->
   elec_table
 
- View(elec_table)
+names(elec_table)
 
+View(elec_table)
 
 
 ## Example 2 (revisited) - From WIKIPEDIA ------------------------------------------------
@@ -326,63 +380,4 @@ View(elec_table_alt)
 
 
 
-
-
-
-# Example 3 - From WIKIPEDIA ------------------------------------------------
-# Electoral Collage
- ## By number of table -------------
-
-wiki_link <- "https://en.wikipedia.org/wiki/United_States_Electoral_College"
-wiki_page <- read_html(wiki_link)
-
-wiki_table <- wiki_page %>% html_elements("table")%>% .[4] %>%    
-  html_table(fill = TRUE) %>% .[[1]]
-
-View(wiki_table)
-
-
-#______________________________________________________________
-## By XPath -------------
-
-wiki_link <- "https://en.wikipedia.org/wiki/United_States_Electoral_College"
-wiki_page <- read_html(wiki_link)
-
-wiki_t <- wiki_page %>% html_elements(xpath='//*[@id="content-collapsible-block-3"]/table[4]') %>%    
-  html_table(fill = TRUE) %>% .[[1]]
-
-
-View(wiki_t)
-
- # Xpath doesn't work here
-
-
-
-#______________________________________________________________
-## By number class -------------
-#######    Finding Table by CLASS--- CLASS is not unique, a few table may have the same CLASS
-wiki_link <- "https://en.wikipedia.org/wiki/United_States_Electoral_College"
-wiki_page <- read_html(wiki_link)
-
-wiki_table_alt <- wiki_page %>% html_elements('.wikitable')   # The dot . tells R that it is a class!
-                                                          #The <table class="wikitable'>
-                                                          # provide you with the class of the table.
-# There are more table available ours is the first one in this page. But You should View it to make sure
-  
-  
-wiki_table_alt <- wiki_table_alt %>%
-                                                              
-  html_table(fill = TRUE)%>% .[[1]]  # .[[1]]  tells get the first object in the list
-
-View(wiki_table_alt)
-
-
-#####   ALL in One Step
-wiki_link <- "https://en.wikipedia.org/wiki/United_States_Electoral_College"
-wiki_page <- read_html(wiki_link)
-
-wiki_table_alt <- wiki_page %>% html_elements('.wikitable') %>%
-    html_table()%>% .[[1]]  
-
-View(wiki_table_alt)
 
