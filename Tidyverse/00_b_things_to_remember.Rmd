@@ -1,0 +1,2800 @@
+---
+title: "DATA-413/613"
+subtitle: "Things to Remember II"
+author: "Hamid Semiyari"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 4
+    number_sections: true
+    theme: cerulean
+urlcolor: "blue"
+linkcolor: "green"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo       = TRUE, 
+                      fig.height = 3, 
+                      fig.width  = 6,
+                      fig.align  = "center")
+ggplot2::theme_set(ggplot2::theme_bw())
+```
+
+```{r}
+##### klippy is not available from CRAN, but you can install 
+##### the development version from GitHub with:
+
+# install.packages("remotes")
+remotes::install_github("rlesur/klippy")
+```
+
+
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy()
+```
+
+```{r, echo=FALSE, results='hide'}
+library(tidyverse)
+```
+
+
+# Functions
+
+- When to write a function and why to write a function
+- Steps to creating a function:
+    1. figure out the logic in a simple case
+    2. name it something meaningful - usually a verb
+    3. list the inputs inside function(x,y,z)
+    4. place code for function in a {} block 
+    5. test your function with some different inputs
+    6. add error-checking of inputs
+    
+- Coding standards
+    1. Save as text file
+    2. Indent code
+    3. Limit width of code (80 columns?)
+    4. Limit the length of individual functions
+    5. Frequent comments
+    
+
+- Do's and do not's of function naming:
+    1. pick either snake_case or camelCase but don't use both
+    2. meaningful names (preferably verbs)
+    3. for a family of functions, start with the same word
+    4. try not to overwrite common functions or variables
+    5. use lots of comments in your code, particularly to explain the "why"
+      of your code or to break up your code into sections using something 
+      like `
+- **Exercise**: Write `both_na()`, a function that takes two vectors of the 
+  same length and returns the number of positions that have an `NA` in both 
+  vectors. Include documentation. Useful functions: `is.na()`, `sum()`, 
+  logical operators.
+  
+  
+    ```{r}
+    # Returns number of positions that have an NA in both positions of two vectors.
+    #
+    # x: A vector the same length as y
+    # y: A vector the same length as x
+    #
+    # returns: The number of positions that have an NA in both x and y
+    both_na <- function(x, y) {
+      stopifnot(length(x) == length(y))
+      return(sum(is.na(x) & is.na(y)))
+    }
+    both_na(c(1, NA, 2), c(NA, NA, 2))
+    both_na(c(NA, NA, 2), c(NA, NA, 2))
+    both_na(c(NA, NA, NA), c(NA, NA, 2))
+    ```
+ 
+ 
+ 
+```{r}
+na_both <- function(x, y){
+  if (length(x) == length(y)){
+    na <- sum(is.na(x) & is.na(y))
+  } else {
+    na <- "No match"
+  }
+  na
+}
+    na_both(c(1, NA, 2), c(NA, NA, 2))
+    na_both(c(NA, NA, 2), c(NA, NA, 2))
+    na_both(c(NA, NA, NA), c(NA, NA, 2))
+    na_both(c(NA, NA, NA), c(NA, NA, 2, 1))
+```
+ 
+ 
+# Conditional Execution
+
+- Conditional if-then statements are useful to evaluate code only if certain
+  conditions are met. The syntax is:
+
+```{r condition, eval=FALSE}
+    if (condition) {
+      # code executed when condition is TRUE
+    } else {
+      # code executed when condition is FALSE
+    }
+```
+    
+        
+```{r condition2}
+    # input: x a numeric
+    # output: TRUE if x > 0, FALSE if x <= 0
+    is_positive <- function(x) {
+      if (x > 0) {
+        pos_logic <- TRUE
+      } else {
+        pos_logic <- FALSE
+      }
+      return(pos_logic)
+    }
+    
+    is_positive(10)
+    is_positive(-1)
+    is_positive(0.1)
+``` 
+ 
+- **Exercise**: Implement a `fizzbuzz()` function. It takes a single number as 
+input. If the number is divisible by three, it returns `"fizz"`. If it's 
+divisible by five it returns `"buzz"`. If it's divisible by three and five, 
+it returns `"fizzbuzz"`. Otherwise, it returns the number. Make sure you 
+first write working code before you create the function.
+
+```{r}
+    fizzbuzz <- function(x) {
+      is3 <- x %% 3 == 0
+      is5 <- x %% 5 == 0
+      if (is3 && is5) {
+        return("fizzbuzz")
+      } else if (is3) {
+        return("fizz")
+      } else if (is5) {
+        return("buzz")
+      } else {
+        return(x)
+      }
+    }
+    
+    fizzbuzz(3)
+    fizzbuzz(5)
+    fizzbuzz(15)
+    fizzbuzz(2)
+```
+ 
+ 
+ 
+```{r}
+output <- 0
+fzbz <- function(x){
+  x <- x[!is.na(x)]
+  if (length(x) <=1){
+    x <-c(x)
+  } else {x <- x}
+  for (i in 1:length(x)){
+    
+  if (x[i]%%3==0 & x[i]%%5==0) {
+    output[i] <- "fizzbuzz"
+  } else if (x[i]%%3 == 0) { 
+    output[i] <- "fizz"
+  } else if (x[i]%%5 ==0) { 
+    output[i] <- "buzz"
+  } else {
+       output[i] <- x[i]
+      }
+}
+output
+}
+fzbz(15)
+fzbz(3)
+fzbz(5)
+fzbz(c(15, 3, 2, NA))
+```
+ 
+ 
+ 
+# Visualization
+ 
+- A **grammar of graphics** is a grammar used to describe and create a wide range
+of statistical graphics.
+
+- **Aesthetic** means “something you can see”. The aesthetic attributes consists of color,
+size, and shape. Aesthetic mappings describe how variables in the data are
+mapped to visual properties (aesthetics) of geoms (geometric of objects). In
+summary, The ggplot2 helps you to display your data in R. A geom defines the
+layout of a ggplot2 layer. So, a geoms help you to create histogram, bar charts,
+or any other plots.
+ 
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = class)) + 
+  geom_smooth(data = filter(mpg, class == "subcompact"),
+              se = FALSE)
+```
+
+- FACET a Single Variable\
+Please note the ~ before the name of variable in the first argument of `facet_wrap(,)` Also the variable must be discrete (or categorical)
+
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+# A categorical variable (class)
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+             facet_wrap(~ class, ncol=2 )
+```
+
+
+```{r}
+# A Discrete variable (cty)
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_wrap(~ cty, nrow = 5) 
+```
+
+- FACET on the combination of two variables\
+
+ Please note the ~ between the name of variables in the argument of `facet_grid(,)`
+
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(drv ~ cyl)
+```
+
+- When using `facet_grid()` you should usually put the # variable with more unique levels in the columns. why?
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_grid(trans ~ drv)  
+
+# See the difference
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_grid(drv ~ trans)  
+```
+
+
+## WE CAN HAVE ALL IN ONE CODE\
+ You need to install and load `cowplot` package
+ 
+```{r, echo=FALSE, results='hide'}
+library(cowplot)
+```
+ 
+```{r}
+p1 <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point() +
+  geom_smooth(se = FALSE)
+p2 <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point() +
+  geom_smooth(mapping = aes(group = drv), se = FALSE)
+p3 <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy,
+                                       color=drv)) + 
+  geom_point() +
+  geom_smooth(se = FALSE)
+p4 <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color=drv)) +
+  geom_smooth(se = FALSE)
+p5 <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color=drv)) +
+  geom_smooth(se = FALSE, mapping = aes(linetype = drv))
+p6 <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color=drv)) 
+theme_set(theme_gray())
+plot_grid(p1, p2, p3, p4, p5, p6,
+          labels=c("1","2","3", "4","5","6"), ncol=2,
+          nrow = 3)
+```
+
+
+
+# Tidy Data and Tidying Data
+
+- What is tidy data?\
+      Organizing your data in R. Once you have tidy data (it requires upfront work, but that work pays off in long term).  and the tidy tools provided by packages in the `tidyverse`, you will spend less time munging data (preparing your data for a dedicated purpose) from one representation to another, allowing you to spend more time on the analytic questions at hand.
+      
+- Learn to make your data tidy with `gather()`, `spread()`, `separate()`, and `pivot_longer()`, `pivot_wider`. The last two was new and they have been introduced toimprove visibility of `gather()` and `spread()`.
+
+- **Tidy Data** \
+
+- Recall:
+    - Observations/units/subjects/individuals/cases:
+      objects described by a set of data (e.g. cars, people, countries).
+    - Variable: describes some characteristic of the units (e.g. mpg, age, GDP).
+    - Each unit has a single value of each variable (e.g. 20 mpg, 31 years old, 
+      $20,513,000 US$million).
+
+- Tidy Data:
+    - One unit per row. 
+    - One variable per column.
+    - One value per cell.
+    
+- Hadley's visualization:
+
+   ![](./image/tidy-1.png)\ 
+
+    
+- We will use the tidyr package (a member of the tidyverse) to make data
+  tidy.
+
+- Example of tidy data:
+
+    ```{r}
+    tidyr::table1
+    ```
+    - Variables: Country, Year, Cases, Population
+    - Units: location$\times$time
+
+- Untidy data: Each unit is spread across multiple rows
+
+```{r}
+    print(tidyr::table2, n = 12)
+```
+    
+- Untidy data: Two variables are in one column
+
+```{r}
+    tidyr::table3
+```
+    
+- Untidy data: Data are spread across two data frames. Within each data frame,
+  multiple units are in one row.
+
+```{r}
+    tidyr::table4a
+    tidyr::table4b
+```
+    
+- Sometimes it is easy to determine the units and the variables.
+
+- Sometimes it is very hard and you need to talk to the data collectors to 
+  find out.
+  
+- We want tidy data because R easily manipulates vectors. So in the long run 
+  it will make your life easier to first make data tidy.
+
+## `pivot_longer()` and `gather()`
+
+* An updated approach to `gather()` is `pivot_longer()`. It "lengthens" data, increasing the number of rows and decreasing the number of columns. The inverse transformation is `pivot_wider()`    
+
+
+- Problem: One variable spread across multiple columns.
+
+- Column names are actually *values* of a variable
+
+- `table4a` and `table4b`
+
+- Solution: `gather()`
+
+- Hadley's visualization:
+
+  ![](./image/tidy-9.png)\ 
+
+- Specify
+    i. The columns that are values, not variables,
+    ii. The name of the variable that will take the values of the column names 
+        (`key`), and
+    iii. The name of the variable that will take the values spread in the cells 
+
+```{r}
+table4b
+```
+
+        
+  
+```{r}
+    tidyr::table4a %>%
+      gather(`1999`, `2000`, key = "Year", value = "cases") ->
+      tidy4a1
+    tidy4a1
+```
+
+    
+```{r}
+    tidyr::table4b %>%
+      gather(`1999`, `2000`, key = "Year", value = "population") ->
+      tidy4b1
+    tidy4b1
+```
+ 
+```{r}
+    tidyr::table4a %>%
+      pivot_longer(`1999`: `2000`, names_to  = "Year", values_to = "cases") 
+```
+ 
+    
+```{r}
+    tidyr::table4a %>%
+      pivot_longer(!country, names_to  = "Year", values_to = "cases") ->
+      tidy4a2
+    tidy4a2
+```
+
+    
+```{r}
+    tidyr::table4b %>%
+      pivot_longer(c(`1999`,`2000`), names_to = "Year", values_to = "population") ->
+      tidy4b2
+    tidy4b2
+```
+
+
+- We will learn next class how to join these two data frames next week. But
+  the code is
+  
+```{r}
+    full_join(tidy4a2, tidy4b2)
+```
+```{r}
+left_join(tidy4a2, tidy4b2)
+```
+  
+
+## `pivot_wider()` and `spread()`
+`pivot_wider()` is an updated approach to `spread()`. It  "widens" data, increasing the number of columns and decreasing the number of rows. The inverse transformation is `pivot_longer()`
+
+
+
+- Problem: One observation is spread across multiple rows.
+
+- One column contains variable names. One column contains values for the 
+  different variables.
+
+- `table2`
+
+- Solution: `spread()`
+
+- Hadley's visualization:
+
+  ![](./image/tidy-8.png)\
+
+- Specify:
+    i. The column that contains the column names (`key`), and 
+    ii. The column that contains the values (`value`).
+    
+    
+```{r}
+tidyr::table2
+```
+
+
+```{r}
+    table2 %>%
+      spread(key = "type", value = "count")
+```
+We get a column for each values of type!\
+
+
+What will happen if I switch type and count?
+
+```{r, eval = FALSE, echo = FALSE}
+        table2 %>%
+      spread(key = "count", value = "type")
+```
+
+
+
+```{r}
+    table2 %>%
+      pivot_wider(names_from = "type", values_from = "count")
+```
+
+
+## `separate()`
+
+- Problem: One column contains two (or more) variables.
+
+- `table3`
+
+- Solution: `separate()`
+
+```{r}
+head(table3)
+```
+
+
+- Hadley's visualization:
+
+  ![](./image/tidy-17.png)\
+    
+- Specify:
+    i. The column that contains two (or more) variables,
+    ii. A character vector of the new names of the variables, and
+    iii. The character that separates variables (or the position that
+         separates variables).
+         
+```{r}
+    table3 %>%
+      separate(rate, into = c("cases", "population"), sep = "/")
+```
+
+
+
+
+## `unite()`
+
+- Problem: One variable spread across multiple columns.
+
+- Solution: `unite()`
+
+- Hadley's visualization:
+
+  ![](./image/tidy-18.png)\
+    
+- Much less common problem.
+
+```{r}
+    table5
+```
+
+- Specify:
+    i. The name of the new column (`col`),
+    ii. The columns to unite, and
+    iii. The separator of the variables in the new column (`sep`).
+
+```{r}
+    table5 %>%
+      unite(century, year, col = "Year", sep = "") 
+```
+
+
+```{r}
+    table5 %>%
+      unite(century, year, col = "Year", sep = "") %>%
+  mutate(Year = parse_number(Year))
+```
+
+
+
+
+
+
+
+
+# DPLYR
+To explore the basic data manipulation verbs of dplyr, we’ll use `nycflights13::flights`.
+```{r, echo=FALSE, results='hide'}
+library(nycflights13)
+```
+ 
+* **Question: Sometimes, when I load a new package, I get conflict message. What should I do in this case?**\
+
+The conflict message says, your installed package overwrites some function in
+the base.
+For instance `dplyr` overwrites some function in base R. such as `filter()`.\
+
+* **Question: So, what to do in this case?**
+If you would like to use filter function in base R. You need to use its full name
+
+  - `package::function`
+  - `stats::filter()`
+
+
+We need to remember the five key dplyr functions that allow
+you to solve the vast majority of your data manipulation challenges:
+## `filter()`
+  - `filter()`: Pick observations by their values\
+  This will select every row where month is one of the values 11 or 12.
+```{r}
+nov_dec <- filter(flights, month %in% c(11, 12))
+nov_dec
+```
+  
+If you wanted to find flights that weren’t delayed (on arrival or departure)
+by more than two hours, you could use either of the following two filters:
+```{r}
+filter(flights, !(arr_delay > 120 | dep_delay > 120))
+filter(flights, arr_delay <= 120, dep_delay <= 120)
+```
+**A useful short-hand**\
+The following expression\
+`x %in% y`\
+This will select every row where x is one of the values in y
+`month %in% c(11,12)`\
+This will select every row where month is one of the values 11 or 12.
+```{r}
+nov_dec <- filter(flights, month %in% c(11, 12))
+```
+
+**`filter()` only includes rows where the condition is TRUE;** it excludes both
+`FALSE` and `NA` values. If you want to preserve missing values, ask for them
+explicitly:
+
+```{r}
+df <- tibble(x = c(1, NA, 3))
+df
+filter(df, x > 1)
+```
+
+```{r}
+filter(df, is.na(x) | x > 1)
+```
+
+## `arrange()`
+  - `arrange()`: Reorder the rows\
+The `arrange()`, changes rows order. If you provide more than one column name,
+each additional column will be used to break ties in the values of preceding columns
+```{r}
+arrange(flights, year, month, day)
+```
+Use `desc()` to re-order by a column in descending order:
+```{r}
+arrange(flights, desc(dep_delay))
+```
+**Question: How missing values take care by arrange()?**\
+Missing values are always sorted at the end:
+```{r}
+df <- tibble(x = c(5, 2, NA))
+arrange(df, x) 
+```
+
+```{r}
+arrange(df, desc(x))
+```
+
+## `select()`
+  - `select()`: Pick variables by their names\
+It’s not uncommon to get datasets with hundreds or even thousands of variables.
+In this case, the first challenge is often narrowing in on the variables you’re
+actually interested in.
+
+```{r}
+str(flights)
+```
+
+
+```{r}
+select(flights, year, month, day)
+```
+
+```{r}
+# Select all columns between year and day (inclusive)
+select(flights, year:day)
+```
+
+```{r}
+# Select all columns except those from year to day (inclusive)
+select(flights, -(year:day))
+```
+ There are a number of helper functions you can use within `select()`\
+  1. `starts_with(”abc”)`: matches names that begin with “abc”.\
+  2. `ends_with(”xyz”)`: matches names that end with “xyz”.\
+  3. `contains(”ijk”)`: matches names that contain “ijk”.\
+  4. `matches()`: selects variables that match a regular expression. We learned more about
+regular expressions in strings.\
+  5. `num range(”x”, 1:3)`: matches x1, x2 and x3.\
+`select()` can be used to rename variables, but it’s rarely useful because it drops
+all of the variables not explicitly mentioned. Instead, use `rename()`, which is a
+variant of select() that keeps all the variables that aren’t explicitly mentioned
+
+```{r}
+select(flights, tail_num = tailnum)
+```
+
+```{r}
+rename(flights, tail_num = tailnum)
+```
+Another option is to use `select()` in conjunction with the `everything()` helper.
+This is useful if you have a handful of variables you’d like to move to the start
+of the data frame.
+
+```{r}
+select(flights, time_hour, air_time, everything())
+```
+
+
+## `mutate()`
+
+  - `mutate()`: Create new variables with functions of existing variables\
+Besides selecting sets of existing columns, it’s often useful to add new columns
+that are functions of existing columns. That’s the job of `mutate()`.\
+`mutate()` always adds new columns at the end of your dataset.
+
+
+```{r}
+flights_sml <- select(flights,
+year:day,
+ends_with("delay"),
+distance,
+air_time
+)
+flights_sml
+```
+
+```{r}
+flights_sml %>%
+mutate(gain = dep_delay - arr_delay,
+speed = distance / air_time * 60
+)
+```
+
+Note that you can refer to columns that you’ve just created:
+
+```{r}
+mutate(flights_sml,
+gain = dep_delay - arr_delay,
+hours = air_time / 60,
+gain_per_hour = gain / hours
+)
+```
+
+If you only want to keep the new variables, use transmute():
+
+```{r}
+transmute(flights,
+gain = dep_delay - arr_delay,
+hours = air_time / 60,
+gain_per_hour = gain / hours
+)
+```
+There are many functions for creating new variables that you can use with
+`mutate()`. The key property is that the function must be vectorised: it
+must take a vector of values as input, return a vector with the same
+number of values as output. There’s no way to list every possible function
+that you might use, but here’s a selection of functions that are frequently useful:
+
+1. Arithmetic operators: +, −, ∗, /, ˆ.\
+These are all vectorised, using the so called “recycling rules”. If one
+parameter is shorter than the other, it will be automatically extended
+to be the same length.\
+
+2. Modular arithmetic: %/% (integer division) and %% (remainder), where
+x == y * (x %/% y) + (x %% y). Modular arithmetic is a handy tool
+because it allows you to break integers up into pieces. For example, in the
+flights dataset, you can compute hour and minute from dep time with:
+
+
+```{r}
+transmute(flights,
+dep_time,
+hour = dep_time %/% 100,
+minute = dep_time %% 100
+)
+
+```
+
+3. Logs: `log()`, `log2()`, `log10()`. Logarithms are an incredibly useful transformation for dealing with data that ranges across multiple orders of magnitude.\
+It is recommended to use `log2()` when everything else is equal and you are
+not sure which “Log“ to pick. Because it’s easy to interpret.
+
+4. Offsets: `lead()` and `lag()` allow you to refer to leading or lagging values.
+This allows you to compute running differences (e.g. x - lag(x)) or find
+when values change (x != lag(x)). They are most useful in conjunction
+with `group by()`.
+
+```{r}
+x <- 1:10
+x
+lag(x) # lag function shifted our vector one element to the left side.
+# It remove the last value and add NA at the beginning!
+lead(x) # lead function shifted our vector one element to the right side.
+# It remove the first value and add NA at the end!
+
+```
+
+5. Cumulative and rolling aggregates: R provides functions for running sums,
+products, mins and maxes: `cumsum()`, `cumprod()`, `cummin()`, `cummax()`;
+and `dplyr` provides `cummean()` for cumulative means.
+
+
+```{r}
+x <- 1:10
+cumsum(x) # Cumulative sum
+
+cummean(x) # It will find mean 1/1, (1+2)/2, (1+2+3)/3, (1+2+3+4)/4, ...
+
+```
+
+6. Logical comparisons, <, <=, >, >=, ! =, and ==, which you learned
+about earlier.
+
+7. Ranking: there are a number of ranking functions, but you should start
+with `min_rank()`. It does the most usual type of ranking (e.g. 1st, 2nd,
+2nd, 4th). The default gives smallest values the small ranks; use desc(x)
+to give the largest values the smallest ranks.
+```{r}
+y <- c(1, 2, 2, NA, 3, 4)
+min_rank(y) # assigned the minimum ranking possible
+# five numbers so it goes from 1 to 5.
+
+
+min_rank(desc(y))
+#It gives the largest values the smallest ranks
+```
+
+If `min_rank()` doesn’t do what you need, look at the variants `row_number()`,
+`dense_rank()`, `percent_rank()`,`cume_dist()`, `ntile()`.
+
+```{r}
+y <- c(1, 2, 2, NA, 3, 4)
+y
+row_number(y) # It assigns a unique number to each row to which it is applied
+# The forth entry in the row is NA so it does not assign a number to it.
+
+dense_rank(y) # computes the rank of a row in an ordered group of rows and return the rank as a NUMBER
+
+percent_rank(y) # y has 5 number, so what is the proportion of numbers less than 1? It is zero (0/(5-1).
+# proportion of number less than 2? is 1/(5-1) =0.25
+# proportion less than 3? There are 1, 2, 2, thus it is 3/(5-1) = 0.75,
+# and the last one is 4/ (5-1) =1
+
+cume_dist(y) # calculates the cumulative distribution of a value in a group of values
+ # 1/5, 3/5, 3/5, NA, 4/5, 5/5  >>>>>  0.2 0.6 0.6  NA 0.8 1.0
+
+```
+
+## `summarise()`
+
+  - `summarise()`: Collapse many values down to a single summary\
+
+```{r}
+summarise(flights, delay = mean(dep_delay, na.rm = TRUE))
+```
+`summarise()` is not useful unless we pair it with `group_by()`.\
+For example, if we applied exactly the same code to a data frame grouped by date, we get the average delay per date:
+```{r}
+by_day <- group_by(flights, year, month, day)
+by_day
+```
+
+```{r}
+summarise(by_day, delay = mean(dep_delay, na.rm = TRUE))
+```
+
+Together `group_by()` and `summarise()` provide one of the tools that you’ll use most commonly when working with `dplyr`: grouped summaries.
+
+
+```{r}
+delays <- flights %>% 
+  group_by(dest) %>% 
+  summarise(
+    count = n(),
+    dist = mean(distance, na.rm = TRUE),
+    delay = mean(arr_delay, na.rm = TRUE)
+  ) %>% 
+  filter(count > 20, dest != "HNL")
+
+delays
+```
+
+```{r}
+delays %>%
+  filter(dest == "ABQ")
+```
+
+
+
+You may have wondered about the `na.rm` argument we used above. What happens if we don’t set it?
+
+
+```{r}
+flights %>% 
+  group_by(year, month, day) %>% 
+  summarise(mean = mean(dep_delay))
+```
+
+ if there’s any missing value in the input, the output will be a missing value. Fortunately, all aggregation functions have an na.rm argument which removes the missing values prior to computation:
+
+```{r}
+flights %>% 
+  group_by(year, month, day) %>% 
+  summarise(mean = mean(dep_delay, na.rm = TRUE))
+```
+
+In this case, where missing values represent cancelled flights, we could also tackle the problem by first removing the cancelled flights.
+```{r}
+not_cancelled <- flights %>% 
+  filter(!is.na(dep_delay), !is.na(arr_delay))
+
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarise(mean = mean(dep_delay))
+```
+
+
+### COUNTS
+
+**Aggregate functions** in R splits the data into subsets, computes summary statistics for each subsets and returns the result in a group by form.\
+
+Whenever you do any aggregation, it’s always a good idea to include either a count (n()), or a count of non-missing values (sum(!is.na(x))). That way you can check that you’re not drawing conclusions based on very small amounts of data. For example, let’s look at the planes (identified by their tail number) that have the highest average delays:
+
+```{r}
+delays <- not_cancelled %>% 
+  group_by(tailnum) %>% 
+  summarise(
+    delay = mean(arr_delay)
+  )
+
+delays
+```
+
+```{r}
+ggplot(data = delays, mapping = aes(x = delay)) + 
+  geom_freqpoly(binwidth = 10)
+```
+
+
+there are some planes that have an average delay of 5 hours (300 minutes)!\
+We can get more insight if we draw a scatterplot of number of flights vs. average delay:
+```{r}
+delays <- not_cancelled %>% 
+  group_by(tailnum) %>% 
+  summarise(
+    delay = mean(arr_delay, na.rm = TRUE),
+    n = n()
+  )
+delays
+
+```
+
+
+```{r}
+ggplot(data = delays, mapping = aes(x = n, y = delay)) + 
+  geom_point(alpha = 1/10)
+```
+
+Not surprisingly, there is much greater variation in the average delay when there are few flights. The shape of this plot is very characteristic: whenever you plot a mean (or other summary) vs. group size, you’ll see that the variation decreases as the sample size increases.
+
+
+### Usefule functions
+Just using means, counts, and sum can get you a long way, but R provides many other useful summary functions:\
+
+1. Measures of location: we’ve used `mean(x)`, but `median(x)` is also useful.\
+```{r}
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarise(
+    avg_delay1 = mean(arr_delay),
+    avg_delay2 = mean(arr_delay[arr_delay > 0]) # the average positive delay
+  )
+```
+
+2. Measures of spread: `sd(x)`, `IQR(x)`, `mad(x)`. The root mean squared deviation, or standard deviation `sd(x)`, is the standard measure of spread. The interquartile range `IQR(x)` and median absolute deviation `mad(x)` are robust equivalents that may be more useful if you have outliers.
+
+```{r}
+# Why is distance to some destinations more variable than to others?
+not_cancelled %>% 
+  group_by(dest) %>% 
+  summarise(distance_sd = sd(distance)) %>% 
+  arrange(desc(distance_sd))
+```
+
+3. Measures of rank: `min(x)`, `quantile(x, 0.25)`, `max(x)`. Quantiles are a generalisation of the median. For example, `quantile(x, 0.25)` will find a value of x that is greater than 25% of the values, and less than the remaining 75%.
+
+```{r}
+x <- c(1, 2, 12 ,22, 25, 35, 40 )  # 25%--> (2 +12)/2 -- 2, 50% --22, -- 75%--> (25 +35)/2
+x
+quantile(x, 0.25)
+quantile(x)
+
+```
+
+
+```{r}
+# When do the first and last flights leave each day?
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarise(
+    first = min(dep_time),
+    last = max(dep_time)
+  )
+```
+
+4. Measures of position: `first(x)`, `nth(x, 2)`, `last(x)`. These work similarly to `x[1]`, `x[2]`, and `x[length(x)]` but let you set a default value if that position does not exist (i.e. you’re trying to get the 3rd element from a group that only has two elements). For example, we can find the first and last departure for each day:
+
+```{r}
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarise(
+    first_dep = first(dep_time), 
+    last_dep = last(dep_time)
+  )
+```
+
+
+These functions are complementary to filtering on ranks. Filtering gives you all variables, with each observation in a separate row:
+
+```{r}
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  mutate(r = min_rank(desc(dep_time))) %>% 
+  filter(r %in% range(r))
+```
+
+
+5. Counts: You’ve seen `n()`, which takes no arguments, and returns the size of the current group. To count the number of non-missing values, use `sum(!is.na(x))`. To count the number of distinct (unique) values, use `n_distinct(x)`.
+
+
+```{r}
+# Which destinations have the most carriers?
+not_cancelled %>% 
+  group_by(dest) %>% 
+  summarise(carriers = n_distinct(carrier)) %>% 
+  arrange(desc(carriers))
+```
+Counts are so useful that `dplyr` provides a simple helper if all you want is a count:
+
+```{r}
+not_cancelled %>% 
+  count(dest)
+```
+
+You can optionally provide a weight variable. For example, you could use this to “count” (sum) the total number of miles a plane flew:
+```{r}
+not_cancelled %>% 
+  count(tailnum, wt = distance)
+```
+
+6. Counts and proportions of logical values: `sum(x > 10)`, `mean(y == 0)`. When used with numeric functions, TRUE is converted to 1 and FALSE to 0. This makes `sum()` and `mean()` very useful: `sum(x)` gives the number of TRUEs in x, and `mean(x)` gives the proportion.
+
+```{r}
+# How many flights left before 5am? (these usually indicate delayed
+# flights from the previous day)
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarise(n_early = sum(dep_time < 500))
+```
+
+```{r}
+# What proportion of flights are delayed by more than an hour?
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarise(hour_prop = mean(arr_delay > 60))
+```
+
+### Grouping by multiple variables
+
+When you group by multiple variables, each summary peels off one level of the grouping. That makes it easy to progressively roll up a dataset:
+
+
+```{r}
+daily <- group_by(flights, year, month, day)
+(per_day   <- summarise(daily, flights = n()))
+```
+
+```{r}
+(per_month <- summarise(per_day, flights = sum(flights)))
+
+(per_year  <- summarise(per_month, flights = sum(flights)))
+```
+
+### Ungrouping
+
+If you need to remove grouping, and return to operations on ungrouped data, use ungroup().
+
+```{r}
+daily %>% 
+  ungroup() %>%             # no longer grouped by date
+  summarise(flights = n())  # all flights
+```
+
+
+```{r}
+# What heppen we don't ungroup?
+daily %>% 
+  summarise(flights = n())  # all flights
+```
+
+### Grouped mutates (and filters)
+
+Grouping is most useful in conjunction with `summarise()`, but you can also do convenient operations with `mutate()` and `filter()`:
+
+- Find the worst members of each group:
+
+```{r}
+flights_sml %>% 
+  group_by(year, month, day) %>%
+  filter(rank(desc(arr_delay)) < 10)
+```
+
+- Find all groups bigger than a threshold:
+
+```{r}
+popular_dests <- flights %>% 
+  group_by(dest) %>% 
+  filter(n() > 365)
+popular_dests
+```
+
+- Standardise to compute per group metrics:
+
+```{r}
+popular_dests %>% 
+  filter(arr_delay > 0) %>% 
+  mutate(prop_delay = arr_delay / sum(arr_delay)) %>% 
+  select(year:day, dest, arr_delay, prop_delay)
+```
+
+A grouped filter is a grouped mutate followed by an ungrouped filter. I generally avoid them except for quick and dirty manipulations: otherwise it’s hard to check that you’ve done the manipulation correctly.
+
+Functions that work most naturally in grouped mutates and filters are known as window functions (vs. the summary functions used for summaries). You can learn more about useful window functions in the corresponding vignette: `vignette("window-functions")`.
+
+  -A **vignette** is a long-form guide to your package. Function documentation is great if you know the name of the function you need, but it’s useless otherwise. A vignette is like a book chapter or an academic paper: it can describe the problem that your package is designed to solve, and then show the reader how to solve it.
+
+
+
+# Recoding
+
+```{r, results='hide'}
+estate <- read_csv(file = "https://dcgerard.github.io/stat_412_612/data/estate.csv")
+```
+
+* `recode()`:
+
+  + Takes a vector as its ﬁrst argument.\
+  + Each subsequent argument contains two values separated by an
+ equals sign.\
+  + The value on the left of the equals sign is the current value
+ inside the vector.\
+  + The value on the right of the equals sign is the new value for
+ the vector.\
+  + If the current value inside the vector is a numeric, then you
+ need to surround its value by backticks.\
+  + It returns a vector with replaced values.
+
+
+* estate contains the following variables:
+
+  + `Price`: Sales price of residence (in dollars)\
+  + `Area`: Finished area of residence (in square feet)\
+  + `Bed`: Total number of bedrooms in residence\
+  + `Bath`: Total number of bathrooms in residence\
+  + `AC`: 1 = presence of air conditioning, 0 = absence of air
+ conditioning\
+  + `Garage`: Number of cars that a garage will hold\
+  + `Pool`: 1 = presence of a pool, 0 = absence of a pool\
+  + `Year`: Year property was originally constructed\
+  + `Quality`: Index for quality of construction. High, Medium, or
+ Low.\
+  + `Style`: Categorical variable indicating architectural
+ style\
+  + `Lot`: Lot size (in square feet)\
+  + Highway`: 1 = highway adjacent, 0 = highway not adjacent.\\
+
+* It would be better if we could change the 0/1 coding for AC, Pool,
+ and Highway to something more informative. That way we won't have to always look up the coding during our analysis.\\
+
+* Let's use `recode()` in to change the Quality values in the estate
+ data frame.
+ 
+ **Recall: we need to use `mutate()` to modify a variable in a data frame.**
+ **Note: `estate` is a dataframe not a vector.**
+
+```{r, error=TRUE}
+estate %>% 
+  recode(Quality, 
+         High = "Palace",
+         Medium = "Home",
+         Low = "Slum") ->
+  estate_n
+glimpse(estate_n)
+```
+
+
+```{r}
+estate %>%
+  mutate(Quality = recode(Quality,
+                          High = "Palace",
+                          Medium = "Home",
+                          Low = "Slum")) ->
+  estate_1
+glimpse(estate_1)
+
+```
+
+* Let's modify `AC`. We'll need backticks here since 1 and 0 are
+ numeric.
+ 
+```{r, echo= FALSE, results='hide'}
+estate_1 %>%
+  mutate(AC = recode(AC,
+                     `1` = "AC",
+                     `0` = "No.AC")) ->
+  estate_2
+glimpse(estate_2)
+```
+
+```{r}
+unique(estate_2$AC)
+```
+
+
+* **Recode with Logicals** with `if_else()`
+
+* Sometimes, it is easier to recode based on logical statements.
+
+* For example, suppose we want to recode the "Bath" variable to have
+ values 1, 2, 3, and \>3. One way to do this would be:
+ 
+```{r}
+unique(estate$Bath)
+```
+ 
+
+ 
+```{r}
+estate %>%
+  mutate( Bath = recode(Bath,
+                       `4` = ">3",
+                       `5` = ">3",
+                       `6` = ">3",
+                       `7` = ">3")) ->
+  estate_tem
+glimpse(estate_tem)
+
+```
+ 
+```{r}
+unique(estate_tem$Bath)
+```
+We should make the value of `Bath` as chareacter. Why? because of the `>3`.
+
+
+```{r}
+estate %>%
+  mutate( Bath = as.character(Bath),
+          Bath = recode(Bath,
+                       `4` = ">3",
+                       `5` = ">3",
+                       `6` = ">3",
+                       `7` = ">3")) ->
+  estate_temp
+glimpse(estate_temp)
+```
+
+
+```{r}
+unique(estate_temp$Bath)
+```
+ 
+* But this is a lot of typing. But we know how to obtain` TRUE`'s and `FALSE`'s based on whether a house has more than 3 bathrooms.
+
+
+To use logical estatement, we want to get `TRUE`'s or `FALSE`'s. How can we do that? We are looking for the houses that have more than 3 Bathrooms. Thus `Bath > 3`.
+
+
+```{r}
+estate %>%
+  mutate(Bath > 3) %>%
+  
+glimpse()
+
+```
+
+We just want to look at the variable `Bath`. What do we need to do?
+
+```{r}
+estate %>%
+  mutate(Bath > 3) %>%
+  select(contains("Bath")) %>% #select only variables that contain
+#the word Bath
+glimpse()
+
+```
+
+
+
+Recall for `if_else`: 
+    + The second and third arguments *must be the same type* (e.g.
+ both logical, both numeric, both character, etc).
+ 
+ `x` is numeric but `x>4` is character.
+
+
+ Let's apply `if_else()` to the `estate` data frame.\
+ *Recall: we need to use `mutate()` to modify a variable in a data frame.*
+
+
+```{r}
+estate %>%
+  mutate(Bath = if_else(Bath > 3,
+                        ">3",
+                        as.character(Bath))) ->
+  estate_temp
+glimpse(estate_temp)
+```
+
+```{r}
+estate %>%
+  mutate(Bath = if_else(Bath > 3,
+                        ">3",
+                        as.character(Bath))) %>%
+  select(contains("Bath")) %>%
+  glimpse()
+
+```
+
+
+
+* But because programmers typically remove `NA`'s, it might be
+ reasonable to change this to something else like `"other"`.
+
+* `replace_na()`
+
+ 
+
+
+* Let's replace the `NA`'s in the gender variable in the `starwars` data frame, with "other".. 
+*Recall: we need to use `mutate()` to modify a variable in a data frame.*
+
+
+```{r}
+starwars %>%
+  mutate(gender = replace_na(gender, "other")) %>%
+  select(name, gender) %>%
+  slice( c(2, 52, 86))
+```
+
+
+# Exploratory Data Analysis (EDA) in R
+
+
+
+
+
+- Data Export
+
+  - You can write comma-separated and tab-separated files using `write_csv()`, `write_csv2()`, and `write_tsv()`.
+  
+  - The defaults are usually fine.
+
+- Reading/Writing R Objects
+
+  - You can save and reload arbitrary R objects (data frames, matrices, lists, vectors) using `readRDS()` and `saveRDS()`.
+
+
+- General Strategies
+
+  - Plot the distribution of every variable.
+  - Plot the bivariate distribution of every pair of variables (to find which
+  variables are associated).
+  - Color code by variables to try and see if relationships can be explained.
+  - Calculate lots of summary statistics.
+  - Look at missingness.
+  - Look at outliers.
+  - EDA is about **curiosity**. Ask *many* questions, use *many* plots, 
+  investigate *many* aspects of your data. This will let you hone in on 
+  the few *interesting* questions you want to pursue deeper.
+  
+```{r}
+data("diamonds")
+head(diamonds)
+```
+
+
+## Quantitative: Use a histogram.
+
+
+```{r}
+g <- ggplot(data = diamonds, mapping = aes(x = carat)) 
+
+g + 
+  geom_histogram()
+```
+
+
+```{r}
+g +
+      geom_histogram(bins = 500)
+    
+    fivenum(diamonds$carat)
+    mean(diamonds$carat)
+    sd(diamonds$carat)
+```
+
+
+## Categorical: Use a bar chart. Or just a table of *proportions* (`table()` then `prop.table()`).
+  
+  
+    
+```{r}
+    ggplot(diamonds, aes(x = color, y = ..)) +
+      geom_bar(aes(y = ..count.. / sum(..count..))) +
+      ylab("Proportion")
+
+```
+
+Another methods:
+ 1. 
+
+```{r}
+    ggplot(diamonds, aes(x = color, y = ..count../sum(..count..))) +
+      geom_bar() +
+      ylab("Proportion")
+```
+
+ 2. 
+ 
+
+```{r}
+    diamonds %>%
+      count(color) %>%
+      mutate(prop = n/nrow(diamonds)) -> proportion
+      
+    ggplot(proportion,  aes(x = color, y = prop)) +
+      geom_bar(stat = "identity") +
+      ylab("Proportion")
+```
+    
+
+## - Quantitative vs Quantitative: Use a scatterplot.
+
+    
+```{r}
+    ggplot(diamonds, aes(x = carat, y = price)) +
+      geom_point() +
+      scale_y_log10() +
+      scale_x_log10()
+    
+    cor(diamonds$carat, diamonds$price)
+    ## cor(diamonds$carat, diamonds$price, method = "kendall")
+```
+  
+  
+## Categorical vs Quantitative: Use a boxplot
+
+    - For which levels of the categorical variable is the quantitative variable
+      higher or lower?
+    - For which levels is the quantitative variable more spread out?
+    - Aggregated means, medians, standard deviations, quantiles
+    
+```{r}
+    ggplot(diamonds, aes(x = color, y = price)) +
+      geom_boxplot()
+```
+
+```{r}
+    ggplot(diamonds, aes(x = color, y = price)) +
+      geom_boxplot() +
+      scale_y_log10()
+``` 
+  
+  
+## Categorical vs Categorical: Use a mosaic plot or a count plot
+
+    - For which pairs of values of the categorical variables are there the most number of units?
+    - Does the conditional distribution of a categorical variable change
+      at different levels of the other categorical variable?
+    - `prop.table()`
+    
+    
+```{r}
+    ## Only gives you the bivariate distribution
+    ggplot(diamonds, aes(x = cut, y = color)) +
+      geom_count()
+```
+  
+If you can't interpret a graph, then there is useless to darw it!
+
+```{r}
+   ## Gives you the conditional distributions of color given cut
+    ggplot(diamonds, aes(x = cut, fill = color)) +
+      geom_bar(position = "fill")
+```
+
+
+```{r}
+   ## Gives you the conditional distributions of color given cut
+    ggplot(diamonds, aes(x = cut, fill = color)) +
+      geom_bar(position = "dodge")
+```
+
+
+There are different boxes and when you look at the area of each box it gives the idea of the proportion of combinations of `cut` and `color`
+
+
+```{r}
+    ## Gives you the conditional distributions of cut given color
+    ggplot(diamonds, aes(x = color, fill = cut)) +
+      geom_bar(position = "fill")
+```
+
+```{r}
+    ## Gives you the conditional distributions of cut given color
+    ggplot(diamonds, aes(x = color, fill = cut)) +
+      geom_bar(position = "dodge")
+```
+
+
+```{r}
+    ## Bivariate Distribution
+    prop.table(table(diamonds$color, diamonds$cut))
+```
+
+
+```{r}
+    ##  Conditional distributions of column variable conditional on row variable
+    prop.table(table(diamonds$color, diamonds$cut), margin = 1)
+```
+
+
+```{r}
+    ## Conditional distributions of row variable conditional on column variable
+    prop.table(table(diamonds$color, diamonds$cut), margin = 2)
+```
+
+
+```{r}
+    ## Only gives you the bivariate distribution
+    ggplot(diamonds, aes(x = cut, y = color)) +
+      geom_count()
+    
+    ## Gives you the conditional distributions of color given cut
+    ggplot(diamonds, aes(x = cut, fill = color)) +
+      geom_bar(position = "fill")
+    
+    ## Gives you the conditional distributions of cut given color
+    ggplot(diamonds, aes(x = color, fill = cut)) +
+      geom_bar(position = "fill")
+    
+    ## Bivariate Distribution
+    prop.table(table(diamonds$color, diamonds$cut))
+    
+    ##  Conditional distributions of column variable conditional on row variable
+    prop.table(table(diamonds$color, diamonds$cut), margin = 1)
+    
+    ## Conditional distributions of row variable conditional on column variable
+    prop.table(table(diamonds$color, diamonds$cut), margin = 2)
+``` 
+  
+  
+# Parsers
+
+- Change character vectors into other types using parsers.
+
+- Suppose you have the following data frame
+```{r}
+    suppressPackageStartupMessages(library(tidyverse))
+    dfdat <- tribble(
+      ~date,        ~time,      ~number, ~factor, ~logical,
+      ##----------  ----------  -------  -------  --------
+      "12-01-1988", "10:10:02", "2",     "A",     "TRUE",
+      "11-12-1987", "11:10:57", "4",     "A",     "TRUE",
+      "02-03-1989", "10:10:25", "6",     "B",     "FALSE",
+      "06-03-1982", "22:10:55", "2",     "B",     "TRUE",
+      "09-21-1981", "10:10:02", "1",     "A",     "FALSE"
+      )
+    dfdat
+```
+
+- How do we convert the characters to the types we want? Parse!
+  
+## Parsing dates with `parse_date()` and `parse_date_time()`.
+
+- `parse_date()` and `parse_datetime()` are very similar, but internally count
+  the time from 1970-01-01 in terms of either days or seconds.
+```{r}
+    parse_date("2018-01-02")
+    parse_datetime("2018-01-02")
+```
+    
+- They expect the format `"YYYY-MM-DD"`. If your date is in a different format,
+  you need to use the `format` argument.
+  
+```{r}
+    ## Parsing Failure
+    parse_date("02/01/2018")
+```
+    
+```{r}
+    ## Parsing Success!
+    parse_date("02/01/2018", format = "%m/%d/%Y")
+```
+
+- We added slashes so that R can know how the date is formatted.
+
+- Format options:
+    - `%d`: 2-digit representation of day (but can recognize single digits sometimes)
+    - `%m`: 2-digit representation of month
+    - `%b`: Abbreviation of month ("Jan")
+    - `%B`: Full month name ("January")
+    - `%y`: 2-digit representation of year
+    - `%Y`: 4-digit representation of year
+
+- Another example:  
+```{r}
+    parse_date("January 1, 2018", format = "%B %d, %Y")
+```
+
+- Our example:
+```{r}
+    dfdat %>%
+      mutate(date = parse_date(date, format = "%m-%d-%Y"))
+``` 
+  
+  
+## Parsing Times 
+
+  `parse_time()` is very similar to `parse_date()` except the format argument.
+  
+  – %H: Hour in 0-23 format
+  – %I: Hour in 0-12 format
+  – %p: am/pm
+  – %M: minutes
+  – %S: integer seconds
+  – %OS: double seconds
+  – %Z: Time zone (need nuance here)
+```{r}
+    dfdat %>%
+      mutate(time = parse_time(time, format = "%H:%M:%S"))
+```
+ 
+  
+## Parsing Numbers
+
+- `parse_double()` and `parse_integer()` expect strict numbers and will fail
+   if there is anything non-number-like.
+  
+```{r}
+    parse_double("2.11")
+    parse_double("$2.11")
+    
+    parse_integer("2")
+    parse_integer("2%")
+```
+    
+- `parse_number()` removes non-numeric characters.
+
+```{r}
+    parse_number("$2.11")
+    parse_number("2%")
+```
+    
+- You can change the grouping variable from "," to "." with
+
+```{r}
+    parse_number("2.555,11", 
+                 locale = locale(grouping_mark = ".", 
+                                 decimal_mark = ","))
+```
+   
+```{r}
+    parse_number("25.655,11",
+                 locale = locale(grouping_mark = ".", 
+                                 decimal_mark = ","))
+```       
+
+## Parsing other types
+
+- `parse_logical()` and `parse_factor()` and `parse_string()` are pretty 
+  self-explanatory.
+ What happened in the following code?    
+  
+```{r}
+    dfdat %>%
+      mutate(factor = parse_factor(factor))
+```
+ How about this one?     
+```{r}
+    dfdat %>%
+      mutate(logical = parse_logical(logical))
+```
+
+## Parsing and readr
+
+```{r}
+    read_csv("./data/estate.csv")
+```
+
+- When you specify `col_types` in `read_csv()`, those are wrappers for parsers.
+
+```{r}
+    read_csv("./data/estate.csv",
+             col_types = cols(
+               Price   = col_double(),
+               Area    = col_double(),
+               Bed     = col_double(),
+               Bath    = col_double(),
+               AC      = col_logical(),
+               Garage  = col_double(),
+               Pool    = col_logical(),
+               Year    = col_double(),
+               Quality = col_factor(),
+               Style   = col_factor(),
+               Lot     = col_double(),
+               Highway = col_logical()
+               )) ->
+      new_estate
+    new_estate
+```
+ 
+  
+  
+# DBPLYR
+
+- dplyr basically implements the most common actions in SQL (but SQL can do more).
+
+- We'll use a soccer dataset to demonstrate how to use dplyr (instead of SQL) 
+  syntax when interacting with a database. Download and unzip the soccer 
+  database from <https://dcgerard.github.io/stat_412_612/data.html>.
+  
+- We'll use the dbplyr package to interact with databases.
+  
+  
+```{r, message = FALSE}
+    library(tidyverse)
+    library(dbplyr)
+```
+- dbplyr allows you to work with databases as if you are using dplyr.
+
+- You'll also need to install the RSQLite package. There are different ways to
+  create/access/update/delete data from relational databases, and RSQLite 
+  provides an R interface for one of these ways.
+  
+```{r, eval = FALSE}
+    install.packages("RSQLite")
+```
+
+```{r}
+    library(RSQLite)
+```
+  
+     
+- If your database uses a different engine, you'll need to download other
+  packages to interact with it (see [Introduction to dbplyr](https://cran.r-project.org/web/packages/dbplyr/vignettes/dbplyr.html))
+    
+- First, we'll tell R where the database is using `dbConnect()`,
+  (you might need to change the path).
+
+
+```{r}
+    con <- dbConnect(drv = SQLite(), dbname = "./data/soccer.sqlite")
+```
+
+- Now we'll list the data frames available in the connection we just created.
+```{r}
+    dbListTables(con)
+```
+    
+- Use `tbl()` to make a reference to the tables in `con`.
+
+```{r}
+    Team_db    <- tbl(con, "Team")
+Team_db
+```
+
+```{r}
+    Team_at_db <- tbl(con, "Team_Attributes")
+Team_at_db
+```
+
+```{r}
+    Country_db <- tbl(con, "Country")
+Country_db
+``` 
+
+```{r}
+    League_db  <- tbl(con, "League")
+League_db
+```
+
+```{r}
+    Match_db   <- tbl(con, "Match")
+Match_db
+```
+    
+- We can now interact with all of these data frames mostly like if they
+  were in memory (with some limitations).
+
+```{r}
+    head(Country_db)
+    head(Match_db)
+    Match_db %>%
+      select(id:away_team_goal)
+    
+```
+
+```{r}
+    glimpse(Match_db)
+    names(Match_db) ## won't work
+```
+
+    
+- Once you select the variables you want and the observations you want, you 
+  should use `collect()` to get the data frame into memory so that you can have
+  all of the functionality of R (e.g., `gather()` and `spread()` will only
+  work on in-memory data frames).
+  
+```{r}
+    Match_db %>%
+      select(id:away_team_goal) %>%
+      collect() ->
+      Match
+Match
+```
+
+```{r}
+    Team_db %>%
+      collect() ->
+      Team
+Team
+```
+
+```{r}
+    Country_db %>%
+      collect() ->
+      Country
+    
+Country
+```
+    
+- The following will return a data frame telling you where each team is from.
+    
+```{r}
+    Match %>%
+      select(country_id, home_team_api_id, away_team_api_id) %>%
+      gather(-country_id, key = "home_away", value = "team_api_id") %>%
+      select(-home_away) %>%
+      distinct() %>%
+      left_join(Team, by = "team_api_id") %>%
+      left_join(Country, by = c("country_id" = "id")) %>%
+      select(team_long_name, team_short_name, name) %>%
+      rename(country_name = name)
+``` 
+
+
+
+
+
+  
+## Joining
+
+
+- Many datasets have more than two data frames.
+
+- These data frames are often connected (rows in one correspond to rows in another)
+
+- Consider the data in the nycflights13 package.
+    ```{r}
+    library(nycflights13)
+    ```
+  
+ 
+![](./image/relational-nycflights.png)\ 
+
+- For nycflights13:
+
+    - `flights` connects to `planes` via a single variable, `tailnum`.
+
+    - `flights` connects to `airlines` through the `carrier` variable.
+
+    - `flights` connects to `airports` in two ways: via the `origin` and `dest` variables.
+
+    - `flights` connects to `weather` via `origin` (the location), and `year`, `month`, `day` and `hour` (the time).
+    
+- Variables used to connect a pair of data frames are called **keys**.
+
+- **Primary key**: Uniquely identifies an observation in its own table.
+
+- **Foreign key**: Uniquely identifies an observation in another table.
+
+- *Example*: `flights$tailnum` is a foreign key because it appears in the `flights` table where it matches each flight to a unique plane.
+There are multiple rows with the same `tailnum` in `flights`, so `flights$tailnum` is *not* a primary key.
+
+```{r}
+    flights %>% 
+      group_by(tailnum) %>%
+      count() %>%
+      filter(n > 1)
+```
+
+
+## Join Set-Up
+
+- Suppose we have the following two data frames
+
+   ![](./image/join-setup.png)\ 
+
+```{r}
+    x <- tribble(~key, ~val_x,
+                 #---  ------
+                 1,    "x1",
+                 2,    "x2",
+                 3,    "x3")
+    y <- tribble(~key, ~val_y,
+                 #---  ------
+                 1,    "y1",
+                 2,    "y2",
+                 4,    "y3")
+```
+
+
+- A join connects rows of `x` to rows of `y`.
+
+   ![](./image/join-setup2.png)\ 
+
+- E.g. match row `1` of `x` with row `1` of `y`, and row `2` of `x` with row `2` of `y`.
+
+  ![](./image/join-inner.png)\ 
+
+### Inner Join
+
+- `inner_join(x, y)` matches the rows of `x` with rows of `y` only when their keys are equal.
+
+  ![](./image/join-inner.png)\
+
+```{r}
+    inner_join(x, y, by = "key")
+```
+
+- Keeps all rows that appear in *both* data frames.
+
+### Outer Join
+
+- Keeps all rows that appear in *at least one* data frame.
+
+   ![](./image/join-outer.png)\
+
+- `left_join(x, y)` keeps all rows of `x`.
+```{r}
+    left_join(x, y, by = "key")
+```
+    
+- `left_join()` is by far the most common joiner, and you should always use this
+  unless you have a good reason not to.
+    
+- `right_join(x, y)` keeps all rows of `y`.
+
+```{r}
+    right_join(x, y, by = "key")
+```
+
+- `full_join(x, y)` keeps all rows of both.
+
+```{r}
+    full_join(x, y, by = "key")
+```
+    
+### Duplicate Keys
+
+- If you have duplicate keys in one table, then the rows from the data frame
+  where there is no duplication are copied multiple times in the new data frame.
+
+   ![](./image/join-one-to-many.png)\ 
+    
+    (useful for adding summary data to a table)
+    
+```{r}
+    x_mult <- tribble(~key, ~val_x,
+                      ##--  ------
+                      1,    "x1",
+                      2,    "x2",
+                      2,    "x3",
+                      1,    "x4")
+    
+    left_join(x_mult, y, by = "key")
+```
+    
+
+- If you have duplicate keys in both (usually a mistake), then you get every 
+  possible combination of the values in x and y at the key values where there
+  are duplications.
+
+   ![](./image/join-many-to-many.png)\
+    
+```{r}
+    y_mult <- tribble(~key, ~val_y,
+                      ##--  ------
+                      1,    "y1",
+                      2,    "y2",
+                      2,    "y3",
+                      1,    "y4")
+    
+    left_join(x_mult, y_mult, by = "key")
+```
+
+
+### Filtering Joins
+
+- `semi_join()` *keeps* all of the rows in `x` that have a match in `y` (but
+  don't add the variables of `y` to `x`).
+  
+   ![](./image/join-semi.png)\
+  
+```{r}
+    semi_join(x, y, by = "key")
+```
+    
+- `anti_join()` *drops* all of the rows in `x` that have a match in `y` (but
+  don't add the variables of `y` to `x`).
+  
+  ![](./image/join-anti.png)\
+  
+```{r}
+    anti_join(x, y, by = "key")
+```
+
+  
+### Other Key Names
+
+- If the primary and foreign keys do not match, you need to specify that using 
+  a named vector as `left_join(x, y, by = c("a" = "b"))`, where `a` is the key
+  in `x` and `b` is the key in `y`.
+
+```{r}
+    left_join(flights, airports, by = c("origin" = "faa"))
+```
+    
+- If you have multiple variables acting as the key, you need the `by` argument 
+  to be a vector.
+
+```{r}
+    left_join(flights, weather, by = c("origin", "year", "month", "day", "hour"))
+```
+  
+  
+# Strings and Regular Expressions  
+  
+## Strings
+
+- In R, strings (also called "characters") are created and displayed within quotes:
+
+- The backslash `"\"` means that what is after the backslash is special in some 
+  way. For example, if you want to put a quotation mark in a string, you can "escape" the
+  quotation mark with a backslash.
+  
+```{r}
+    x <- "As Tolkein said, \"Not all those who wonder are lost\""
+    writeLines(x)
+```
+- stingr is part of the tidyverse so you do not have to load it separately.
+
+- Combine strings with `str_c()`.
+```{r}
+    x <- "Faithless is he that says"
+    y <- "farewell when the road darkens."
+    str_c(x, y)
+```
+
+- The default is to separate strings by nothing, but you can use `sep` to change
+  the separator.
+```{r}
+    str_c(x, y, sep = " ")
+```
+
+```{r}
+    x <- c("Short", "cuts", "make", "long", "delays.")
+    str_c(x, "LOTR", sep = " ")
+   
+```
+
+```{r}
+ str_c(x, collapse = " ")
+```
+
+
+```{r}
+ str_c(x, sep = " ")
+
+```
+
+
+## Extracting substrings
+
+- `str_sub()` extracts a substring between the location of two characters.
+```{r}
+    x <- "The Road goes ever on and on"
+    str_sub(x, start = 2, end = 6)
+```
+    
+- Replace substrings with assignment
+```{r}
+    str_sub(x, start = 2, end = 6) <- " Tolkein "
+    x
+```
+- You can index from the end of the string using negative indices:
+
+```{r}
+    x <- "The Road goes ever on and on"
+    str_sub(x, -9, -1)
+```
+
+# Regular Expressions
+
+- Regular expressions (regex or regexp) is a syntax for pattern matching in strings.
+
+- We'll use `str_replace()` and `str_replace_all()` to demonstrate using regex 
+  in stringr. These functions search for a pattern and then replace it with
+  another string.
+  
+- But wherever there is a `pattern` argument in a stringr function, you can 
+  use regex (to extract strings, get a logical if there is a match, etc...).
+  
+- Basic usage: finds exact match of string.
+
+    ```{r}
+    x <- "Ho! Ho! Ho! to the bottle I go to heal my heart and drown my woe."
+    str_replace_all(x, "hea", "XX")
+    ```
+
+- A period "`.`" matches any character.
+- You can "escape" a period with two backslashes "`\\`" to match periods.
+
+- To match a backslash, you need four backslashes (to escape the escape).
+
+```{r}
+    y <- "Rain\\may\\fall\\and\\wind\\may\\blow"
+    writeLines(y)
+    str_replace_all(y, "\\\\", "XX")
+```
+
+
+- *Important note*: The actual regular expressions above are strings themselves,
+  and so you view them with `writeLines()`. So using "`\\.`" as the pattern
+  argument in R results in the regular expression "`\.`".
+  
+  Use one function call to replace `"back"` and `"lack"` with `"foo"`.
+
+```{r}
+    x <- "but better is Beer if drink we lack, and Water Hot poured down the back."
+```
+
+```{r}
+    str_replace_all(x, ".ack", "foo")
+```
+
+## Anchoring
+
+- You can anchor the pattern to only match the start or end of a string.
+    - `^` matches only the start of a string.
+    - `$` matches only the end of a string. 
+  
+  
+- **Exercise**: Use `str_replace()` to replace all four letter words beginning
+  with an `"a"` with `"foo"` in the following list
+```{r}
+    x <- c("apple", "barn", "ape", "cart", "alas", "pain", "ally", "ape ")
+```
+    
+```{r}
+    str_replace(x, "^a...$", "foo")
+```  
+  
+  
+## Special Characters
+
+- We'll use this character vector for practice:
+```{r}
+    x <- c("Abba: 555-1234", "Anna: 555-0987", "Andy: 555-7654",  "Abna: 555-7654")
+```
+
+- `\\d`: matches any digit.
+```{r}
+    str_replace(x, "\\d\\d\\d-\\d\\d\\d\\d", "XXX-XXXX")
+```
+
+```{r}
+y <- "Abba: 555-1234, Anna: 555-0987, Andy: 555-7654"
+```
+
+```{r}
+    str_replace(y, "\\d\\d\\d-\\d\\d\\d\\d", "XXX-XXXX")
+```
+
+
+```{r}
+    str_replace(x, "\\d\\d\\d-\\d\\d", "XXX-XXXX")
+```
+
+
+- `\\s`: matches any white space (e.g. space, tab, newline).
+```{r}
+    str_replace(x, "\\s", "X")
+```
+- `[abc]`: matches `a`, `b`, or `c`.
+```{r}
+    str_replace(x, "A[bn][nb]a", "XXXX")
+```
+
+
+```{r}
+    str_replace(x, "A(bb|nn)a", "XXXX")
+```
+
+```{r}
+    str_replace(x, "A[b][b]a", "XXXX")
+```
+
+```{r}
+    str_replace(x, "A[b]a", "XXXX")
+```
+
+```{r}
+    str_replace(x, "A[bb]a", "XXXX")
+```
+
+```{r}
+    str_replace(x, "Abba", "XXXX")
+```
+
+```{r}
+x
+```
+
+
+- `[^abc]`: matches anything except `a`, `b`, or `c`.
+```{r}
+    str_replace(x, "A[^b]", "XXXX")
+```
+- `abc|xyz`: matches either `abc` or `xyz`. This is called *alternation*
+- You can use parentheses to control where the alternation occurs.
+    - `a(bc|xy)z` matches either `abcz` or `axyz`.
+```{r}
+    str_replace(x, "An(na|dy)", "XXXX")
+```
+
+```{r}
+    str_replace(x, "A(bba|nna|ndy)", "XXXX")
+```
+
+```{r}
+    str_replace(x, "A(bb|nn|bn)a", "XXXX")
+```
+
+- To ignore case, place a `(?i)` before the regex.
+```{r}
+    str_replace("AB", "ab", "X")
+    str_replace("AB", "(?i)ab", "X")
+```  
+  
+  
+   Create separate regular expressions to find all words that:
+    1. Start with a vowel. Test on 
+```{r}
+        x1 <- c("abba", "cat", "eal", "ion", "oops", "Uganda", "Anna", "dog")
+```
+    2. That end in consonants. (Hint: thinking about matching "not"-vowels.) 
+       test on
+```{r}
+        x2 <- c("bob", "Anna", "dog")
+```
+    3. End with `ed`, but not with `eed`. Test on
+```{r}
+        x3 <- c("tired", "need", "bad", "rod")
+```
+    4. End with `ing` or `ise`. Test on
+```{r}
+        x4 <- c("paradise", "firing", "jaded", "kin")
+```
+       
+    
+```{r}
+    #1
+    str_replace_all(x1, "^[aeiouAEIOU]", "XX")
+    #2
+    str_replace_all(x2, "[^aeiouAEIOU]$", "XX")
+    #3
+    str_replace(x3, "[^e]ed$", "XX")
+    #4
+    str_replace(x4, "(ing|ise)$", "XX")
+```
+
+## Repetition
+
+- Can match a pattern multiple times in a row:
+
+    - `?`: 0 or 1
+    - `+`: 1 or more
+    - `*`: 0 or more
+ - Regex will automatically match the longest string possible.
+
+```{r}
+    str_replace("AAAA", "A*", "X")
+```
+    
+- **Exercise**: Create regular expressions to find all words that:
+
+    1. Start with three consonants. Test on
+```{r}
+        x1 <- c("string", "priority", "value", "distinction")
+```
+    
+    2. Have three or more vowels in a row. Test on
+```{r}
+        x2 <- c("honorific", "delicious", "priority", "queueing")
+```
+    
+    3. Have two or more vowel-consonant pairs in a row. Test on
+```{r}
+        x3 <- c("honorific", "sam", "prior")
+```
+  
+```{r}
+#1
+    str_replace_all(x1, "^[^aeiouAEIOU]{3}", "X")
+#2
+    str_replace_all(x2, "[aeiouAEIOU]{3,}", "X")
+#3
+    str_replace_all(x3, "([aeiouAEIOU][^aeiouAEIOU]){2,}", "X")
+```
+  
+  
+    
+## Grouping and Backreferences
+  
+- Parentheses create a numbered group that you can then back reference with
+  `\\1` for the match in the first parentheses, `\\2` in the second 
+  parentheses, etc...
+
+```{r}
+    str_replace("cococola", "(..)\\1", "pepsi")
+    str_replace("banana", "([aeiou][^aeiou])\\1", "XX")
+```  
+
+
+
+## stringr tools
+
+- There are a lot of tools, so we'll go over them briefly and do an exercise
+  where you can use them in more detail.
+  
+- `str_to_lower()` and `str_to_upper()` convert all letters to lower or capital
+  case.  
+  
+   case.
+```{r}
+    x <- "Deeds will not be less valiant because they are unpraised."
+    str_to_lower(x)
+    str_to_upper(x)
+```
+
+- `str_detect()`: Returns `TRUE` if a regex pattern matches a string and `FALSE`
+  if it does not. Very useful for filters.
+  
+```{r}
+    ## Get all John's and Joe's from the Lahman dataset
+    library(Lahman)
+    data("People")
+   People %>%
+      filter(str_detect(nameFirst, "^Jo(e|hn)$")) %>%
+      select(nameFirst) %>%
+      head()
+```
+  
+- `str_subset()`: Returns the words where there is a match. Not often as useful
+  as `str_detect()` because you don't use it in data frames that often.
+  
+```{r}
+    str_subset(People$nameFirst, "^Jo(e|hn)$") %>%
+      head()
+```
+  
+- `str_count()`: Counts the occurrence of a match within a string.
+
+```{r}
+    str_count(c("banana", "coco"), "[^aeiou][aeiou]")
+```
+    
+    They count *non-overlapping* matches
+    
+```{r}
+    str_count("abababa", "aba")
+```
+  
+
+- `str_extract()`: Returns the pattern that it finds. `str_extract()` will only
+  return the first match but `str_extract_all()` will return all matches.
+```{r}
+    colorstr <- str_c("red", "blue", "yellow", "orange", "brown", sep = "|")
+    colorstr
+    str_extract("I like blue and brown and that's it", colorstr)
+    str_extract_all("I like blue and brown and that's it", colorstr)
+```
+  
+- `str_match()`: returns a matrix where each column is a grouped component.
+
+```{r}
+    x <- "I like blue and brown and that's it, or black"
+    str_extract_all(x, "(and|or)\\s([^\\s]+)")
+    str_match_all(x, "(and|or)\\s([^\\s]+)")
+```
+  
+- Let's look at the poem "Farewell We Call to Hearth and Hall!"
+```{r}
+    farewell <- c("Farewell we call to hearth and hall!
+                  Though wind may blow and rain may fall,
+                  We must away ere break of day
+                  Far over wood and mountain tall.")
+    writeLines(farewell)
+```
+
+- `str_split()` will split up a string based on a character we choose.
+
+```{r}
+    ## Split based on spaces
+    str_split(farewell, pattern = "\\s+", simplify = TRUE) ## use one or more space to split
+```
+    
+- `str_replace()` and `str_replace_all()` will replace patterns with provided
+  strings. So say we want to get rid of all punctuation.
+  
+```{r}
+    str_split(farewell, pattern = "\\s+", simplify = TRUE) %>%
+      str_replace_all("\\.|\\!|,", "")
+```
+    
+- You can use back references to populate the replacement.
+
+
+
+```{r}
+    str_replace_all("It is 10am", "(\\d+)(am|pm)", "\\1")
+``` 
+
+```{r}
+    str_replace_all("It is 10am", "(\\d+)(am|pm)", "\\2")
+``` 
+  
+#Factors
+
+- A "factor" is R's way to say that a variable is categorical 
+  (puts observational/experimental units into different groups or categories 
+  based on their values.).
+  
+- A factor is different from a character in that:
+    1. There is a small predefined set of "levels" (possible values) of a 
+       factor, but not of a character.
+    2. There is an ordering for the levels of a factor 
+        - Useful when determining the order to plot something.
+        - Useful when doing ordered logistic regression.
+        
+- Consider the following data frame for average highs in DC for each month.
+
+```{r, message = FALSE}
+    library(tidyverse)
+    dcclimate <- tribble(~month, ~avehigh,
+                         ##----/---------
+                         "Jan",  43.4,
+                         "Feb",  47.1,
+                         "Mar",  55.9,
+                         "Apr",  66.6,
+                         "May",  75.4,
+                         "Jul",  88.4,
+                         "Aux",  86.5,
+                         "Sep",  79.5,
+                         "Oct",  68.4,
+                         "Nov",  57.9,
+                         "Dec",  46.8)
+```
+    
+- The weather for June is missing and the 3-letter abbreviation for August is 
+  incorrect. We would like to notice both of these.
+  
+- Also, when we plot the data, we would prefer the order to be the same as that
+  for the order of the months of the year.
+  
+   
+```{r}
+    ggplot(dcclimate, aes(x = month, y = avehigh)) +
+      geom_col()
+```
+    
+- Factors help us with all of these issues.
+
+- You have to be **very** careful about factors.
+
+```{r}
+    x  <- c("51", "32", "15", "2", "32")
+    xf <- factor(x)
+    xf
+    as.numeric(x)
+    class(as.numeric(xf))
+    
+    as.numeric("Hello")
+    as.numeric(factor("Hello"))
+    
+    fac1 <- factor(c("x1", "x2", "x3"))
+    fac2 <- factor(c("y1", "y2", "y3"))
+    c(fac1, fac2)
+```
+  
+- If you are 100% sure that all levels are numerics and are incorrectly 
+  specified as factors, then do the following to convert to numeric:
+  
+```{r}
+xf
+```
+  
+```{r}
+    parse_number(levels(xf)[xf]) ->
+  nb
+nb
+``` 
+
+```{r}
+class(nb)
+```
+
+
+## Creating Factors
+
+- Use `factor()` or `parse_factor()` to create a factor variable 
+
+- `parse_factor()` returns better warnings, so I would recommend always using
+  that.
+
+```{r}
+    monthvec <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+                  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+    dcclimate %>%
+      mutate(monthfc = factor(month, levels = monthvec)) ->
+      dcclimate
+    
+    dcclimate %>%
+      mutate(monthfc2 = parse_factor(month, levels = monthvec)) ->
+      dcclimate
+    
+    dcclimate$monthfc
+```
+    
+- If you do not specify the `levels` argument, R will assume that the levels
+  are the unique values of the vector.
+    - `factor()` takes the order of the levels to be the same order returned 
+      by `sort()`.
+    - `parse_factor()` takes the order of the levels to be the same order
+      as the order of the value introduced.
+  
+  
+```{r}
+    x <- c("A", "string", "vector", "is", "a", "string", "vector")
+    factor(x)
+    sort(unique(x))
+    parse_factor(x)
+```
+
+- You can always see the levels of a factor (and their order) using 
+  the `levels()` function
+```{r}
+    levels(dcclimate$monthfc)
+```
+- Other options are the `fct_unique()` and `fct_count()` functions from the 
+  forcats package.
+```{r}
+    fct_unique(dcclimate$monthfc)
+    fct_count(dcclimate$monthfc)
+```
+    
+- You can count the number of levels with `nlevels()`.
+```{r}
+    nlevels(dcclimate$monthfc)
+```
+
+- Once we have a factor variable, the order of the aesthetic map is set in ggplot.
+
+```{r}
+    ggplot(dcclimate, aes(x = monthfc, y = avehigh)) +
+      geom_col()
+```
+    
+- We can include missing levels by using the `drop = FALSE` argument in the 
+  appropriate scale call:
+  
+```{r}
+    ggplot(dcclimate, aes(x = monthfc, y = avehigh)) +
+      geom_col() +
+      scale_x_discrete(drop = FALSE)
+```
+
+
+## forcats
+
+- forcats is an R package which makes two things much easier in R:
+    - Changing the order of the levels of the factor variable.
+    - Changing the levels of the factor variable.
+
+- It also a few other helper functions for factors.
+
+- All forcat functions begin with `fct_`. So you can type "fct_" then use 
+  tab-completion to scroll through the possible functions.
+  
+- forcats is a part of the tidyverse, so you don't need to load it separately
+  when you load the tidyverse.
+    
+### Changing the Order of the Levels
+
+- Consider the subset of the 
+  [General Social Survey](https://en.wikipedia.org/wiki/General_Social_Survey)
+  stored in the `gss_cat` data in forcats.
+```{r}
+    data(gss_cat)
+    glimpse(gss_cat)
+```
+
+- You often want to change the order of the levels of a factor to make 
+  plots more insightful.
+  
+```{r}
+    gss_cat %>%
+      group_by(relig) %>%
+      summarize(tvhours_mean = mean(tvhours, na.rm = TRUE)) ->
+      tvdat
+    
+    ggplot(tvdat, aes(x = tvhours_mean, y = relig)) +
+      geom_point() +
+      xlab("Average TV Hours") +
+      ylab("Religion")
+```
+  
+- `fct_reorder()` reorders the levels of a factor according to some values
+  of another variable. The arguments are:
+    - `f`: The factor vector.
+    - `x`: A numeric vector used to reorder the levels.
+    - `fun`: A function applied to `x`, the result of which will be used to
+      order the levels of `f`.
+    
+```{r}
+    levels(tvdat$relig)
+    tvdat %>%
+      mutate(relig = fct_reorder(relig, tvhours_mean)) ->
+      tvdat
+    levels(tvdat$relig)
+```
+
+- The plot now reorders the y-axis according to the new level order.
+
+```{r}
+    ggplot(tvdat, aes(x = tvhours_mean, y = relig)) +
+      geom_point() +
+      xlab("Average TV Hours") +
+      ylab("Religion")
+```
+
+- `fct_rev()` reverses the order of the factors.
+
+```{r}
+    tvdat %>%
+      mutate(relig = fct_rev(relig)) %>%
+      ggplot(aes(x = tvhours_mean, y = relig)) +
+        geom_point() +
+        xlab("Average TV Hours") +
+        ylab("Religion")
+```
+    
+- `fct_relevel()` allows you to move existing levels to any location.
+
+```{r}
+    ## Moves "None" to first level
+    fct_relevel(tvdat$relig, "None") %>%
+      levels()
+    
+    ## Moves "None" to the third level
+    fct_relevel(tvdat$relig, "None", after = 2L) %>%
+      levels()
+    
+    ## Moves "None" to the last level
+    fct_relevel(tvdat$relig, "None", after = nlevels(tvdat$relig)) %>%
+      levels()
+    
+    ## Returns a warning because "Cthulhuism" is not a level
+    fct_relevel(tvdat$relig, "Cthulhuism")
+```
+
+### Modify Factor Levels
+
+
+- Let's look at the levels of `partyid` in `gss_cat`.
+
+```{r}
+    levels(gss_cat$partyid)
+```
+    
+- Use `fct_recode()` to change the levels.
+
+```{r}
+    gss_cat %>%
+      mutate(partyid = fct_recode(partyid,
+                                  "Republican, strong"    = "Strong republican",
+                                  "Republican, weak"      = "Not str republican",
+                                  "Independent, near rep" = "Ind,near rep",
+                                  "Independent, near dem" = "Ind,near dem",
+                                  "Democrat, weak"        = "Not str democrat",
+                                  "Democrat, strong"      = "Strong democrat"
+                                  )) ->
+      gss_cat
+    levels(gss_cat$partyid)
+```
+  
+- New level goes on the left of the equals sign. Old level goes on the right.
+  (Just like `mutate()`!)
+
+- **Exercise**: Modify the factor levels of `marital` to be abbreviations of 
+  their long-names. For example, "Divorced" can just be "D"
+
+```{r, eval = FALSE, echo = FALSE}
+    fct_recode(gss_cat$marital,
+               "NA" = "No answer",
+               "NM" = "Never married",
+               "S"  = "Separated",
+               "D"  = "Divorced",
+               "W"  = "Widowed",
+               "M"  = "Married")
+```
+
+  
+## Other Useful Functions.
+
+- `fct_c()`: is the safe way to combine factor vectors.
+
+```{r}
+    fc1 <- parse_factor(c("A", "B"))
+    fc1
+    fc2 <- parse_factor(c("C", "D"))
+    fc2
+    fct_c(fc1, fc2)
+```
+
+- `fct_collapse()`: combine multiple levels into one level.
+
+```{r}
+    fc <- parse_factor(c("A", "B", "C", "A", "B", "C"))
+    fc
+    fct_collapse(fc, "blah" = c("A", "B"))
+```
+
+- `fct_drop()`: removes any levels that are unused.
+  
+```{r}
+    fc <- parse_factor(c("A", "B"), levels = c("A", "B", "C"))
+    fc
+    fct_drop(fc)
+```
+
+- `fct_expand()`: adds a new level.
+
+```{r}
+    fc <- parse_factor(c("A", "B"))
+    fc
+    fct_expand(fc, "C")
+```
+
+- `fct_infreq()`: Order by frequency of a level.
+
+```{r}
+    fc <- parse_factor(c("A", "B", "C", "B", "C", "C"))
+    fct_count(fc)
+    fct_infreq(fc) %>%
+      fct_count()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
