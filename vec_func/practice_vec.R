@@ -1133,26 +1133,77 @@ gss_cat %>%
 # LUBRIDATE ------------
 library(tidyverse)
 tidyverse_packages()
+
+# R handles date and time through Date and POSIXct and POSIXlt classes
+today()
+now()
+# Lubridate has functions that will take a string of test to class `Date`
+
+
+
+d1 <- ymd("2024-Sep/26")  #Parse date string
+d1
+class(d1)
+
+mdy("09/16 2026")
+
+t1 <- mdy_hms("09/16 2024 13:25:58") #Parse date-time string
+t1
+class(t1)
+
+"2024-10-03 13:25" %>% 
+  ymd_hm("")
+
+# imaging you have a data set that has dates and time variables as a
+# string of text not date objects.
+
+
 library(nycflights13)
 names(flights)
 
+flights %>% 
+  glimpse()
+
+
+flights %>% 
+  select(origin, year:day, hour, minute) %>% 
+  head(4)
+
+
 ## Creating date and time Class ----
 flights %>% 
+  mutate(flight_date = ymd_hm(paste(year, month, day, hour, minute))) %>% 
+  select(origin,dest, flight_date) %>% 
+  head(4)
+
+# A better approach is to use make_datetime() function
+
+flights %>% 
   mutate(flight_date = make_datetime(year, month, day, hour, minute)) %>% 
-  select(origin, dest, flight_date)
+  select(origin, dest, flight_date) %>% 
+  head(4)
 
 ## Extracting date and time Class ----
+# It allows you to pick specific component from date-time objects
+
+wday("1966-08-23",label = TRUE)
+wday("1966 08/23") # Error
+wday(ymd("1966 08/23"))
+wday("08-23 1966", label = T)
+wday(mdy("08-23 1966"), label = T)
+mday("1966-08-23")
+mday("1966-08-23", label = T)  # Error
+month("1966-08-23", label = TRUE)
+month(mdy("08-23 1966"), label = T)
 
 flights %>% 
   mutate(flight_date2 = make_date(year, month,day)) %>% 
-  mutate(weekday = wday(flight_date2, label = TRUE),
+  mutate(weekday = wday(flight_date2, label = T),
          month_name = month(flight_date2, label = T)) %>% 
   select(flight_date2, weekday, month_name) %>% 
   head(4)
 
-wday("1966-08-23", label = T)
-wday("1966-08-23")
-mday("1966-08-23")
+
 
 #Flights filtered only in 15 of each months that is Monday
 flights %>% 
@@ -1215,16 +1266,25 @@ flights %>%
   select(origin, month) %>% 
   head(4)
 
+# Leap year---------------
+leap_year(1900)
+
+# Decimal Date-----------------
+# Convery date-time object to decimal
+
+decimal_date(ydm("1966-23-08"))
+
 
 # Time Spans ----
 ## Duration:-----
 # It measures the exact amount of time between two moments in time,
 # provided in seconds. 
+dseconds(15)
+dminutes(15)
 # Because the result is a number it makes computation easy
 # It does not take things like LEAP YEAR into account
 
-dseconds(15)
-dminutes(15)
+dyears(1)
 
 
 
@@ -1241,7 +1301,7 @@ ymd("2016-01-01") + dyears(1)
 # Since it returns the units of times like weeks and month
 # It is more natural way to work and it also take into account 
 # things like LEAP YEAR
-
+years(1)
 # a Leap year like 2016 and add 1 year to a point in time using Period
 years(1)
 ymd("2016-01-01") + years(1)
@@ -1268,11 +1328,11 @@ intrv %>%
 ymd_hms("2024-09-11  02:00:03") %within% intrv
 
 
-### (II)---
+### (II)----
 # Or we can compare two intervals with mathematical operator 
 start2 <- ymd_hms("2023-01-01  12:00:00")
 end2 <- ymd_hms("2023-03-01  12:00:00")
-intrv2 <- interval(start, end)
+intrv2 <- interval(start2, end2)
 intrv2 %>% 
   print()
 
@@ -1286,6 +1346,12 @@ intrv
 
 
 ## Working with GGPLOT2
+flights$carrier %>% unique()
+
+
+flights %>% 
+  glimpse()
+
 
 flights %>% 
   filter(carrier %in% c("9E", "US", "AA", "MQ")) %>% 
