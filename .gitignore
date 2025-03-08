@@ -2,7 +2,7 @@
 # History files
 .Rhistory
 .Rapp.history
-
+.Renviron
 # Session Data files
 .RData
 .RDataTmp
