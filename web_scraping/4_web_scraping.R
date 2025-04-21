@@ -85,7 +85,7 @@ page
 # You need the tag for the title
      # here is where the "selectorgadget" becomes useful
                     # click on the selector gadget icon on top of page (IMBD.com)
-                    # now if you move moues around on the window,
+                    # now if you move mous around on the window,
 #                   # you will see different boxes start to select/highlite
 #                   # we select a title. By clicking on it. It will be turn green
                     #You'll see a lot of thing s turnyellow

@@ -1,5 +1,5 @@
-# This file can be used alongside by "webscraping_2.pdf" and 
-# "webscraping_3.pdf"
+# This file can be used alongside by "webscraping_2.pdf" 
+#
 
 if (!require("pacman")) install.packages("pacman")
 
@@ -615,6 +615,10 @@ output <- list(
 )
 
 output
+
+
+
+
 #________________________________________________
 
 # fromJSON() ------------------------
@@ -644,8 +648,13 @@ json <- '{
 }'
 
 
-fromJSON(txt = json)
+fromJSON(txt = json) ->
+  json_tbl
+json_tbl
 
+View(json_tbl)
+
+json_tbl[["results"]]
 
 #________________________
 # to JSON ----------------------
@@ -653,49 +662,4 @@ fromJSON(txt = json)
 j_tbl
 
 toJSON(j_tbl)
-
-#_____________________________________________
-# Web page Structure -----------
-## HTML, Hyper Text Markup Language----------------
-## One focus on the appearance and format of the page called HTML
-## It tells the browser how to display the content.
-## It uses 
-###  1. “tags” -----
-## to tell the browser how to display content.
-##      <tagname>Content goes here</tagname>
-
-###  2. Attributes:------
-## Attributes are written inside the opening tag. They are written as attribute="value".
-##            <tagname attribute="value">Content goes here</tagname>
-
-###  3. Content:------
-## The content is the text or elements between the opening and closing tags. 
-## This is what will be displayed on the webpage.
-## For instance, in
-##           <p>Hello World</p>, 
-## “Hello World” is the content.
-
-###  4. Element:------
-## An element is a complete structure that includesboth the opening tag, 
-## the content, and the closing tag. 
-## For example, 
-##              <p>Hello World</p> 
-## is a paragraph element.
-
-## Necessary Tags:-----------------
-### 1. <html>  -------
-## It tells the tart and end of html document
-
-### 2. <head> -------
-## where you put important information about the document
-
-### 3. <title> ------
-## The title tag (inside <head>) defines the title shown in the browser tab.
-
-### 4. <body> ------
-## This tag is where all the content that you want to display on the webpage goes
-
-## XML  -------------------------
-## The other one Called XML similar to HTML but focus more on managing data in web.
-
 
