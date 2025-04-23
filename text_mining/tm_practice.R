@@ -1,4 +1,4 @@
-# Supplement for text mining
+# Supplement for textmining_1.pdf
 
 if (!require("pacman")) install.packages("pacman")
 # Load contributed packages with pacman
@@ -107,13 +107,13 @@ tibble %>%
 # Let’s convert it into a tidy format for analysis.
 
 ## Step 1: Create a DATA FRAME-----
-### First part: We group the data based books
+### First part: We group the data based on books
 
 austen_books() %>%
   group_by(book)
 
 # Let's have slices of some rows
-# to see if there are diffrent books
+# to see if there are different books
 austen_books() %>%
   group_by(book) %>% 
   slice(c(1,  10,000, 40,000, 70,000))
@@ -126,7 +126,7 @@ austen_books() %>%
 
 ### Second part:------
 ### Now we want to find out each line of text is included in what
-### chapter of the book!. So, we need to creat a column for Chapter
+### chapter of the book!. So, we need to create a column for Chapter
 austen_books() %>%
   group_by(book) %>%
   mutate(linenumber = row_number(),
@@ -217,6 +217,7 @@ graph
 
 tidy_stop %>%
   count(word, sort = TRUE)  %>%
+  filter(n > 500) %>%
   with(wordcloud(word, n, max.words = 100))
 
 #____________________________________________
@@ -389,7 +390,8 @@ austen_books()
  
  #____________________________________________
  ### Use AFFIN --------------
- bing_joy <- get_sentiments("bing")
+ bing_joy <- get_sentiments("bing") %>% 
+   filter(sentiment == "positive")
  bing_joy
  
  # Step 4: Visualization ------
